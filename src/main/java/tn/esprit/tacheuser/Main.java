@@ -1,69 +1,72 @@
 package tn.esprit.tacheuser;
 
 import java.sql.Connection;
-import java.util.Iterator;
-import tn.esprit.tacheuser.controller.UserService;
+import java.sql.Date;
+import java.util.List;
 import tn.esprit.tacheuser.controller.AvisService;
-import tn.esprit.tacheuser.models.User;
+import tn.esprit.tacheuser.controller.UserService;
 import tn.esprit.tacheuser.models.Avis;
+import tn.esprit.tacheuser.models.User;
 import tn.esprit.tacheuser.utils.MySQLConnection;
 
 public class Main {
-
-    public Main() {
-    }
-
     public static void main(String[] args) {
         // Connexion à la base de données
         Connection conn = MySQLConnection.getInstance().getConnection();
         if (conn != null) {
-            System.out.println("✅ Connexion active !");
+            System.out.println("✅ Connexion active à la base de données !");
         } else {
             System.out.println("❌ Connexion échouée !");
+            return;
         }
 
-        // Création des services pour utilisateurs et avis
+        // Création des services
         UserService userService = new UserService();
         AvisService avisService = new AvisService();
 
+        // ===========================
+        // Test de la gestion des utilisateurs
+        // ===========================
+
         // Ajouter un utilisateur
-        User user = new User("foulen", "ben foulen", "foulen@mail.com", "123456789", "123", "123555");
-        userService.addUser(user);
+        User newUser = new User("fatma.ben", "Fatma", "Ben", "fatma@example.com", "123456", "user");
+        userService.addUser(newUser);
 
-        // Ajouter un avis
-        Avis avis = new Avis(user.getId(), "Très bon service !", 5);
-        avisService.addAvis(avis);
-
-        // Supprimer un utilisateur
-        int userIdToDelete = 1;
-        userService.deleteUser(userIdToDelete);
-
-        // Supprimer un avis
-        int avisIdToDelete = 1;
-        avisService.deleteAvis(avisIdToDelete);
+        // Afficher tous les utilisateurs
+        System.out.println("\n📋 Liste des utilisateurs :");
+        List<User> users = userService.getAllUsers();
+        for (User user : users) {
+            System.out.println(user.getId() + " | " + user.getNom() + " | " + user.getPrenom() + " | " + user.getMail() + " | " + user.getPassword() + " | " + user.getRole() + " | " + user.getTel() + " | " + user.getStatus());
+        }
 
         // Mettre à jour un utilisateur
-        User updatedUser = new User(1, "f", "NouveauPrenom", "newmail@example.com", "123456789", "responsable");
+        User updatedUser = new User(5, "fatma.updated", "Fatma", "Updated", "fatma.updated@example.com", "newpass123", "admin");
         userService.updateUser(updatedUser);
 
+        // Supprimer un utilisateur
+        userService.deleteUser(33);
+
+        // ===========================
+        // Test de la gestion des avis
+        // ===========================
+
+        // Ajouter un avis
+        Date dateCreation = new Date(System.currentTimeMillis());
+        Avis newAvis = new Avis(5, "Service impeccable, je recommande !", 5, dateCreation);
+        avisService.addAvis(newAvis);
+
+        // Afficher tous les avis
+        System.out.println("\n📋 Liste des avis :");
+        List<Avis> avisList = avisService.getAllAvis();
+        for (Avis avis : avisList) {
+            System.out.println(avis.getId() + " | " + avis.getUserId() + " | " + avis.getCommentaire() + " | " + avis.getNote() + " | " + avis.getDateCreation());
+        }
+
         // Mettre à jour un avis
-      //  Avis updatedAvis = new Avis(1, user.getId(), "Excellent service, je recommande !", 5);
-      //  avisService.updateAvis(updatedAvis);
+        Avis updatedAvis = new Avis(7, "Expérience formidable, je reviendrai !", 4);
+        avisService.updateAvis(updatedAvis);
 
-        // Afficher la liste des utilisateurs
-        System.out.println("\ud83d\udccb Liste des utilisateurs :");
-        Iterator<User> userIterator = userService.getAllUsers().iterator();
-        while (userIterator.hasNext()) {
-            User u = userIterator.next();
-            System.out.println(u.getId() + " | " + u.getNom() + " | " + u.getPrenom() + " | " + u.getMail() + " | " + u.getPassword() + " | " + u.getTel() + " | " + u.getRole() + " | " + u.getStatus());
-        }
-
-        // Afficher la liste des avis
-        System.out.println("\ud83d\udccb Liste des avis :");
-        Iterator<Avis> avisIterator = avisService.getAllAvis().iterator();
-        while (avisIterator.hasNext()) {
-            Avis a = avisIterator.next();
-            System.out.println(a.getId() + " | " + a.getUserId() + " | " + a.getCommentaire() + " | " + a.getNote() + " | " + a.getDateCreation());
-        }
+        // Supprimer un avis
+        avisService.deleteAvis(11);
     }
 }

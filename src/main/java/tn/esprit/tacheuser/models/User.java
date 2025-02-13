@@ -35,6 +35,17 @@ public class User {
         this.role = "USER";  // Par défaut "USER"
     }
 
+    public User(int id, String nom, String prenom, String mail, String password, String tel, String status) {
+        this.id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mail = mail;
+        this.password = password;
+        this.tel = tel;
+        this.status = (status != null) ? status : "inactive";  // Assurez-vous que le statut ne soit jamais null
+        this.role = "USER";  // Par défaut "USER"
+    }
+
     public User(String nom, String prenom, String mail, String tel, String password, String confirmpassword) {
         this.nom = nom;
         this.prenom = prenom;

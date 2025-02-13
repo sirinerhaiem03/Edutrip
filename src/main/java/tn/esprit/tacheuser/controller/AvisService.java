@@ -13,12 +13,13 @@ public class AvisService {
 
     // Ajouter un avis
     public void addAvis(Avis avis) {
-        String query = "INSERT INTO avis (user_id, commentaire, note) VALUES (?, ?, ?)";
+        String query = "INSERT INTO avis (user_id, commentaire, note, date_creation) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement pst = this.conn.prepareStatement(query);
             pst.setInt(1, avis.getUserId());
             pst.setString(2, avis.getCommentaire());
             pst.setInt(3, avis.getNote());
+            pst.setString(4, avis.getDateCreation());
             int rowsInserted = pst.executeUpdate();
             if (rowsInserted > 0) {
                 System.out.println("✅ Avis ajouté avec succès !");

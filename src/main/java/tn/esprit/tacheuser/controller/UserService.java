@@ -86,6 +86,7 @@ public class UserService {
                         rs.getString("nom"),
                         rs.getString("prenom"),
                         rs.getString("mail"),
+                        rs.getString("password"),
                         rs.getString("tel"),
                         rs.getString("status") != null ? rs.getString("status") : "inactive" // Si status est null, il devient "inactive"
                 );
