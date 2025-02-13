@@ -44,7 +44,7 @@ public class Main {
         userService.updateUser(updatedUser);
 
         // Supprimer un utilisateur
-        userService.deleteUser(33);
+        userService.deleteUser(7);
 
         // ===========================
         // Test de la gestion des avis
