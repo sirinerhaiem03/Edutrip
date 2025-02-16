@@ -1,7 +1,7 @@
 package tn.edutrip.entities;
+
 import java.util.Date;
 import java.util.List;
-
 
 public class Agence {
     private int id_agence;
@@ -11,9 +11,20 @@ public class Agence {
     private String emailAg;
     private String descriptionAg;
     private Date date_creation;
+    private List<Pack_agence> packs;
 
 
     public Agence() {}
+
+
+    public Agence(String nomAg, String adresseAg, int telephoneAg, String emailAg, String descriptionAg, Date dateCreation) {
+        this.nomAg = nomAg;
+        this.adresseAg = adresseAg;
+        this.telephoneAg = telephoneAg;
+        this.emailAg = emailAg;
+        this.descriptionAg = descriptionAg;
+        this.date_creation = dateCreation;
+    }
 
 
     public Agence(int idAgence, String nomAg, String adresseAg, int telephoneAg, String emailAg, String descriptionAg, Date dateCreation) {
@@ -83,6 +94,14 @@ public class Agence {
         this.date_creation = dateCreation;
     }
 
+    public List<Pack_agence> getPacks() {
+        return packs;
+    }
+
+    public void setPacks(List<Pack_agence> packs) {
+        this.packs = packs;
+    }
+
 
     @Override
     public String toString() {
@@ -94,11 +113,7 @@ public class Agence {
                 ", emailAg='" + emailAg + '\'' +
                 ", descriptionAg='" + descriptionAg + '\'' +
                 ", dateCreation=" + date_creation +
+                ", packs=" + (packs != null ? packs.size() + " packs associés" : "Aucun pack") +
                 '}';
     }
-
-    public void setPacks(List<Pack_agence> packsByAgence) {
-    }
 }
-
-

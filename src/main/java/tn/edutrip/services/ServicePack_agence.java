@@ -17,7 +17,7 @@ public class ServicePack_agence {
         connection = MyDatabase.getInstance().getConnection();
     }
 
-    // Ajouter un pack
+
     public void add(Pack_agence pack) {
         String req = "INSERT INTO pack_agence (nomPk, descriptionPk, prix, duree, services_inclus, date_ajout, status, id_agence) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
@@ -38,7 +38,7 @@ public class ServicePack_agence {
         }
     }
 
-    // Mettre à jour un pack
+
     public void update(Pack_agence pack) {
         String query = "UPDATE pack_agence SET nomPk = ?, descriptionPk = ?, prix = ?, duree = ?, services_inclus = ?, date_ajout = ?, status = ?, id_agence = ? WHERE id_pack = ?";
         try {
@@ -64,7 +64,7 @@ public class ServicePack_agence {
         }
     }
 
-    // Supprimer un pack
+
     public void remove(int id_pack) {
         try {
             String query = "DELETE FROM pack_agence WHERE id_pack = ?";
@@ -84,7 +84,6 @@ public class ServicePack_agence {
              PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 
-            // Parcours du ResultSet pour récupérer les informations des packs
             while (rs.next()) {
                 int idPack = rs.getInt("id_pack");
                 String nomPack = rs.getString("nomPk");
@@ -95,10 +94,10 @@ public class ServicePack_agence {
                 Date dateAjout = rs.getDate("date_ajout");
                 Pack_agence.Status status = Pack_agence.Status.valueOf(rs.getString("status"));
 
-                // Créer un objet Pack_agence
+
                 Pack_agence pack = new Pack_agence(idPack, nomPack, descriptionPack, prix, duree, servicesInclus, dateAjout, status, rs.getInt("id_agence"));
 
-                // Affichage du pack
+
                 System.out.println(pack);
             }
 

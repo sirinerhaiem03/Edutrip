@@ -11,7 +11,7 @@ import java.util.List;
 public class ServiceAgence implements Iservice<Agence> {
     private Connection connection;
 
-    // Constructeur qui initialise la connexion à la base de données
+
     public ServiceAgence() {
         connection = MyDatabase.getInstance().getConnection();
     }
@@ -46,7 +46,7 @@ public class ServiceAgence implements Iservice<Agence> {
             preparedStatement.setString(4, agence.getEmailAg());
             preparedStatement.setString(5, agence.getDescriptionAg());
             preparedStatement.setDate(6, new java.sql.Date(agence.getDateCreation().getTime()));
-            preparedStatement.setInt(7, agence.getIdAgence()); // L'ID doit être en dernier
+            preparedStatement.setInt(7, agence.getIdAgence());
 
             int rowsUpdated = preparedStatement.executeUpdate();
             if (rowsUpdated > 0) {
@@ -62,17 +62,28 @@ public class ServiceAgence implements Iservice<Agence> {
 
 
     @Override
-    public void remove(int id_agence){
+    public void remove(int id_agence) {
+
         try {
-            String query = "DELETE FROM agence WHERE id_agence = ?";
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, id_agence);  // Set the id_agence to the query
-            ps.executeUpdate();
+
+            String queryPack = "DELETE FROM pack_agence WHERE id_agence = ?";
+            PreparedStatement psPack = connection.prepareStatement(queryPack);
+            psPack.setInt(1, id_agence);
+            psPack.executeUpdate();
+            System.out.println("Packs associés à l'agence supprimés avec succès !");
+
+
+            String queryAgence = "DELETE FROM agence WHERE id_agence = ?";
+            PreparedStatement psAgence = connection.prepareStatement(queryAgence);
+            psAgence.setInt(1, id_agence);
+            psAgence.executeUpdate();
             System.out.println("Agence supprimée avec succès !");
         } catch (SQLException e) {
-            System.err.println("Erreur lors de la suppression : " + e.getMessage());
+            // Gérer toute exception SQL
+            System.err.println("Erreur lors de la suppression de l'agence ou des packs : " + e.getMessage());
         }
     }
+
 
     @Override
     public List<Agence> afficher() {
@@ -98,6 +109,32 @@ public class ServiceAgence implements Iservice<Agence> {
             System.err.println("Erreur lors de la récupération des agences : " + e.getMessage());
         }
         return agences;
+    }
+    public Agence getByName(String nomAg) {
+        Agence agence = null;
+        String req = "SELECT * FROM agence WHERE nomAg = ?";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(req);
+            ps.setString(1, nomAg);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                agence = new Agence(
+                        rs.getInt("id_agence"),
+                        rs.getString("nomAg"),
+                        rs.getString("adresseAg"),
+                        rs.getInt("telephoneAg"),
+                        rs.getString("emailAg"),
+                        rs.getString("descriptionAg"),
+                        rs.getDate("date_creation")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println(" Erreur lors de la récupération de l'agence : " + e.getMessage());
+        }
+
+        return agence;
     }
 
 }

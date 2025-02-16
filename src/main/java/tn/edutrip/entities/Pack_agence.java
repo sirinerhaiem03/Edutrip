@@ -16,7 +16,7 @@ public class Pack_agence {
 
 
     public enum Status {
-        DISPONIBLE, INDISPONIBLE;
+        disponible, indisponible;
     }
 
     public Pack_agence() {}
