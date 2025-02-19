@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="487.0" prefWidth="616.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.edutrip.controller.AjouterReservationController">
+    <children>
+        <VBox alignment="CENTER" layoutX="179.0" layoutY="151.0" spacing="10" />
+
+         <!-- Date Pickers -->
+         <DatePicker fx:id="dateStart" layoutX="323.0" layoutY="299.0" prefHeight="25.0" prefWidth="255.0" promptText="Date de début" />
+         <DatePicker fx:id="dateEnd" layoutX="324.0" layoutY="360.0" prefHeight="25.0" prefWidth="247.0" promptText="Date de fin" />
+         <Label layoutX="220.0" layoutY="51.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+        <Label layoutX="233.0" layoutY="402.0" text="Commentaire" />
+        <TextField fx:id="statusField" layoutX="327.0" layoutY="419.0" prefHeight="25.0" prefWidth="247.0" promptText="Entrez le commentaire" />
+         <!-- Display the selected Hebergement name -->
+         <TextField fx:id="hebergementName" editable="false" layoutX="326.0" layoutY="219.0" prefHeight="25.0" prefWidth="247.0" promptText="Nom de l'hébergement" />
+      <AnchorPane layoutY="89.0" prefHeight="472.0" prefWidth="159.0" style="-fx-background-color: #57A0D2;">
+         <children>
+            <Label layoutX="69.0" layoutY="130.0" prefHeight="17.0" prefWidth="75.0" text="universitès" />
+            <Label layoutX="58.0" layoutY="271.0" prefHeight="17.0" prefWidth="75.0" />
+            <Label layoutX="69.0" layoutY="296.0" prefHeight="17.0" prefWidth="75.0" text="posts" />
+            <Label layoutX="61.0" layoutY="253.0" prefHeight="17.0" prefWidth="83.0" text="hèbergements" />
+            <Label layoutX="69.0" layoutY="211.0" prefHeight="17.0" prefWidth="75.0" text="vols" />
+            <Label layoutX="69.0" layoutY="172.0" prefHeight="17.0" prefWidth="75.0" text="agences" />
+            <ImageView fitHeight="27.0" fitWidth="41.0" layoutX="21.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/UNIVERSITY.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="27.0" fitWidth="41.0" layoutX="20.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/AGENCE.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="27.0" fitWidth="31.0" layoutX="22.0" layoutY="206.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/VOL.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="37.0" fitWidth="31.0" layoutX="17.0" layoutY="243.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/HEBERGEMENT.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="37.0" fitWidth="44.0" layoutX="14.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/POST.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="65.0" layoutY="42.0" prefHeight="17.0" prefWidth="75.0" text="compte" />
+            <ImageView fitHeight="37.0" fitWidth="38.0" layoutX="12.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/PROFIL.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="105.0" prefWidth="751.0" style="-fx-background-color: FFFFFF;">
+         <children>
+            <Label layoutX="265.0" layoutY="42.0" text="Réserver Hébergement" textFill="#57a0d2">
+               <font>
+                  <Font name="Bell MT Bold" size="21.0" />
+               </font>
+               <effect>
+                  <Bloom />
+               </effect>
+            </Label>
+            <ImageView fitHeight="103.0" fitWidth="112.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/LOGO.png" />
+               </image>
+            </ImageView>
+            <AnchorPane layoutX="-57.0" layoutY="92.0" prefHeight="17.0" prefWidth="808.0" style="-fx-background-color: #57A0D2;" />
+         </children>
+      </AnchorPane>
+        <Button layoutX="359.0" layoutY="482.0" mnemonicParsing="false" onAction="#AjouterReservation" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: #57A0D2;" text="Réserver" />
+
+        <Label layoutX="216.0" layoutY="192.0" text="Nom de l'hebergement" />
+      <Label layoutX="231.0" layoutY="272.0" text="Date de debut" />
+      <Label layoutX="240.0" layoutY="343.0" text="Date de fin" />
+      <Button layoutX="362.0" layoutY="521.0" mnemonicParsing="false" onAction="#AfficherReservation" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: #57A0D2;" text="liste reservation" />
+    </children>
+</AnchorPane>

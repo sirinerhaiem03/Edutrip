@@ -10,9 +10,14 @@ import java.util.List;
 public class ServiceHebergement implements IService<Hebergement> {
     private Connection connection;
 
+/*Initialisation de la connexion dans le constructeur*/
+
+
     public ServiceHebergement() {
         connection = MyDatabase.getInstance().getConnection();
     }
+
+    /*permet de réutiliser la même connexion du  la base*/
 
     @Override
     public void add(Hebergement h) {
@@ -38,7 +43,7 @@ public class ServiceHebergement implements IService<Hebergement> {
     public void remove(int id) {
         String req = "DELETE FROM hebergement WHERE id_hebergement = ?";
         try (PreparedStatement ps = connection.prepareStatement(req)) {
-            ps.setInt(1, id);
+            ps.setInt(1, id);//first place holder in the sql
             ps.executeUpdate();
             System.out.println("Hébergement supprimé avec succès !");
         } catch (SQLException e) {
@@ -67,13 +72,13 @@ public class ServiceHebergement implements IService<Hebergement> {
     }
     @Override
     public List<Hebergement> getAll() {
-        List<Hebergement> hebergements = new ArrayList<>();
+        List<Hebergement> hebergements = new ArrayList<>();// creation liste vide
         String req = "SELECT * FROM hebergement";
 
         try (Statement st = connection.createStatement();
              ResultSet rs = st.executeQuery(req)) {
 
-            while (rs.next()) {
+            while (rs.next()) {//madam fama donnee a lire
                 Hebergement h = new Hebergement(
                         rs.getInt("id_hebergement"),
                         rs.getString("nomh"),
@@ -85,14 +90,14 @@ public class ServiceHebergement implements IService<Hebergement> {
                         rs.getString("imageh"),
                         rs.getFloat("prixh")
                 );
-                hebergements.add(h);
+                hebergements.add(h);//ajouter hebergement lel liste
             }
 
         } catch (SQLException e) {
             System.err.println("Erreur lors de la récupération des hébergements : " + e.getMessage());
         }
 
-        return hebergements;
+        return hebergements;//return liste
     }
 
 
