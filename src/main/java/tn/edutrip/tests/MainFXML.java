@@ -16,7 +16,7 @@ public class MainFXML extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterPacks.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterAgence.fxml"));
             Parent parent = loader.load();
             Scene scene = new Scene(parent);
             primaryStage.setScene(scene);

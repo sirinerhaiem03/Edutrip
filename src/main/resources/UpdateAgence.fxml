@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="411.0" prefWidth="555.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="tn.edutrip.controller.UpdateAgenceController">
+    <children>
+        <Label layoutX="227.0" layoutY="204.0" prefHeight="9.0" prefWidth="67.0" text="NomAg" />
+        <TextField fx:id="nomAgField" layoutX="284.0" layoutY="200.0" prefHeight="6.0" prefWidth="139.0" />
+        <Label layoutX="217.0" layoutY="259.0" text="AdresseAg" />
+        <TextField fx:id="adresseAgField" layoutX="284.0" layoutY="255.0" prefHeight="26.0" prefWidth="139.0" />
+        <Label layoutX="209.0" layoutY="312.0" text="TelephoneAg" />
+        <TextField fx:id="telephoneAgField" layoutX="284.0" layoutY="308.0" prefHeight="26.0" prefWidth="139.0" />
+        <Label layoutX="223.0" layoutY="372.0" text="EmailAg" />
+        <TextField fx:id="emailAgField" layoutX="284.0" layoutY="366.0" prefHeight="26.0" prefWidth="139.0" />
+        <Label layoutX="521.0" layoutY="312.0" text="DescriptionAg" />
+        <TextField fx:id="descriptionAgField" layoutX="613.0" layoutY="263.0" prefHeight="116.0" prefWidth="182.0" />
+        <Label layoutX="207.0" layoutY="420.0" text="Date_Creation" />
+        <TextField fx:id="dateCreationField" layoutX="284.0" layoutY="416.0" prefHeight="26.0" prefWidth="139.0" />
+        <Button layoutX="660.0" layoutY="491.0" onAction="#updateAgence" prefHeight="35.0" prefWidth="147.0" style="-fx-background-color: #57A0D2;" text="Mettre à jour" />
+      <AnchorPane layoutY="119.0" prefHeight="523.0" prefWidth="182.0" style="-fx-background-color: #57A0D2;">
+         <children>
+            <Label layoutX="103.0" layoutY="143.0" text="Université" textAlignment="JUSTIFY" />
+            <Label layoutX="109.0" layoutY="197.0" text="Agence" textAlignment="JUSTIFY" />
+            <Label layoutX="117.0" layoutY="255.0" text="Vols" />
+            <Label layoutX="93.0" layoutY="309.0" text="Hybergement" />
+            <Label layoutX="106.0" layoutY="365.0" text="Post" />
+            <ImageView fitHeight="45.0" fitWidth="53.0" layoutX="37.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/université.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="45.0" fitWidth="53.0" layoutX="36.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/agence.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="45.0" fitWidth="53.0" layoutX="41.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/vol.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="45.0" fitWidth="53.0" layoutX="39.0" layoutY="295.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/hybergement.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="45.0" fitWidth="53.0" layoutX="39.0" layoutY="351.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/post.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="45.0" fitWidth="57.0" layoutX="41.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/compte.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="108.0" layoutY="81.0" text="Compte" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="2.0" prefHeight="116.0" prefWidth="916.0" style="-fx-background-color: FFFFFF;">
+         <children>
+            <Label layoutX="349.0" layoutY="40.0" prefHeight="35.0" prefWidth="227.0" text="update l'agence" textAlignment="CENTER" textFill="#57a0d2">
+               <font>
+                  <Font name="Bell MT Bold" size="29.0" />
+               </font>
+               <effect>
+                  <Bloom />
+               </effect>
+            </Label>
+            <ImageView fitHeight="110.0" fitWidth="115.0" layoutX="35.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/logo.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="118.0" prefHeight="18.0" prefWidth="915.0" style="-fx-background-color: #57A0D2;" />
+      <AnchorPane layoutX="896.0" layoutY="118.0" prefHeight="523.0" prefWidth="20.0" style="-fx-background-color: #57A0D2;" />
+    </children>
+</AnchorPane>

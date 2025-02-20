@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.edutrip.controller.AjouterPacksController">
+   <children>
+      <AnchorPane prefHeight="102.0" prefWidth="913.0" style="-fx-background-color: FFFFFF;">
+         <children>
+            <Label layoutX="331.0" layoutY="33.0" prefHeight="26.0" prefWidth="238.0" text="Ajouter Packs" textAlignment="CENTER" textFill="#57a0d2">
+               <font>
+                  <Font name="Bell MT Bold" size="29.0" />
+               </font>
+               <effect>
+                  <Bloom />
+               </effect>
+            </Label>
+            <ImageView fitHeight="93.0" fitWidth="95.0" layoutX="35.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/logo.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="102.0" prefHeight="497.0" prefWidth="200.0" style="-fx-background-color: #57A0D2;">
+         <children>
+            <Label layoutX="103.0" layoutY="143.0" text="Université" textAlignment="JUSTIFY" />
+            <Label layoutX="109.0" layoutY="197.0" text="Agence" textAlignment="JUSTIFY" />
+            <Label layoutX="117.0" layoutY="255.0" text="Vols" />
+            <Label layoutX="93.0" layoutY="309.0" text="Hébergement" />
+            <Label layoutX="106.0" layoutY="365.0" text="Post" />
+            <ImageView fitHeight="45.0" fitWidth="53.0" layoutX="37.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/université.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="45.0" fitWidth="53.0" layoutX="36.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/agence.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="45.0" fitWidth="53.0" layoutX="41.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/vol.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="45.0" fitWidth="53.0" layoutX="39.0" layoutY="295.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/hybergement.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="45.0" fitWidth="53.0" layoutX="39.0" layoutY="351.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/post.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="45.0" fitWidth="57.0" layoutX="41.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/compte.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="108.0" layoutY="81.0" text="Compte" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="5.0" layoutY="102.0" prefHeight="18.0" prefWidth="900.0" style="-fx-background-color: #57A0D2;" />
+      <AnchorPane layoutX="890.0" layoutY="101.0" prefHeight="498.0" prefWidth="23.0" style="-fx-background-color: #57A0D2;" />
+      <Label layoutX="226.0" layoutY="153.0" prefHeight="18.0" prefWidth="40.0" text="NomPk" />
+      <Label layoutX="226.0" layoutY="217.0" text="Prix" />
+      <Label layoutX="226.0" layoutY="282.0" text="Durée" />
+      <Label layoutX="226.0" layoutY="350.0" text="Service inclus" />
+      <Label layoutX="226.0" layoutY="416.0" text="Date d'ajout" />
+      <Label layoutX="557.0" layoutY="217.0" text="Statut" />
+      <Label layoutX="552.0" layoutY="337.0" text="DescriptionPk" />
+      <TextField fx:id="nomPkField" layoutX="316.0" layoutY="150.0" />
+      <TextField fx:id="prixField" layoutX="316.0" layoutY="213.0" />
+      <TextField fx:id="dureeField" layoutX="318.0" layoutY="278.0" />
+      <TextField fx:id="serviceField" layoutX="319.0" layoutY="346.0" />
+      <TextField fx:id="dateDajoutField" layoutX="316.0" layoutY="412.0" />
+      <TextField fx:id="descriptionPkField" layoutX="657.0" layoutY="305.0" prefHeight="81.0" prefWidth="150.0" />
+
+      <!-- ChoiceBox vide, les valeurs sont ajoutées dynamiquement dans le contrôleur -->
+      <ChoiceBox fx:id="statusField" layoutX="657.0" layoutY="213.0" prefWidth="150.0" />
+      <Button layoutX="656.0" layoutY="503.0" mnemonicParsing="false" onAction="#ajouterPack" prefHeight="35.0" prefWidth="200.0" text="Button" />
+   </children>
+</AnchorPane>

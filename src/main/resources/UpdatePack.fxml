@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="tn.edutrip.controller.UpdatePackController"
+            prefHeight="400.0" prefWidth="600.0">
+    <children>
+        <!-- Titre principal -->
+        <AnchorPane layoutY="2.0" prefHeight="100.0" prefWidth="600.0" style="-fx-background-color: #57A0D2;">
+            <children>
+                <Label layoutX="150.0" layoutY="30.0" prefHeight="35.0" prefWidth="300.0" text="Mettre à jour le pack"
+                       textAlignment="CENTER" textFill="#FFFFFF">
+                    <font>
+                        <Font name="Bell MT Bold" size="24.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+
+        <!-- Champ Nom du Pack -->
+        <Label layoutX="50.0" layoutY="120.0" text="Nom du Pack" />
+        <TextField fx:id="nomPkField" layoutX="200.0" layoutY="120.0" prefHeight="30.0" prefWidth="300.0" />
+
+        <!-- Champ Description du Pack -->
+        <Label layoutX="50.0" layoutY="160.0" text="Description" />
+        <TextField fx:id="descriptionPkField" layoutX="200.0" layoutY="160.0" prefHeight="30.0" prefWidth="300.0" />
+
+        <!-- Champ Prix du Pack -->
+        <Label layoutX="50.0" layoutY="200.0" text="Prix" />
+        <TextField fx:id="prixField" layoutX="200.0" layoutY="200.0" prefHeight="30.0" prefWidth="300.0" />
+
+        <!-- Champ Durée du Pack -->
+        <Label layoutX="50.0" layoutY="240.0" text="Durée (jours)" />
+        <TextField fx:id="dureeField" layoutX="200.0" layoutY="240.0" prefHeight="30.0" prefWidth="300.0" />
+
+        <!-- Champ Services Inclus -->
+        <Label layoutX="50.0" layoutY="280.0" text="Services Inclus" />
+        <TextField fx:id="servicesInclusField" layoutX="200.0" layoutY="280.0" prefHeight="30.0" prefWidth="300.0" />
+
+        <!-- Bouton de mise à jour -->
+        <Button fx:id="updateButton" layoutX="200.0" layoutY="320.0" onAction="#updatePack" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #57A0D2;" text="Mettre à jour" />
+    </children>
+</AnchorPane>
+
