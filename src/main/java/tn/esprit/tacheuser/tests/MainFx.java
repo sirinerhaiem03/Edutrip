@@ -16,12 +16,13 @@ public class MainFx extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Register.fxml"));
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login.fxml"));
         try {
             Parent parent = loader.load();
             Scene scene = new Scene(parent);
             primaryStage.setScene(scene);
-            primaryStage.setTitle("RegisterController");
+            primaryStage.setTitle("LoginController");
             primaryStage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);

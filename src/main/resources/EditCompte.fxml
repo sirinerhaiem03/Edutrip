@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.*?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
-
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="tn.esprit.tacheuser.controller.RegisterController"
+            fx:controller="tn.esprit.tacheuser.controller.EditerCompte"
             prefHeight="600.0" prefWidth="800.0"
             stylesheets="@/style.css">
 
@@ -22,7 +24,7 @@
                 <graphic>
                     <ImageView fitHeight="20.0" fitWidth="20.0">
                         <image>
-                            <Image url="@ressources/images/tayara.jpg" />
+                            <Image url="@/images/VOL.jpg" />
                         </image>
                     </ImageView>
                 </graphic>
@@ -38,7 +40,7 @@
                     <Insets top="20" left="20" right="20" bottom="20"/>
                 </padding>
 
-                <Label text="Register User" styleClass="form-title"
+                <Label text="Edit User" styleClass="form-title"
                        GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" alignment="CENTER"/>
 
                 <Label text="First Name" styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
@@ -53,29 +55,14 @@
                 <Label text="Phone" styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
                 <TextField fx:id="phoneField" styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="4" prefWidth="200"/>
 
-                <Label text="Password" styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
-                <PasswordField fx:id="passwordField" styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="5" prefWidth="200"/>
 
-                <Label text="Confirm Password" styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
-                <PasswordField fx:id="confirmPasswordField" styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="6" prefWidth="200"/>
 
-                <Label text="Role" styleClass="form-label" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
-                <ComboBox fx:id="roleComboBox" styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="7" prefWidth="200">
-                    <items>
-                        <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="Étudiant"/>
-                            <String fx:value="Responsable Agence"/>
-                        </FXCollections>
-                    </items>
-                </ComboBox>
 
-                <Button text="Register" onAction="#handleRegisterAction" styleClass="form-button"
+                <Button text="Edit Account" onAction="#handleRegisterAction" styleClass="form-button"
                         GridPane.columnIndex="0" GridPane.rowIndex="8" GridPane.columnSpan="2" alignment="CENTER"/>
             </GridPane>
 
-            <Hyperlink text="Already have an account? Login" onAction="#goToLogin"
-                       GridPane.columnIndex="0" GridPane.rowIndex="9" GridPane.columnSpan="2" alignment="CENTER"/>
+
         </VBox>
     </center>
-
 </BorderPane>
