@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox fx:id="commentBox" spacing="5" style="-fx-padding: 10px; -fx-border-color: #ddd; -fx-border-width: 1px; -fx-background-color: #f9f9f9;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.edutrip.Controllers.CommentsItemsController">
+    <children>
+        <HBox spacing="10">
+            <Text fx:id="CommentAuthor" style="-fx-font-weight: bold;" />
+            <Text fx:id="CommentDate" style="-fx-font-size: 12px; -fx-text-fill: #888;" />
+            <ImageView fx:id="menuIcon" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@images/dots.png" /> <!-- Icône des trois points -->
+                </image>
+                <HBox.margin>
+                    <Insets left="10.0" />
+                </HBox.margin>
+            </ImageView>
+        </HBox>
+        <Text fx:id="CommentContent" style="-fx-font-size: 14px; -fx-text-fill: #333;" />
+    </children>
+</VBox>

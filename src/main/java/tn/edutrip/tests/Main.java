@@ -17,7 +17,7 @@ public class Main {
 
 
        ServicePost servicePost = new ServicePost();
-       servicePost.getPostsWithComments();
+
 
        /* Post newPost = new Post(
                 1, "Contenu de test", "2025-02-08", 123, "image.png", "universite"
@@ -31,10 +31,10 @@ public class Main {
 
         newPost.setContenu("bonjour a tous");
         newPost.setImage("image2.png");
-        servicePost.update(newPost);
-        servicePost.remove(10);
+        servicePost.update(newPost);*/
+        servicePost.remove(11);
 
-        List<Post> posts = servicePost.getAll();
+       /* List<Post> posts = servicePost.getAll();
 
 
         if (posts.isEmpty()) {
@@ -101,6 +101,8 @@ public class Main {
         }
 
 */
+
+        servicePost.getPostsWithComments();
     }
 
 

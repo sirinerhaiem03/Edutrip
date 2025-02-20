@@ -86,4 +86,30 @@ public class ServiceCommentaire implements Iservices<Commentaire> {
         }
         return commentaires;
     }
+
+    public List<Commentaire> getCommentsByPost(int postId) {
+        List<Commentaire> commentaires = new ArrayList<>();
+        String query = "SELECT * FROM commentaire WHERE id_post = ? ORDER BY date_commentaire DESC";
+
+        try (PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setInt(1, postId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Commentaire commentaire = new Commentaire(
+                        rs.getInt("id_commentaire"),
+                        rs.getInt("id_post"),
+                        rs.getInt("id_etudiant"),
+                        rs.getString("contenu"),
+                        rs.getDate("date_commentaire")
+                );
+                commentaires.add(commentaire);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération des commentaires : " + e.getMessage());
+        }
+
+        return commentaires;
+    }
+
 }

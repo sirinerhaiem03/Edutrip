@@ -9,6 +9,7 @@ public class Commentaire {
     private String contenu;
     private Date date_commentaire ;
 
+    public Commentaire() {}
     public Commentaire(int id_commentaire, int id_post, int id_etudiant, String contenu, Date date_commentaire) {
         this.id_commentaire = id_commentaire;
         this.id_post = id_post;

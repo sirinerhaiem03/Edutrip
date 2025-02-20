@@ -8,6 +8,8 @@ public class Post {
     private String image;
     private String categorie;
 
+    public Post() {
+    }
     public Post(int id_post, String contenu, String date_creation, int id_etudiant, String image, String categorie) {
         this.id_post = id_post;
         this.contenu = contenu;
