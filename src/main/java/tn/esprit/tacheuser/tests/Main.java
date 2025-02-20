@@ -1,12 +1,13 @@
-package tn.esprit.tacheuser;
+package tn.esprit.tacheuser.tests;
 
 import java.sql.Connection;
 import java.sql.Date;
 import java.util.List;
-import tn.esprit.tacheuser.controller.AvisService;
-import tn.esprit.tacheuser.controller.UserService;
+
 import tn.esprit.tacheuser.models.Avis;
 import tn.esprit.tacheuser.models.User;
+import tn.esprit.tacheuser.services.AvisService;
+import tn.esprit.tacheuser.services.UserService;
 import tn.esprit.tacheuser.utils.MySQLConnection;
 
 public class Main {
@@ -31,7 +32,6 @@ public class Main {
         // Ajouter un utilisateur
         User newUser = new User("fatma.ben", "Fatma", "Ben", "fatma@example.com", "123456", "user");
         userService.addUser(newUser);
-
         // Afficher tous les utilisateurs
         System.out.println("\n📋 Liste des utilisateurs :");
         List<User> users = userService.getAllUsers();
@@ -52,21 +52,21 @@ public class Main {
 
         // Ajouter un avis
         Date dateCreation = new Date(System.currentTimeMillis());
-        Avis newAvis = new Avis(5, "Service impeccable, je recommande !", 5, dateCreation);
-        avisService.addAvis(newAvis);
+        //Avis newAvis = new Avis(2, "Service impeccable, je recommande !", 5, dateCreation);
+      //  avisService.addAvis(newAvis);
 
         // Afficher tous les avis
         System.out.println("\n📋 Liste des avis :");
-        List<Avis> avisList = avisService.getAllAvis();
+      /*  List<Avis> avisList = avisService.getAllAvis();
         for (Avis avis : avisList) {
             System.out.println(avis.getId() + " | " + avis.getUserId() + " | " + avis.getCommentaire() + " | " + avis.getNote() + " | " + avis.getDateCreation());
         }
 
         // Mettre à jour un avis
-        Avis updatedAvis = new Avis(7, "Expérience formidable, je reviendrai !", 4);
-        avisService.updateAvis(updatedAvis);
+       // Avis updatedAvis = new Avis(7, "Expérience formidable, je reviendrai !", 4);
+     //   avisService.updateAvis(updatedAvis);
 
         // Supprimer un avis
-        avisService.deleteAvis(11);
+       // avisService.deleteAvis(11);*/
     }
 }

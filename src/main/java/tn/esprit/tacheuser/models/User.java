@@ -12,7 +12,6 @@ public class User {
     private String role = "USER";
 
     // Constructeurs
-    public User() {}
 
     public User(String nom, String prenom, String mail, String tel, String password, String confirmpassword, String status, String role) {
         this.nom = nom;
@@ -25,6 +24,9 @@ public class User {
         this.role = (role != null) ? role : "USER";  // Assurez-vous que le rôle ne soit jamais null
     }
 
+    public User() {
+    }
+
     public User(int id, String nom, String prenom, String mail, String tel, String status) {
         this.id = id;
         this.nom = nom;
@@ -35,26 +37,26 @@ public class User {
         this.role = "USER";  // Par défaut "USER"
     }
 
-    public User(int id, String nom, String prenom, String mail, String password, String tel, String status) {
+    public User(int id, String nom, String prenom, String mail, String password, String tel,  String role) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
         this.password = password;
         this.tel = tel;
-        this.status = (status != null) ? status : "inactive";  // Assurez-vous que le statut ne soit jamais null
-        this.role = "USER";  // Par défaut "USER"
+        this.role = role;
     }
+    public User( String nom, String prenom, String mail, String password, String tel,  String role) {
 
-    public User(String nom, String prenom, String mail, String tel, String password, String confirmpassword) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
-        this.tel = tel;
         this.password = password;
-        this.confirmpassword = confirmpassword;
-        this.role = "USER"; // Par défaut "USER"
+        this.tel = tel;
+        this.role = role;
     }
+
+
 
     // Getters et Setters
     public int getId() { return id; }

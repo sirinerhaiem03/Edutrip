@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #57a0d2;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.tacheuser.controller.AdminController">
+   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#57a0d2" height="731.0" layoutX="7.0" layoutY="6.0" stroke="TRANSPARENT" strokeType="INSIDE" width="200.0" />
+   <Label fx:id="label111" layoutX="97.0" layoutY="184.0" onMouseClicked="#compte" prefHeight="59.0" prefWidth="80.0" text="Compte" textAlignment="CENTER" textFill="#403060">
+      <font>
+         <Font name="Century Gothic Bold" size="14.0" />
+      </font>
+   </Label>
+   <Label fx:id="label1111" layoutX="97.0" layoutY="245.0" prefHeight="59.0" prefWidth="80.0" text="Univérsite" textAlignment="CENTER" textFill="#403060">
+      <font>
+         <Font name="Century Gothic Bold" size="14.0" />
+      </font>
+   </Label>
+   <Label fx:id="label1112" layoutX="93.0" layoutY="549.0" prefHeight="59.0" prefWidth="80.0" text="Agence" textAlignment="CENTER" textFill="#403060">
+      <font>
+         <Font name="Century Gothic Bold" size="14.0" />
+      </font>
+   </Label>
+   <Label fx:id="label1113" layoutX="97.0" layoutY="395.0" prefHeight="59.0" prefWidth="80.0" text="Vols" textAlignment="CENTER" textFill="#403060">
+      <font>
+         <Font name="Century Gothic Bold" size="14.0" />
+      </font>
+   </Label>
+   <Label fx:id="label11131" layoutX="93.0" layoutY="466.0" onMouseClicked="#post" prefHeight="59.0" prefWidth="80.0" text="Avis" textAlignment="CENTER" textFill="#403060">
+      <font>
+         <Font name="Century Gothic Bold" size="14.0" />
+      </font>
+   </Label>
+   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="142.0" layoutX="6.0" layoutY="6.0" stroke="TRANSPARENT" strokeType="INSIDE" width="972.0" />
+   <Label fx:id="label1" layoutX="173.0" layoutY="30.0" prefHeight="94.0" prefWidth="754.0" text="Admin Dashboard" textAlignment="CENTER" textFill="#57a0d2">
+      <font>
+         <Font name="Century Gothic Bold" size="72.0" />
+      </font>
+   </Label>
+   <Label fx:id="label11132" layoutX="85.0" layoutY="326.0" prefHeight="59.0" prefWidth="96.0" text="Hebergement" textAlignment="CENTER" textFill="#403060">
+      <font>
+         <Font name="Century Gothic Bold" size="14.0" />
+      </font>
+   </Label>
+   <ImageView fitHeight="52.0" fitWidth="57.0" layoutX="21.0" layoutY="178.0">
+      <image>
+         <Image url="@images/PROFIL.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="59.0" fitWidth="64.0" layoutX="18.0" layoutY="253.0">
+      <image>
+         <Image url="@images/UNIVERSITY.jpg" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="52.0" fitWidth="57.0" layoutX="21.0" layoutY="399.0">
+      <image>
+         <Image url="@images/VOL.jpg" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="59.0" fitWidth="64.0" layoutX="18.0" layoutY="543.0">
+      <image>
+         <Image url="@images/AGENCE.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="59.0" fitWidth="64.0" layoutX="18.0" layoutY="326.0">
+      <image>
+         <Image url="@images/HEBERGEMENT.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="122.0" fitWidth="130.0" layoutX="7.0" layoutY="18.0">
+      <image>
+         <Image url="@images/LOGO.jpg" />
+      </image>
+   </ImageView>
+   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="504.0" layoutX="240.0" layoutY="162.0" stroke="TRANSPARENT" strokeType="INSIDE" width="724.0" />
+   <ImageView fitHeight="59.0" fitWidth="64.0" layoutX="21.0" layoutY="466.0">
+      <image>
+         <Image url="@images/POST.png" />
+      </image>
+   </ImageView>
+   <Label layoutX="339.0" layoutY="222.0" text="User List" />
+   <ListView fx:id="userListView" layoutX="339.0" layoutY="242.0" prefHeight="150" prefWidth="500" />
+   <Label layoutX="339.0" layoutY="402.0" text="User Reviews" />
+   <ListView fx:id="reviewListView" layoutX="339.0" layoutY="422.0" prefHeight="100" prefWidth="500" />
+   <Button fx:id="deleteUserButton" layoutX="339.0" layoutY="522.0" prefWidth="120" text="Delete User" />
+   <Button fx:id="settingsButton" layoutX="739.0" layoutY="522.0" prefWidth="100" text="Settings" />
+   <MFXButton fx:id="Editer1" layoutX="825.0" layoutY="67.0" onAction="#logout" prefHeight="40.0" prefWidth="143.0" rippleColor="#403060" style="-fx-background-color: #403060; -fx-text-fill: #ffffff;" text="Déconnecter">
+      <font>
+         <Font name="Century Gothic Bold" size="18.0" />
+      </font>
+   </MFXButton>
+
+</AnchorPane>
