@@ -1,7 +1,6 @@
 package tn.edutrip.services;
 
 import tn.edutrip.entities.Agence;
-import tn.edutrip.entities.Pack_agence;
 import tn.edutrip.utils.MyDatabase;
 
 import java.sql.*;
@@ -9,19 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceAgence implements Iservice<Agence> {
-    private Connection connection;
+    private final Connection connection;
 
 
     public ServiceAgence() {
         connection = MyDatabase.getInstance().getConnection();
     }
 
-
     @Override
     public void add(Agence agence) {
         String req = "INSERT INTO agence (nomAg, adresseAg, telephoneAg, emailAg, descriptionAg, date_creation) VALUES (?, ?, ?, ?, ?, ?)";
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(req);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(req)) {
             preparedStatement.setString(1, agence.getNomAg());
             preparedStatement.setString(2, agence.getAdresseAg());
             preparedStatement.setInt(3, agence.getTelephoneAg());
@@ -36,54 +33,49 @@ public class ServiceAgence implements Iservice<Agence> {
         }
     }
 
-    public void update(Agence agence) {
+    @Override
+    public boolean update(Agence agence) {
+        // Mise à jour de l'agence en utilisant l'ID
         String query = "UPDATE agence SET nomAg = ?, adresseAg = ?, telephoneAg = ?, emailAg = ?, descriptionAg = ?, date_creation = ? WHERE id_agence = ?";
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, agence.getNomAg());
             preparedStatement.setString(2, agence.getAdresseAg());
             preparedStatement.setInt(3, agence.getTelephoneAg());
             preparedStatement.setString(4, agence.getEmailAg());
             preparedStatement.setString(5, agence.getDescriptionAg());
             preparedStatement.setDate(6, new java.sql.Date(agence.getDateCreation().getTime()));
-            preparedStatement.setInt(7, agence.getIdAgence());
+            preparedStatement.setInt(7, agence.getIdAgence());  // Utilisation de l'ID pour la mise à jour
 
             int rowsUpdated = preparedStatement.executeUpdate();
-            if (rowsUpdated > 0) {
-                System.out.println("L'agence a été mise à jour avec succès.");
-            } else {
-                System.out.println("Aucune agence trouvée avec l'ID spécifié.");
-            }
+            return rowsUpdated > 0; // Retourne true si l'agence a été mise à jour
         } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Erreur lors de la mise à jour : " + e.getMessage());
+            System.out.println("Erreur lors de la mise à jour de l'agence : " + e.getMessage());
+            return false;
         }
     }
-
 
     @Override
     public void remove(int id_agence) {
-
         try {
-
+            // Suppression des packs associés à l'agence
             String queryPack = "DELETE FROM pack_agence WHERE id_agence = ?";
-            PreparedStatement psPack = connection.prepareStatement(queryPack);
-            psPack.setInt(1, id_agence);
-            psPack.executeUpdate();
-            System.out.println("Packs associés à l'agence supprimés avec succès !");
+            try (PreparedStatement psPack = connection.prepareStatement(queryPack)) {
+                psPack.setInt(1, id_agence);
+                psPack.executeUpdate();
+            }
 
-
+            // Suppression de l'agence
             String queryAgence = "DELETE FROM agence WHERE id_agence = ?";
-            PreparedStatement psAgence = connection.prepareStatement(queryAgence);
-            psAgence.setInt(1, id_agence);
-            psAgence.executeUpdate();
+            try (PreparedStatement psAgence = connection.prepareStatement(queryAgence)) {
+                psAgence.setInt(1, id_agence);
+                psAgence.executeUpdate();
+            }
+
             System.out.println("Agence supprimée avec succès !");
         } catch (SQLException e) {
-            // Gérer toute exception SQL
             System.err.println("Erreur lors de la suppression de l'agence ou des packs : " + e.getMessage());
         }
     }
-
 
     @Override
     public List<Agence> afficher() {
@@ -93,31 +85,35 @@ public class ServiceAgence implements Iservice<Agence> {
         try (Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(req)) {
 
+            // Parcours des résultats et ajout dans la liste
             while (rs.next()) {
-                Agence agence = new Agence();
-                agence.setIdAgence(rs.getInt("id_agence"));
-                agence.setNomAg(rs.getString("nomAg"));
-                agence.setAdresseAg(rs.getString("adresseAg"));
-                agence.setTelephoneAg(rs.getInt("telephoneAg"));
-                agence.setEmailAg(rs.getString("emailAg"));
-                agence.setDescriptionAg(rs.getString("descriptionAg"));
-                agence.setDateCreation(rs.getDate("date_creation"));
+                Agence agence = new Agence(
+                        rs.getInt("id_agence"),
+                        rs.getString("nomAg"),
+                        rs.getString("adresseAg"),
+                        rs.getInt("telephoneAg"),
+                        rs.getString("emailAg"),
+                        rs.getString("descriptionAg"),
+                        rs.getDate("date_creation")
+                );
                 agences.add(agence);
-                agence.setPacks(ServicePack_agence.getPacksByAgence(agence.getIdAgence()));
             }
         } catch (SQLException e) {
             System.err.println("Erreur lors de la récupération des agences : " + e.getMessage());
         }
         return agences;
     }
-    public Agence getByName(String nomAg) {
-        Agence agence = null;
-        String req = "SELECT * FROM agence WHERE nomAg = ?";
 
-        try {
-            PreparedStatement ps = connection.prepareStatement(req);
-            ps.setString(1, nomAg);
+
+    public Agence getAgenceByNomEtAdresse(String nom, String adresse) {
+        Agence agence = null;
+        String query = "SELECT * FROM agence WHERE nomAg = ? AND adresseAg = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setString(1, nom);
+            ps.setString(2, adresse);
             ResultSet rs = ps.executeQuery();
+
 
             if (rs.next()) {
                 agence = new Agence(
@@ -131,10 +127,40 @@ public class ServiceAgence implements Iservice<Agence> {
                 );
             }
         } catch (SQLException e) {
-            System.out.println(" Erreur lors de la récupération de l'agence : " + e.getMessage());
+            System.out.println("Erreur lors de la récupération de l'agence : " + e.getMessage());
         }
 
         return agence;
     }
+
+
+    public Agence getByName(String nomAg) {
+        Agence agence = null;
+        String req = "SELECT * FROM agence WHERE nomAg = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(req)) {
+            ps.setString(1, nomAg);
+            ResultSet rs = ps.executeQuery();
+
+
+            if (rs.next()) {
+                agence = new Agence(
+                        rs.getInt("id_agence"),
+                        rs.getString("nomAg"),
+                        rs.getString("adresseAg"),
+                        rs.getInt("telephoneAg"),
+                        rs.getString("emailAg"),
+                        rs.getString("descriptionAg"),
+                        rs.getDate("date_creation")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération de l'agence : " + e.getMessage());
+        }
+
+        return agence;
+    }
+
+
 
 }

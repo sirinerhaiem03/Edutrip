@@ -14,13 +14,11 @@ public class Pack_agence {
     private Status status;
     private int id_agence;
 
-
     public enum Status {
         disponible, indisponible;
     }
 
     public Pack_agence() {}
-
 
     public Pack_agence(int id_pack, String nomPk, String descriptionPk, BigDecimal prix, int duree,
                        String services_inclus, Date date_ajout, Status status, int id_agence) {
@@ -34,7 +32,6 @@ public class Pack_agence {
         this.status = status;
         this.id_agence = id_agence;
     }
-
 
     public int getId_pack() {
         return id_pack;
@@ -107,7 +104,6 @@ public class Pack_agence {
     public void setId_agence(int id_agence) {
         this.id_agence = id_agence;
     }
-
 
     @Override
     public String toString() {

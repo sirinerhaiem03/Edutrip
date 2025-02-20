@@ -11,7 +11,7 @@ public class MyDatabase {
     private Connection con;
     static MyDatabase instance;
 
-    // Constructeur pour initialiser la connexion
+
     public MyDatabase() {
         try {
             con = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -21,7 +21,7 @@ public class MyDatabase {
         }
     }
 
-    // Méthode pour récupérer l'instance unique de la classe
+
     public static MyDatabase getInstance() {
         if (instance == null) {
             instance = new MyDatabase();
@@ -29,7 +29,7 @@ public class MyDatabase {
         return instance;
     }
 
-    // Méthode pour récupérer la connexion
+
     public Connection getConnection() {
         return con;
     }

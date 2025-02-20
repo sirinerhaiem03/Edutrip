@@ -16,11 +16,11 @@ public class MainFXML extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterPersonne.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterPacks.fxml"));
             Parent parent = loader.load();
             Scene scene = new Scene(parent);
             primaryStage.setScene(scene);
-            primaryStage.setTitle("Ajouter Agences");
+            primaryStage.setTitle("update Agences");
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();

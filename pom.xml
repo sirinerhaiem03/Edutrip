@@ -45,7 +45,7 @@
 
                 <configuration>
 
-                    <mainClass>tests.MainFXML</mainClass>
+                    <mainClass>tn.edutrip.tests.MainFXML</mainClass>
 
                 </configuration>
 
