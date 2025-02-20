@@ -49,11 +49,12 @@ public class AfficherHebergementEt {
                     imageView.setFitWidth(80);
                     imageView.setPreserveRatio(true);
 
-                    String imagePath = hebergement.getImageh();
-                    if (imagePath != null && !imagePath.isEmpty()) {
-                        imageView.setImage(new Image("file:" + imagePath));
-                    } else {
-                        imageView.setImage(new Image("file:src/images/default_hebergement.png"));
+                    // Adjust the image path correctly
+                    String imagePath = "file:/C:/Users/maram/IdeaProjects/EDUTRIP3/src/main/resources/images/" + hebergement.getImageh();
+                    try {
+                        imageView.setImage(new Image(imagePath));
+                    } catch (Exception e) {
+                        imageView.setImage(new Image("file:/C:/Users/maram/IdeaProjects/EDUTRIP3/src/main/resources/images/default_hebergement.png"));
                     }
 
                     Label nameLabel = new Label(hebergement.getNomh());
@@ -65,6 +66,10 @@ public class AfficherHebergementEt {
                     Label priceLabel = new Label("\uD83D\uDCB0 " + hebergement.getPrixh() + " TND");
                     priceLabel.setStyle("-fx-text-fill: #28a745; -fx-font-weight: bold;");
 
+                    Button detailsButton = new Button("Détails");
+                    detailsButton.setStyle("-fx-background-color: #007bff; -fx-text-fill: white;");
+                    detailsButton.setOnAction(event -> handleDetails(hebergement));
+
                     Button reserveButton = new Button("Réserver");
                     reserveButton.setStyle("-fx-background-color: #f0ad4e; -fx-text-fill: white;");
                     reserveButton.setOnAction(event -> handleReservation(hebergement));
@@ -72,7 +77,7 @@ public class AfficherHebergementEt {
                     VBox textLayout = new VBox(5, nameLabel, locationLabel, priceLabel);
                     textLayout.setMinWidth(200);
 
-                    HBox hBox = new HBox(15, imageView, textLayout, reserveButton);
+                    HBox hBox = new HBox(15, imageView, textLayout, detailsButton, reserveButton);
                     hBox.setStyle("-fx-padding: 10px; -fx-background-color: #f9f9f9; -fx-border-color: #ddd; -fx-border-radius: 5px;");
 
                     setGraphic(hBox);
@@ -81,12 +86,29 @@ public class AfficherHebergementEt {
         });
     }
 
-    private void handleReservation(Hebergement hebergement) {
+        private void handleDetails(Hebergement hebergement) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterReservation.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DetailsHebergement.fxml"));
             Parent root = loader.load();
 
-            AjouterReservationController controller = loader.getController();
+            DetailsHebergementController controller = loader.getController();
+            controller.setHebergement(hebergement);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Détails de l'Hébergement");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void handleReservation(Hebergement hebergement) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ReserveEt.fxml"));
+            Parent root = loader.load();
+
+            ReserveEt controller = loader.getController();
             controller.setHebergement(hebergement);
 
             Stage stage = new Stage();
@@ -98,3 +120,4 @@ public class AfficherHebergementEt {
         }
     }
 }
+

@@ -94,18 +94,22 @@ public class UpdateHebergementController {
             serviceHebergement.update(selectedHebergement);
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Hébergement mis à jour avec succès !");
 
-            // Close the update window
-            txtNom.getScene().getWindow().hide();
-
             // Refresh the main list via the parent controller
             if (parentController != null) {
+                System.out.println("Refreshing list...");
                 parentController.refreshHebergementList();
+            } else {
+                System.out.println("Parent controller is NULL!");
             }
+
+            // Close the update window
+            txtNom.getScene().getWindow().hide();
 
         } catch (NumberFormatException e) {
             showAlert(Alert.AlertType.ERROR, "Erreur de format", "Veuillez entrer des valeurs numériques valides pour la capacité et le prix !");
         }
     }
+
 
     // **Method to show alerts**
     private void showAlert(Alert.AlertType alertType, String title, String content) {

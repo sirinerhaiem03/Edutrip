@@ -50,11 +50,12 @@ public class AfficherHebergementController {
                     imageView.setFitWidth(80);
                     imageView.setPreserveRatio(true);
 
-                    String imagePath = hebergement.getImageh();
-                    if (imagePath != null && !imagePath.isEmpty()) {
-                        imageView.setImage(new Image("file:" + imagePath));
-                    } else {
-                        imageView.setImage(new Image("file:src/images/default_hebergement.png"));
+                    // Construct the full path for the image
+                    String imagePath = "file:/C:/Users/maram/IdeaProjects/EDUTRIP3/src/main/resources/images/" + hebergement.getImageh();
+                    try {
+                        imageView.setImage(new Image(imagePath));
+                    } catch (Exception e) {
+                        imageView.setImage(new Image("file:/C:/Users/maram/IdeaProjects/EDUTRIP3/src/main/resources/images/default_hebergement.png"));
                     }
 
                     Label nameLabel = new Label(hebergement.getNomh());
@@ -78,15 +79,20 @@ public class AfficherHebergementController {
                     reserveButton.setStyle("-fx-background-color: #f0ad4e; -fx-text-fill: white;");
                     reserveButton.setOnAction(event -> handleReservation(hebergement));
 
+                    Button detailsButton = new Button("Détails");
+                    detailsButton.setStyle("-fx-background-color: #007bff; -fx-text-fill: white;");
+                    detailsButton.setOnAction(event -> handleDetails(hebergement));
+
                     VBox textLayout = new VBox(5, nameLabel, locationLabel, priceLabel);
                     textLayout.setMinWidth(200);
 
-                    HBox hBox = new HBox(15, imageView, textLayout, updateButton, deleteButton, reserveButton);
+                    HBox hBox = new HBox(15, imageView, textLayout, updateButton, deleteButton, reserveButton, detailsButton);
                     hBox.setStyle("-fx-padding: 10px; -fx-background-color: #f9f9f9; -fx-border-color: #ddd; -fx-border-radius: 5px;");
 
                     setGraphic(hBox);
                 }
             }
+
         });
     }
 
@@ -103,9 +109,6 @@ public class AfficherHebergementController {
             listViewHebergement.refresh();
         }
     }
-    public void refreshHebergementList() {
-        loadData(); // Reloads the list of hebergements
-    }
 
     private void handleUpdate(Hebergement hebergement) {
         try {
@@ -114,25 +117,35 @@ public class AfficherHebergementController {
 
             UpdateHebergementController controller = loader.getController();
             controller.setHebergement(hebergement);
-            controller.setParentController(this); // Pass reference to parent controller
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Modifier Hébergement");
-
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    private void handleDetails(Hebergement hebergement) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DetailsHebergement.fxml"));
+            Parent root = loader.load();
 
-    private AfficherHebergementController parentController;
+            DetailsHebergementController controller = loader.getController();  // ERROR: Cannot resolve symbol
+            controller.setHebergement(hebergement);  // ERROR: Cannot resolve method
 
-    public void setParentController(AfficherHebergementController parentController) {
-        this.parentController = parentController;
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Détails de l'Hébergement");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-
+    public void refreshHebergementList() {
+        loadData();  // Reloads the list with updated data
+    }
 
 
     private void handleReservation(Hebergement hebergement) {
