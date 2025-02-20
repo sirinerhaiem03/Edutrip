@@ -3,46 +3,95 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="tn.edutrip.controller.UpdatePackController"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="547.0" prefWidth="721.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.edutrip.controller.UpdatePackController">
     <children>
-        <!-- Titre principal -->
-        <AnchorPane layoutY="2.0" prefHeight="100.0" prefWidth="600.0" style="-fx-background-color: #57A0D2;">
-            <children>
-                <Label layoutX="150.0" layoutY="30.0" prefHeight="35.0" prefWidth="300.0" text="Mettre à jour le pack"
-                       textAlignment="CENTER" textFill="#FFFFFF">
-                    <font>
-                        <Font name="Bell MT Bold" size="24.0" />
-                    </font>
-                </Label>
-            </children>
-        </AnchorPane>
 
         <!-- Champ Nom du Pack -->
-        <Label layoutX="50.0" layoutY="120.0" text="Nom du Pack" />
-        <TextField fx:id="nomPkField" layoutX="200.0" layoutY="120.0" prefHeight="30.0" prefWidth="300.0" />
+        <Label layoutX="228.0" layoutY="192.0" text="Nom du Pack" />
+        <TextField fx:id="nomPkField" layoutX="312.0" layoutY="186.0" prefHeight="30.0" prefWidth="213.0" />
 
         <!-- Champ Description du Pack -->
-        <Label layoutX="50.0" layoutY="160.0" text="Description" />
-        <TextField fx:id="descriptionPkField" layoutX="200.0" layoutY="160.0" prefHeight="30.0" prefWidth="300.0" />
+        <Label layoutX="233.0" layoutY="395.0" text="Description" />
+        <TextField fx:id="descriptionPkField" layoutX="311.0" layoutY="386.0" prefHeight="110.0" prefWidth="214.0" />
 
         <!-- Champ Prix du Pack -->
-        <Label layoutX="50.0" layoutY="200.0" text="Prix" />
-        <TextField fx:id="prixField" layoutX="200.0" layoutY="200.0" prefHeight="30.0" prefWidth="300.0" />
+        <Label layoutX="253.0" layoutY="287.0" text="Prix" />
+        <TextField fx:id="prixField" layoutX="311.0" layoutY="281.0" prefHeight="30.0" prefWidth="214.0" />
 
         <!-- Champ Durée du Pack -->
-        <Label layoutX="50.0" layoutY="240.0" text="Durée (jours)" />
-        <TextField fx:id="dureeField" layoutX="200.0" layoutY="240.0" prefHeight="30.0" prefWidth="300.0" />
+        <Label layoutX="229.0" layoutY="237.0" text="Durée (jours)" />
+        <TextField fx:id="dureeField" layoutX="311.0" layoutY="231.0" prefHeight="30.0" prefWidth="214.0" />
 
         <!-- Champ Services Inclus -->
-        <Label layoutX="50.0" layoutY="280.0" text="Services Inclus" />
-        <TextField fx:id="servicesInclusField" layoutX="200.0" layoutY="280.0" prefHeight="30.0" prefWidth="300.0" />
+        <Label layoutX="215.0" layoutY="338.0" text="Services Inclus" />
+        <TextField fx:id="servicesInclusField" layoutX="311.0" layoutY="332.0" prefHeight="30.0" prefWidth="214.0" />
 
         <!-- Bouton de mise à jour -->
-        <Button fx:id="updateButton" layoutX="200.0" layoutY="320.0" onAction="#updatePack" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #57A0D2;" text="Mettre à jour" />
+        <Button fx:id="updateButton" layoutX="641.0" layoutY="470.0" onAction="#updatePack" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #57A0D2;" text="Mettre à jour" />
+      <AnchorPane prefHeight="116.0" prefWidth="921.0" style="-fx-background-color: FFFFFF;">
+         <children>
+            <Label layoutX="304.0" layoutY="41.0" prefHeight="35.0" prefWidth="313.0" text="update Pack d'agence" textAlignment="CENTER" textFill="#57a0d2">
+               <font>
+                  <Font name="Bell MT Bold" size="29.0" />
+               </font>
+               <effect>
+                  <Bloom />
+               </effect>
+            </Label>
+            <ImageView fitHeight="110.0" fitWidth="115.0" layoutX="35.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/logo.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="-2.0" layoutY="116.0" prefHeight="18.0" prefWidth="922.0" style="-fx-background-color: #57A0D2;" />
+      <AnchorPane layoutY="124.0" prefHeight="523.0" prefWidth="182.0" style="-fx-background-color: #57A0D2;">
+         <children>
+            <Label layoutX="103.0" layoutY="143.0" text="Université" textAlignment="JUSTIFY" />
+            <Label layoutX="109.0" layoutY="197.0" text="Agence" textAlignment="JUSTIFY" />
+            <Label layoutX="117.0" layoutY="255.0" text="Vols" />
+            <Label layoutX="93.0" layoutY="309.0" text="Hybergement" />
+            <Label layoutX="106.0" layoutY="365.0" text="Post" />
+            <ImageView fitHeight="45.0" fitWidth="53.0" layoutX="37.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/université.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="45.0" fitWidth="53.0" layoutX="36.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/agence.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="45.0" fitWidth="53.0" layoutX="41.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/vol.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="45.0" fitWidth="53.0" layoutX="39.0" layoutY="295.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/hybergement.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="45.0" fitWidth="53.0" layoutX="39.0" layoutY="351.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/post.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="45.0" fitWidth="57.0" layoutX="41.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/compte.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="108.0" layoutY="81.0" text="Compte" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="902.0" layoutY="116.0" prefHeight="532.0" prefWidth="20.0" style="-fx-background-color: #57A0D2;" />
     </children>
 </AnchorPane>
-

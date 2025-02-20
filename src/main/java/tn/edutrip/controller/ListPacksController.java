@@ -48,8 +48,11 @@ public class ListPacksController {
                     VBox vboxInfo = new VBox(
                             new Label("Nom: " + pack.getNomPk()),
                             new Label("Description: " + pack.getDescriptionPk()),
-                            new Label("Prix: " + pack.getPrix() + " €"),
-                            new Label("Durée: " + pack.getDuree() + " jours")
+                            new Label("Prix: " + pack.getPrix() + "DT"),
+                            new Label("Durée: " + pack.getDuree() + " jours"),
+                            new Label("Service inclus: " + pack.getServices_inclus()),
+                            new Label("Date Dajout: " + pack.getDate_ajout()),
+                            new Label("Status: " + pack.getStatus())
                     );
 
                     Button updateButton = new Button("Mettre à jour");
@@ -81,21 +84,21 @@ public class ListPacksController {
     @FXML
     private void updateButton(ActionEvent event, Pack_agence pack) {
         try {
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/UpdatePack.fxml"));
             Parent root = loader.load();
-
 
             UpdatePackController updateController = loader.getController();
             updateController.loadPack(pack);
 
-
             Stage stage = new Stage();
             stage.setTitle("Mettre à jour le pack");
             stage.setScene(new Scene(root));
+
+            // Recharger la liste après la fermeture de la fenêtre
+            stage.setOnHidden(e -> loadData());
+
             stage.show();
         } catch (IOException e) {
-            // Afficher une alerte en cas d'erreur
             showAlert("Erreur", "Impossible d'ouvrir la fenêtre de mise à jour.", Alert.AlertType.ERROR);
             e.printStackTrace();
         }
