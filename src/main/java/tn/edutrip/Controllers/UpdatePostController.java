@@ -29,7 +29,7 @@ public class UpdatePostController {
 
     @FXML
     public void validerModification() {
-        System.out.println("✅ validerModification() appelée !");
+
         // Récupérer les données modifiées
         String updatedContenu = txtContenu.getText();
         String updatedCategorie = txtCategorie.getText();
@@ -39,10 +39,7 @@ public class UpdatePostController {
         currentPost.setCategorie(updatedCategorie);
         servicePost.update(currentPost);  // Mettre à jour dans la base de données
 
-        // Mettre à jour la ListView dans AffichagePostController
-        if (affichagePostController != null) {
-            affichagePostController.updatePostInList(currentPost);
-        }
+
 
         // Fermer la fenêtre de modification
         Stage stage = (Stage) txtContenu.getScene().getWindow();

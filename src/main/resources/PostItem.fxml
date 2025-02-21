@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox fx:id="postBox" spacing="10" style="-fx-padding: 10px; -fx-border-color: #57A0D2; -fx-border-width: 1px; -fx-background-color: #f9f9f9;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.edutrip.Controllers.PostItemController">
+<VBox fx:id="postBox" spacing="10" style="-fx-padding: 10px; -fx-border-color: #57A0D2; -fx-border-width: 1px; -fx-background-color: #f9f9f9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.edutrip.Controllers.PostItemController">
    <children>
       <!-- Section du post (auteur, date, contenu, etc.) -->
       <HBox spacing="10">
@@ -37,11 +37,13 @@
             <Insets />
          </VBox.margin>
       </Text>
-      <ImageView fx:id="IdPostImage" fitHeight="200.0" fitWidth="200.0" preserveRatio="true">
+      <ImageView fx:id="IdPostImage" fitHeight="203.0" fitWidth="293.0" preserveRatio="true">
          <VBox.margin>
             <Insets left="150.0" />
          </VBox.margin>
       </ImageView>
+      <!-- Conteneur pour les commentaires -->
+      <VBox fx:id="commentsContainer" spacing="10" />
       <!-- Section des actions (commentaires, modifier, supprimer) -->
       <HBox prefHeight="0.0" prefWidth="438.0">
          <children>
@@ -71,12 +73,10 @@
             </ImageView>
          </children>
       </HBox>
-      <!-- Conteneur pour les commentaires -->
-      <VBox fx:id="commentsContainer" spacing="10" />
       <!-- Champ de texte et bouton pour ajouter un commentaire -->
       <HBox spacing="10" style="-fx-padding: 10px;">
          <TextField fx:id="commentInput" promptText="Ajouter un commentaire..." style="-fx-background-color: #fff; -fx-border-color: #ddd; -fx-border-radius: 5px;" />
-         <Button fx:id="submitCommentButton" text="Commenter" style="-fx-background-color: #57A0D2; -fx-text-fill: white; -fx-border-radius: 5px;" />
+         <Button fx:id="submitCommentButton" style="-fx-background-color: #57A0D2; -fx-text-fill: white; -fx-border-radius: 5px;" text="Commenter" />
       </HBox>
    </children>
 </VBox>

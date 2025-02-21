@@ -168,7 +168,7 @@ public class PostItemController {
             stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Erreur lors du chargement de UpdatePost.fxml !");
+
         }
     }
 

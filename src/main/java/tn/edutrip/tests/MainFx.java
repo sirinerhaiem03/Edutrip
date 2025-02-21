@@ -21,7 +21,7 @@ public class MainFx extends Application {
             Scene scene =new Scene(parent);
             primaryStage.setScene(scene);
             primaryStage.show();
-            primaryStage.setTitle("Post Item");
+            primaryStage.setTitle("Post");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
