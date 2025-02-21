@@ -10,7 +10,7 @@ import tn.EduTrip.utils.MyDatabase;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.ParseException;
+
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -23,13 +23,14 @@ import java.util.List;
 
          ServiceReserVol serviceRes = new ServiceReserVol();
 
+
          try {
              // Parsing des dates
              Timestamp dateDepart = Timestamp.valueOf("2025-02-25 16:00:00");
              Timestamp dateArrivee = Timestamp.valueOf("2025-02-25 18:00:00");
 
-             Timestamp newDateDepart = Timestamp.valueOf("2025-12-30 10:00:00");
-             Timestamp newDateArrivee = Timestamp.valueOf("2026-01-05 15:30:00");
+             Timestamp newDateDepart = Timestamp.valueOf("2025-12-31 13:00:00");
+             Timestamp newDateArrivee = Timestamp.valueOf("2025-01-01 15:30:00");
 
              Timestamp newDateDepart1= Timestamp.valueOf("2025-03-03 5:00:00");
              Timestamp newDateArrivee1 = Timestamp.valueOf("2025-03-03 8:00:00");
@@ -43,16 +44,20 @@ import java.util.List;
                  //serviceVol.ajouter(vol1);
                  //serviceVol.ajouter(vol2);
                  //serviceVol.ajouter(vol3);
-                  // serviceVol.ajouter(vol4);
+                 //  serviceVol.ajouter(vol4);
 
 
              ReserVol reservation1 = new ReserVol(1, 1, 1, new java.util.Date(), "Confirmée", 1000, "Carte Bancaire");
              ReserVol reservation2 = new ReserVol(2, 2, 2, new java.util.Date(), "Confirmée", 1500, "Carte Bancaire");
+             ReserVol reservation3 = new ReserVol(3, 12, 7, new java.util.Date(), "Confirmée", 2200, "Espece");
+             ReserVol reservation4 = new ReserVol(4, 9, 4, new java.util.Date(), "Confirmée", 2500, "PayPal");
+             ReserVol reservation6 = new ReserVol(6, 11, 8, new java.util.Date(), "Confirmée", 2075, "Carte Bancaire");
 
              //serviceRes.ajouter(reservation2);
-
              //serviceRes.ajouter(reservation1);
-
+            // serviceRes.ajouter(reservation3);
+            // serviceRes.ajouter(reservation4);
+             serviceRes.ajouter(reservation6);
 
 
                  //Vol volModifie = new Vol(1, 10, "egl105", "Tunis", "Londres", newDateDepart, newDateArrivee, 1700);
@@ -62,9 +67,9 @@ import java.util.List;
              //ReserVol reservationModifiee = new ReserVol(2, 2, 2, new java.util.Date(), "Annulée", 0, "Aucun");
             // serviceRes.modifier(reservationModifiee);
 
-
              // serviceVol.supprimer(6);
-             serviceRes.supprimer(1);
+              //serviceVol.supprimer(7);
+            // serviceRes.supprimer(1);
 
              //serviceRes.supprimer(1);
 
@@ -81,6 +86,7 @@ import java.util.List;
              }
 
 
+             ServiceReserVol.getReservationsWithVols();
 
              } catch (SQLException e) {
                  System.err.println( e.getMessage());

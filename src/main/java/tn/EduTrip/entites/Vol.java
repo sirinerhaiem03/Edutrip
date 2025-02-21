@@ -1,78 +1,81 @@
 package tn.EduTrip.entites;
+
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class Vol {
-    private int id_Vol  ;
-    private int placesDispo;
-    private String numVol ,aeroportDepart , aeroportArrivee  ;
-
-    private Timestamp  dateDepart , dateArrivee ;
+    private int id;
+    private int places;
+    private String numVol;
+    private String depart;
+    private String arrivee;
+    private Timestamp dateDepart;
+    private Timestamp dateArrivee;
     private double prix;
 
-    public Vol(int id_Vol, int placesDispo, String numVol, String aeroportDepart, String aeroportArrivee,Timestamp dateDepart,Timestamp dateArrivee, double prix) {
-        this.id_Vol = id_Vol;
-
+    public Vol(int id, int places, String numVol, String depart, String arrivee, 
+              Timestamp dateDepart, Timestamp dateArrivee, double prix) {
+        this.id = id;
+        this.places = places;
         this.numVol = numVol;
-        this.aeroportDepart = aeroportDepart;
-        this.aeroportArrivee = aeroportArrivee;
+        this.depart = depart;
+        this.arrivee = arrivee;
         this.dateDepart = dateDepart;
         this.dateArrivee = dateArrivee;
-        this.placesDispo = placesDispo;
         this.prix = prix;
     }
 
-    public int getId_Vol() {
-        return id_Vol;
+    // Getters
+    public int getId() {
+        return id;
     }
 
-    public int getPlacesDispo() {
-        return placesDispo;
+    public int getPlaces() {
+        return places;
     }
 
     public String getNumVol() {
         return numVol;
     }
 
-    public String getAeroportDepart() {
-        return aeroportDepart;
+    public String getDepart() {
+        return depart;
     }
 
-    public String getAeroportArrivee() {
-        return aeroportArrivee;
-    }
-
-
-    public Timestamp getDateArrivee() {
-        return dateArrivee;
+    public String getArrivee() {
+        return arrivee;
     }
 
     public Timestamp getDateDepart() {
         return dateDepart;
     }
 
+    public Timestamp getDateArrivee() {
+        return dateArrivee;
+    }
+
     public double getPrix() {
         return prix;
     }
 
-    public void setId_Vol(int id_Vol) {
-        this.id_Vol = id_Vol;
+    // Setters
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setPlacesDispo(int placesDispo) {
-        this.placesDispo = placesDispo;
+    public void setPlaces(int places) {
+        this.places = places;
     }
 
     public void setNumVol(String numVol) {
         this.numVol = numVol;
     }
 
-    public void setAeroportDepart(String aeroportDepart) {
-        this.aeroportDepart = aeroportDepart;
+    public void setDepart(String depart) {
+        this.depart = depart;
     }
 
-    public void setAeroportArrivee(String aeroportArrivee) {
-        this.aeroportArrivee = aeroportArrivee;
+    public void setArrivee(String arrivee) {
+        this.arrivee = arrivee;
     }
 
     public void setDateDepart(Timestamp dateDepart) {
@@ -82,22 +85,22 @@ public class Vol {
     public void setDateArrivee(Timestamp dateArrivee) {
         this.dateArrivee = dateArrivee;
     }
+
     public void setPrix(double prix) {
         this.prix = prix;
     }
 
     @Override
     public String toString() {
-        return "vol{" +
-                "id_Vol=" + id_Vol +
-                ", placesDispo=" + placesDispo +
+        return "Vol{" +
+                "id=" + id +
+                ", places=" + places +
                 ", numVol='" + numVol + '\'' +
-                ", aeroportDepart='" + aeroportDepart + '\'' +
-                ", aeroportArrivee='" + aeroportArrivee + '\'' +
-                ", dateDepart='" + dateDepart + '\'' +
-                ", dateArrivee='" + dateArrivee + '\'' +
+                ", depart='" + depart + '\'' +
+                ", arrivee='" + arrivee + '\'' +
+                ", dateDepart=" + dateDepart +
+                ", dateArrivee=" + dateArrivee +
                 ", prix=" + prix +
                 '}';
     }
-
 }

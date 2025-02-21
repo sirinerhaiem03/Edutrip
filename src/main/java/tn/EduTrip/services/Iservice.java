@@ -11,6 +11,5 @@ public interface Iservice<T> {
     void supprimer(int id) throws SQLException;
 
     List<T> afficher() throws SQLException;
-}
 
-
+   }
