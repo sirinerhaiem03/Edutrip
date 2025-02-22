@@ -117,15 +117,15 @@ public class EtudiantVolsController implements Initializable {
         );
 
         Button reserverBtn = new Button("Réserver");
-        reserverBtn.setStyle("-fx-background-color: #1a237e; -fx-text-fill: white; " +
+        reserverBtn.setStyle("-fx-background-color: #2370c3; -fx-text-fill: white; " +
                 "-fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 5;");
 
         // Add hover effect
         reserverBtn.setOnMouseEntered(e ->
-                reserverBtn.setStyle("-fx-background-color: #283593; -fx-text-fill: white; " +
+                reserverBtn.setStyle("-fx-background-color: #2370c3; -fx-text-fill: white; " +
                         "-fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 5;"));
         reserverBtn.setOnMouseExited(e ->
-                reserverBtn.setStyle("-fx-background-color: #1a237e; -fx-text-fill: white; " +
+                reserverBtn.setStyle("-fx-background-color: #2370c3; -fx-text-fill: white; " +
                         "-fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 5;"));
 
         // Disable button if no places available

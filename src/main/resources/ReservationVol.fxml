@@ -1,56 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox spacing="15" alignment="CENTER" style="-fx-padding: 20;" xmlns:fx="http://javafx.com/fxml/1"
-      xmlns="http://javafx.com/javafx/21" fx:controller="tn.EduTrip.controllers.ReserverVolsController">
-
-    <Label text="Réserver un Vol" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+<VBox alignment="CENTER" prefHeight="490.0" prefWidth="627.0" spacing="15" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.EduTrip.controllers.ReserverVolsController">
+   <Label style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #57a0d2; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);" text="Réserver un Vol" />
 
     <!-- Flight Details -->
-    <GridPane hgap="10" vgap="10" style="-fx-padding: 10; -fx-background-color: #f5f5f5; -fx-background-radius: 5;">
-        <Label text="Numéro de Vol:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-        <Label fx:id="numVolLabel" style="-fx-font-weight: bold;" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+    <GridPane hgap="10" style="-fx-padding: 10; -fx-background-color: #f5f5f5; -fx-background-radius: 5;" vgap="10">
+        <Label text="Numéro de Vol:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <Label fx:id="numVolLabel" style="-fx-font-weight: bold;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-        <Label text="Départ:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-        <Label fx:id="departLabel" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Label text="Départ:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Label fx:id="departLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-        <Label text="Arrivée:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-        <Label fx:id="arriveeLabel" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <Label text="Arrivée:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Label fx:id="arriveeLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-        <Label text="Date de Départ:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-        <Label fx:id="dateLabel" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <Label text="Date de Départ:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <Label fx:id="dateLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-        <Label text="Prix:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-        <Label fx:id="prixLabel" style="-fx-text-fill: #2e7d32;" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+        <Label text="Prix:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <Label fx:id="prixLabel" style="-fx-text-fill: #2e7d32;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-        <Label text="Places Disponibles:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
-        <Label fx:id="placesLabel" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+        <Label text="Places Disponibles:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+        <Label fx:id="placesLabel" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <columnConstraints>
+         <ColumnConstraints />
+         <ColumnConstraints />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
     </GridPane>
 
     <!-- Passenger Information -->
     <GridPane hgap="10" vgap="10">
-        <Label text="Nom:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-        <TextField fx:id="nomField" promptText="Entrez votre nom" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <Label text="Nom:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="nomField" promptText="Entrez votre nom" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-        <Label text="Prénom:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-        <TextField fx:id="prenomField" promptText="Entrez votre prénom" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Label text="Prénom:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="prenomField" promptText="Entrez votre prénom" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-        <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-        <TextField fx:id="emailField" promptText="Entrez votre email" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField fx:id="emailField" promptText="Entrez votre email" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-        <Label text="Nombre de Places:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-        <Spinner fx:id="nombrePlacesSpinner" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <Label text="Nombre de Places:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <Spinner fx:id="nombrePlacesSpinner" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <columnConstraints>
+         <ColumnConstraints />
+         <ColumnConstraints />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
     </GridPane>
 
     <!-- Buttons -->
-    <HBox spacing="10" alignment="CENTER">
-        <Button text="Confirmer" onAction="#confirmerReservation"
-                style="-fx-background-color: #1a237e; -fx-text-fill: white; -fx-font-size: 14; -fx-padding: 8 15;"/>
-        <Button text="Annuler" onAction="#annuler"
-                style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-size: 14; -fx-padding: 8 15;"/>
+    <HBox alignment="CENTER" spacing="10">
+        <Button onAction="#confirmerReservation" style="-fx-background-color: #2370c3; -fx-text-fill: white; -fx-font-size: 14; -fx-padding: 8 15;" text="Confirmer" />
+        <Button onAction="#annuler" style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-size: 14; -fx-padding: 8 15;" text="Annuler" textFill="#a8a8a81a" />
     </HBox>
 
 </VBox>

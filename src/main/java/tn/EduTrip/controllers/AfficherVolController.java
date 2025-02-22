@@ -69,7 +69,7 @@ public class AfficherVolController implements Initializable {
                 placesLabel.setStyle("-fx-font-size: 12; -fx-text-fill: #4CAF50;");
 
                 // Buttons styling
-                modifierBtn.setStyle("-fx-background-color: #1a237e; -fx-text-fill: white; " +
+                modifierBtn.setStyle("-fx-background-color: #2370c3; -fx-text-fill: white; " +
                                    "-fx-font-size: 14; -fx-padding: 8 15; -fx-background-radius: 5;");
                 supprimerBtn.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; " +
                                     "-fx-font-size: 14; -fx-padding: 8 15; -fx-background-radius: 5;");
@@ -83,9 +83,9 @@ public class AfficherVolController implements Initializable {
                 cellBox.getChildren().addAll(infoBox, actionsBox);
 
                 // Hover effects
-                modifierBtn.setOnMouseEntered(e -> modifierBtn.setStyle("-fx-background-color: #283593; -fx-text-fill: white; " +
+                modifierBtn.setOnMouseEntered(e -> modifierBtn.setStyle("-fx-background-color: #2370c3; -fx-text-fill: white; " +
                                                                        "-fx-font-size: 14; -fx-padding: 8 15; -fx-background-radius: 5;"));
-                modifierBtn.setOnMouseExited(e -> modifierBtn.setStyle("-fx-background-color: #1a237e; -fx-text-fill: white; " +
+                modifierBtn.setOnMouseExited(e -> modifierBtn.setStyle("-fx-background-color: #2370c3; -fx-text-fill: white; " +
                                                                       "-fx-font-size: 14; -fx-padding: 8 15; -fx-background-radius: 5;"));
                 
                 supprimerBtn.setOnMouseEntered(e -> supprimerBtn.setStyle("-fx-background-color: #d32f2f; -fx-text-fill: white; " +

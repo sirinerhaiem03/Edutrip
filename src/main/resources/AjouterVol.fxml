@@ -125,7 +125,7 @@
                     <Label layoutX="139.0" layoutY="264.0" text="Prix (TND)" textFill="#57a0d2" />
                     <TextField fx:id="placesField" layoutX="391.0" layoutY="50.0" />
                     <Label layoutX="286.0" layoutY="54.0" text="Places disponibles" textFill="#57a0d2" />
-                    <Button layoutX="395.0" layoutY="340.0" mnemonicParsing="false" onAction="#ajouterVol" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 5;" text="Enregistrer Vol">
+                    <Button layoutX="395.0" layoutY="340.0" mnemonicParsing="false" onAction="#ajouterVol" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: #2370c3; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 5;" text="Enregistrer Vol" textFill="#2370c3">
                         <font>
                             <Font name="Arial Black" size="12.0" />
                         </font>

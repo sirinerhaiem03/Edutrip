@@ -12,7 +12,7 @@ public class MyDatabase {
     Connection con ;
     static MyDatabase instance;
 
-    public MyDatabase(){
+    private MyDatabase(){
         try {
             con = DriverManager.getConnection(URL,USER,PASSWORD);
             System.out.println("connected to database");
