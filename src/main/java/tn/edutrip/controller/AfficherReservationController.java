@@ -22,7 +22,7 @@ public class AfficherReservationController {
     @FXML
     private ListView<Reservation_hebergement> listViewReservation;
 
-    private ServiceReservationHebergement serviceReservation = new ServiceReservationHebergement();
+    private final ServiceReservationHebergement serviceReservation = new ServiceReservationHebergement();
     private ObservableList<Reservation_hebergement> reservationList;
 
     @FXML
@@ -35,51 +35,61 @@ public class AfficherReservationController {
         reservationList = FXCollections.observableArrayList(reservations);
         listViewReservation.setItems(reservationList);
 
+        listViewReservation.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(Reservation_hebergement reservation, boolean empty) {
+                super.updateItem(reservation, empty);
 
-           listViewReservation.setCellFactory(param -> new ListCell<>() {
-                @Override
-                protected void updateItem(Reservation_hebergement reservation, boolean empty) {
-                    super.updateItem(reservation, empty);
+                if (empty || reservation == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    // Labels for reservation details
+                    Label dateLabel = new Label("\uD83D\uDCC5 Du " + reservation.getDate_d() + " au " + reservation.getDate_f());
+                    dateLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: black;");
 
-                    if (empty || reservation == null) {
-                        setText(null);
-                        setGraphic(null);
-                    } else {
-                        // Labels for reservation details
-                        Label dateLabel = new Label("\uD83D\uDCC5 Du " + reservation.getDate_d() + " au " + reservation.getDate_f());
-                        Label statusLabel = new Label("\uD83D\uDD12 Commentaire: " + reservation.getStatus());
+                    Label statusLabel = new Label("\uD83D\uDD12 Commentaire: " + reservation.getStatus());
+                    statusLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: black;");
 
-                        // Set a fixed width for the VBox containing text
-                        VBox textLayout = new VBox(5, dateLabel, statusLabel);
-                        textLayout.setMinWidth(250); // Adjust width as needed
-                        textLayout.setMaxWidth(250);
+                    // Set a fixed width for the VBox containing text
+                    VBox textLayout = new VBox(5, dateLabel, statusLabel);
+                    textLayout.setMinWidth(250); // Adjust width as needed
+                    textLayout.setMaxWidth(250);
 
-                        // Buttons for modifying and deleting
-                        Button updateButton = new Button("Modifier");
-                        updateButton.setStyle("-fx-background-color: #5bc0de; -fx-text-fill: white;");
-                        updateButton.setOnAction(event -> handleUpdate(reservation));
+                    // Buttons for modifying and deleting
+                    Button updateButton = new Button("Modifier");
+                    updateButton.setStyle("-fx-background-color: #5bc0de; -fx-text-fill: white;");
+                    updateButton.setOnAction(event -> handleUpdate(reservation));
 
-                        Button deleteButton = new Button("Supprimer");
-                        deleteButton.setStyle("-fx-background-color: #d9534f; -fx-text-fill: white;");
-                        deleteButton.setOnAction(event -> handleDelete(reservation));
+                    Button deleteButton = new Button("Supprimer");
+                    deleteButton.setStyle("-fx-background-color: #d9534f; -fx-text-fill: white;");
+                    deleteButton.setOnAction(event -> handleDelete(reservation));
 
-                        // Spacer to push buttons to the right
-                        Region spacer = new Region();
-                        HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
+                    // Spacer to push buttons to the right
+                    Region spacer = new Region();
+                    HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
 
-                        // HBox with spacing and styling
-                        HBox hBox = new HBox(10, textLayout, spacer, updateButton, deleteButton);
-                        hBox.setStyle("-fx-padding: 10px; -fx-background-color: #f9f9f9; -fx-border-color: #ddd; -fx-border-radius: 5px;");
-                        hBox.setMinWidth(500);  // Ensure uniform width for all cells
-                        hBox.setMaxWidth(500);
+                    // HBox with spacing and styling
+                    HBox hBox = new HBox(10, textLayout, spacer, updateButton, deleteButton);
+                    hBox.setStyle("-fx-padding: 10px; -fx-background-color: #f9f9f9; -fx-border-color: #ddd; -fx-border-radius: 5px;");
+                    hBox.setMinWidth(500);  // Ensure uniform width for all cells
+                    hBox.setMaxWidth(500);
 
-                        setGraphic(hBox);
-                    }
+                    setGraphic(hBox);
+
+                    // Ensure text color remains black even when selected
+                    selectedProperty().addListener((obs, wasSelected, isSelected) -> {
+                        if (isSelected) {
+                            dateLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: black;");
+                            statusLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: black;");
+                        }
+                    });
                 }
-            });}
+            }
+        });
+    }
 
-
-            private void handleDelete(Reservation_hebergement reservation) {
+    private void handleDelete(Reservation_hebergement reservation) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation de suppression");
         alert.setHeaderText("Supprimer Réservation");
