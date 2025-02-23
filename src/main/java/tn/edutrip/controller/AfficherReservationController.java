@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tn.edutrip.entities.Reservation_hebergement;
@@ -34,39 +35,51 @@ public class AfficherReservationController {
         reservationList = FXCollections.observableArrayList(reservations);
         listViewReservation.setItems(reservationList);
 
-        listViewReservation.setCellFactory(param -> new ListCell<>() {
-            @Override
-            protected void updateItem(Reservation_hebergement reservation, boolean empty) {
-                super.updateItem(reservation, empty);
 
-                if (empty || reservation == null) {
-                    setText(null);
-                    setGraphic(null);
-                } else {
-                    Label dateLabel = new Label("\uD83D\uDCC5 Du " + reservation.getDate_d() + " au " + reservation.getDate_f());
-                    Label statusLabel = new Label("\uD83D\uDD12 Commentaire: " + reservation.getStatus());
+           listViewReservation.setCellFactory(param -> new ListCell<>() {
+                @Override
+                protected void updateItem(Reservation_hebergement reservation, boolean empty) {
+                    super.updateItem(reservation, empty);
 
-                    Button updateButton = new Button("Modifier");
-                    updateButton.setStyle("-fx-background-color: #5bc0de; -fx-text-fill: white;");
-                    updateButton.setOnAction(event -> handleUpdate(reservation));
+                    if (empty || reservation == null) {
+                        setText(null);
+                        setGraphic(null);
+                    } else {
+                        // Labels for reservation details
+                        Label dateLabel = new Label("\uD83D\uDCC5 Du " + reservation.getDate_d() + " au " + reservation.getDate_f());
+                        Label statusLabel = new Label("\uD83D\uDD12 Commentaire: " + reservation.getStatus());
 
-                    Button deleteButton = new Button("Supprimer");
-                    deleteButton.setStyle("-fx-background-color: #d9534f; -fx-text-fill: white;");
-                    deleteButton.setOnAction(event -> handleDelete(reservation));
+                        // Set a fixed width for the VBox containing text
+                        VBox textLayout = new VBox(5, dateLabel, statusLabel);
+                        textLayout.setMinWidth(250); // Adjust width as needed
+                        textLayout.setMaxWidth(250);
 
-                    VBox textLayout = new VBox(5, dateLabel, statusLabel);
-                    textLayout.setMinWidth(200);
+                        // Buttons for modifying and deleting
+                        Button updateButton = new Button("Modifier");
+                        updateButton.setStyle("-fx-background-color: #5bc0de; -fx-text-fill: white;");
+                        updateButton.setOnAction(event -> handleUpdate(reservation));
 
-                    HBox hBox = new HBox(15, textLayout, updateButton, deleteButton);
-                    hBox.setStyle("-fx-padding: 10px; -fx-background-color: #f9f9f9; -fx-border-color: #ddd; -fx-border-radius: 5px;");
+                        Button deleteButton = new Button("Supprimer");
+                        deleteButton.setStyle("-fx-background-color: #d9534f; -fx-text-fill: white;");
+                        deleteButton.setOnAction(event -> handleDelete(reservation));
 
-                    setGraphic(hBox);
+                        // Spacer to push buttons to the right
+                        Region spacer = new Region();
+                        HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
+
+                        // HBox with spacing and styling
+                        HBox hBox = new HBox(10, textLayout, spacer, updateButton, deleteButton);
+                        hBox.setStyle("-fx-padding: 10px; -fx-background-color: #f9f9f9; -fx-border-color: #ddd; -fx-border-radius: 5px;");
+                        hBox.setMinWidth(500);  // Ensure uniform width for all cells
+                        hBox.setMaxWidth(500);
+
+                        setGraphic(hBox);
+                    }
                 }
-            }
-        });
-    }
+            });}
 
-    private void handleDelete(Reservation_hebergement reservation) {
+
+            private void handleDelete(Reservation_hebergement reservation) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation de suppression");
         alert.setHeaderText("Supprimer Réservation");
