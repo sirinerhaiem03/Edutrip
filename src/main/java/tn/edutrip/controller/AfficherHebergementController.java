@@ -38,7 +38,7 @@ public class AfficherHebergementController {
 
         listViewHebergement.setCellFactory(param -> new ListCell<>() {
             @Override
-            protected void updateItem(Hebergement hebergement, boolean empty) {//LAYOUT DYNAMICALY CHANGE THE DATA
+            protected void updateItem(Hebergement hebergement, boolean empty) {
                 super.updateItem(hebergement, empty);
 
                 if (empty || hebergement == null) {
@@ -50,7 +50,6 @@ public class AfficherHebergementController {
                     imageView.setFitWidth(80);
                     imageView.setPreserveRatio(true);
 
-                    // Construct the full path for the image
                     String imagePath = "file:/C:/Users/maram/IdeaProjects/EDUTRIP3/src/main/resources/images/" + hebergement.getImageh();
                     try {
                         imageView.setImage(new Image(imagePath));
@@ -59,7 +58,7 @@ public class AfficherHebergementController {
                     }
 
                     Label nameLabel = new Label(hebergement.getNomh());
-                    nameLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+                    nameLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: black;");
 
                     Label locationLabel = new Label("\uD83D\uDCCD " + hebergement.getAdressh());
                     locationLabel.setStyle("-fx-text-fill: #555;");
@@ -90,13 +89,19 @@ public class AfficherHebergementController {
                     hBox.setStyle("-fx-padding: 10px; -fx-background-color: #f9f9f9; -fx-border-color: #ddd; -fx-border-radius: 5px;");
 
                     setGraphic(hBox);
+
+                    // Empêcher le changement de couleur du texte lorsqu'un élément est sélectionné
+                    selectedProperty().addListener((obs, wasSelected, isSelected) -> {
+                        if (isSelected) {
+                            nameLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: black;");
+                        }
+                    });
                 }
             }
-
         });
     }
 
-    private void handleDelete(Hebergement hebergement) {
+        private void handleDelete(Hebergement hebergement) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation de suppression");
         alert.setHeaderText("Supprimer Hébergement");

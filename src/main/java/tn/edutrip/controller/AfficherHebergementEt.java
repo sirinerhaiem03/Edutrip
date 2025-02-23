@@ -58,7 +58,7 @@ public class AfficherHebergementEt {
                     }
 
                     Label nameLabel = new Label(hebergement.getNomh());
-                    nameLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+                    nameLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: black;");
 
                     Label locationLabel = new Label("\uD83D\uDCCD " + hebergement.getAdressh());
                     locationLabel.setStyle("-fx-text-fill: #555;");
@@ -81,12 +81,19 @@ public class AfficherHebergementEt {
                     hBox.setStyle("-fx-padding: 10px; -fx-background-color: #f9f9f9; -fx-border-color: #ddd; -fx-border-radius: 5px;");
 
                     setGraphic(hBox);
+
+                    // Ensure the text color remains black even when the item is selected
+                    selectedProperty().addListener((obs, wasSelected, isSelected) -> {
+                        if (isSelected) {
+                            nameLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: black;");
+                        }
+                    });
                 }
             }
         });
     }
 
-        private void handleDetails(Hebergement hebergement) {
+    private void handleDetails(Hebergement hebergement) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/DetailsHebergement.fxml"));
             Parent root = loader.load();
@@ -120,4 +127,3 @@ public class AfficherHebergementEt {
         }
     }
 }
-
