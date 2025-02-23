@@ -44,7 +44,7 @@ public class AfficherReservationController {
                     setGraphic(null);
                 } else {
                     Label dateLabel = new Label("\uD83D\uDCC5 Du " + reservation.getDate_d() + " au " + reservation.getDate_f());
-                    Label statusLabel = new Label("\uD83D\uDD12 Statut: " + reservation.getStatus());
+                    Label statusLabel = new Label("\uD83D\uDD12 Commentaire: " + reservation.getStatus());
 
                     Button updateButton = new Button("Modifier");
                     updateButton.setStyle("-fx-background-color: #5bc0de; -fx-text-fill: white;");

@@ -9,6 +9,7 @@ import tn.edutrip.entities.Reservation_hebergement;
 import tn.edutrip.services.ServiceReservationHebergement;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class UpdateReservationController {
 
@@ -46,15 +47,25 @@ public class UpdateReservationController {
             return;
         }
 
-        // Convert LocalDate to SQL Date
-        Date startDate = Date.valueOf(dateD.getValue());
-        Date endDate = Date.valueOf(dateF.getValue());
+        LocalDate today = LocalDate.now();
+        LocalDate startDateLocal = dateD.getValue();
+        LocalDate endDateLocal = dateF.getValue();
+
+        // Ensure start date is today or later
+        if (startDateLocal.isBefore(today)) {
+            showAlert(Alert.AlertType.ERROR, "Date invalide", "La date de début ne peut pas être avant aujourd'hui !");
+            return;
+        }
 
         // Validate that endDate is after startDate
-        if (!endDate.after(startDate)) {
+        if (endDateLocal.isBefore(startDateLocal)) {
             showAlert(Alert.AlertType.ERROR, "Date invalide", "La date de fin doit être après la date de début !");
             return;
         }
+
+        // Convert LocalDate to SQL Date
+        Date startDate = Date.valueOf(startDateLocal);
+        Date endDate = Date.valueOf(endDateLocal);
 
         // Ensure status is not empty
         String status = txtStatus.getText().trim();
@@ -83,5 +94,4 @@ public class UpdateReservationController {
         alert.setContentText(content);
         alert.show();
     }
-
 }

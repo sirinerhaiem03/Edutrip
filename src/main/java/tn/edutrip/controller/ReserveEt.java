@@ -17,6 +17,7 @@ import tn.edutrip.services.ServiceReservationHebergement;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class ReserveEt implements Initializable {
@@ -61,15 +62,21 @@ public class ReserveEt implements Initializable {
                 return;
             }
 
-            Date startDate = Date.valueOf(dateStart.getValue());
-            Date endDate = Date.valueOf(dateEnd.getValue());
-            String status = statusField.getText().trim();
+            LocalDate today = LocalDate.now();
+            LocalDate startLocalDate = dateStart.getValue();
+            LocalDate endLocalDate = dateEnd.getValue();
 
-            if (!endDate.after(startDate)) {
+            if (startLocalDate.isBefore(today)) {
+                showAlert(Alert.AlertType.ERROR, "Date invalide", "La date de début ne peut pas être avant la date actuelle !");
+                return;
+            }
+
+            if (!endLocalDate.isAfter(startLocalDate)) {
                 showAlert(Alert.AlertType.ERROR, "Date invalide", "La date de fin doit être après la date de début !");
                 return;
             }
 
+            String status = statusField.getText().trim();
             if (status.isEmpty()) {
                 showAlert(Alert.AlertType.WARNING, "Champs manquants", "Veuillez remplir tous les champs !");
                 return;
@@ -79,8 +86,8 @@ public class ReserveEt implements Initializable {
             Reservation_hebergement reservation = new Reservation_hebergement(
                     0,
                     selectedHebergement.getId_hebergement(),
-                    startDate,
-                    endDate,
+                    Date.valueOf(startLocalDate),
+                    Date.valueOf(endLocalDate),
                     status
             );
 
@@ -116,7 +123,6 @@ public class ReserveEt implements Initializable {
             e.printStackTrace();
         }
     }
-
 
     private void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);

@@ -17,6 +17,7 @@ import tn.edutrip.services.ServiceReservationHebergement;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class AjouterReservationController implements Initializable {
@@ -66,15 +67,25 @@ public class AjouterReservationController implements Initializable {
                 return;
             }
 
-            Date startDate = Date.valueOf(dateStart.getValue());
-            Date endDate = Date.valueOf(dateEnd.getValue());
-            String status = statusField.getText().trim();
+            LocalDate today = LocalDate.now();
+            LocalDate startDateLocal = dateStart.getValue();
+            LocalDate endDateLocal = dateEnd.getValue();
+
+            // **Ensure start date is today or later**
+            if (startDateLocal.isBefore(today)) {
+                showAlert(Alert.AlertType.ERROR, "Date invalide", "La date de début ne peut pas être avant aujourd'hui !");
+                return;
+            }
 
             // **Ensure endDate is after startDate**
-            if (!endDate.after(startDate)) {
+            if (endDateLocal.isBefore(startDateLocal)) {
                 showAlert(Alert.AlertType.ERROR, "Date invalide", "La date de fin doit être après la date de début !");
                 return;
             }
+
+            Date startDate = Date.valueOf(startDateLocal);
+            Date endDate = Date.valueOf(endDateLocal);
+            String status = statusField.getText().trim();
 
             // **Ensure status is not empty**
             if (status.isEmpty()) {
@@ -97,7 +108,6 @@ public class AjouterReservationController implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez entrer des valeurs valides !");
         }
     }
-
 
     private void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);

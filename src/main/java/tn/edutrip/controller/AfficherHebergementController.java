@@ -24,7 +24,7 @@ public class AfficherHebergementController {
     private ListView<Hebergement> listViewHebergement;
 
     private ServiceHebergement serviceHebergement = new ServiceHebergement();
-    private ObservableList<Hebergement> hebergementList;
+    private ObservableList<Hebergement> hebergementList;//JavaFX that automatically updates the UI when the data changes.
 
     @FXML
     public void initialize() {
@@ -38,7 +38,7 @@ public class AfficherHebergementController {
 
         listViewHebergement.setCellFactory(param -> new ListCell<>() {
             @Override
-            protected void updateItem(Hebergement hebergement, boolean empty) {
+            protected void updateItem(Hebergement hebergement, boolean empty) {//LAYOUT DYNAMICALY CHANGE THE DATA
                 super.updateItem(hebergement, empty);
 
                 if (empty || hebergement == null) {
@@ -115,6 +115,7 @@ public class AfficherHebergementController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/UpdateHebergement.fxml"));
             Parent root = loader.load();
 
+            //Récupère le contrôleur (Controller) lié au fichier UpdateHebergement.fxml
             UpdateHebergementController controller = loader.getController();
             controller.setHebergement(hebergement);
 
@@ -132,8 +133,8 @@ public class AfficherHebergementController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/DetailsHebergement.fxml"));
             Parent root = loader.load();
 
-            DetailsHebergementController controller = loader.getController();  // ERROR: Cannot resolve symbol
-            controller.setHebergement(hebergement);  // ERROR: Cannot resolve method
+            DetailsHebergementController controller = loader.getController();
+            controller.setHebergement(hebergement);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -144,7 +145,7 @@ public class AfficherHebergementController {
         }
     }
     public void refreshHebergementList() {
-        loadData();  // Reloads the list with updated data
+        loadData();
     }
 
 

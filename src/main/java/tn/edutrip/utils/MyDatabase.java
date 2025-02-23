@@ -6,7 +6,7 @@ public class MyDatabase {private static final String URL = "jdbc:mysql://localho
     private static final String USER = "root";
     private static final String PASSWORD = "";
 
-    private static MyDatabase instance; // ACCEDEE SANS CREE UNE AUTRE INSTANCE
+    private static MyDatabase instance;
     private Connection con;
 
     private MyDatabase() {
@@ -18,9 +18,8 @@ public class MyDatabase {private static final String URL = "jdbc:mysql://localho
         }
     }
 
-//crée une seule instance de MyDatabase et la conserve.
     public static MyDatabase getInstance() {
-        if (instance == null) {//masaretch creation lel cnx
+        if (instance == null) {
             instance = new MyDatabase();
         }
         return instance;

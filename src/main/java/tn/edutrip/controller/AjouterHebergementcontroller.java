@@ -44,19 +44,18 @@ public class AjouterHebergementcontroller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Set available choices for the "disponibilité" ChoiceBox
         disponibleh.getItems().addAll("Disponible", "Non disponible", "Réservée");
-        disponibleh.setValue("Disponible"); // Set default value
+        disponibleh.setValue("Disponible");
 
-        // Set available choices for the "type" ChoiceBox
         typeh.getItems().addAll(
                 "Résidences universitaires publiques",
                 "Résidences étudiantes privées",
                 "Appartements",
                 "Foyers"
         );
-        typeh.setValue("Appartements"); // Set default value
+        typeh.setValue("Appartements");
     }
+
     @FXML
     void AjouterHebergement(ActionEvent event) {
         ServiceHebergement serviceHebergement = new ServiceHebergement();
@@ -64,14 +63,24 @@ public class AjouterHebergementcontroller implements Initializable {
         try {
             int capacite = Integer.parseInt(capaciteh.getText());
             float prix = Float.parseFloat(prixh.getText());
+
+            if (capacite > 1000) {
+                showAlert(Alert.AlertType.WARNING, "Capacité invalide", "La capacité ne doit pas dépasser 1000 !");
+                return;
+            }
+
+            if (prix > 9000) {
+                showAlert(Alert.AlertType.WARNING, "Prix invalide", "Le prix ne doit pas dépasser 9000 !");
+                return;
+            }
+
             String nom = nomh.getText().trim();
             String adresse = adressh.getText().trim();
             String disponibilite = disponibleh.getValue();
             String description = descriptionh.getText().trim();
             String type = typeh.getValue();
-            String image = imageh.getText().trim();  // Store only the filename
+            String image = imageh.getText().trim();
 
-            // Validate fields
             if (nom.isEmpty() || adresse.isEmpty() || description.isEmpty() || image.isEmpty()) {
                 showAlert(Alert.AlertType.WARNING, "Champs manquants", "Veuillez remplir tous les champs !");
                 return;
@@ -84,7 +93,6 @@ public class AjouterHebergementcontroller implements Initializable {
             serviceHebergement.add(hebergement);
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Hébergement ajouté avec succès !");
 
-            // Refresh ListView
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherHebergement.fxml"));
             Parent parent = loader.load();
             AfficherHebergementController controller = loader.getController();
@@ -97,7 +105,6 @@ public class AjouterHebergementcontroller implements Initializable {
             System.out.println("Erreur de chargement de l'interface: " + e.getMessage());
         }
     }
-
 
     @FXML
     public void AfficherHebergement(ActionEvent event) {

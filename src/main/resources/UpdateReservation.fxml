@@ -33,7 +33,7 @@
           </HBox>
       
           <HBox spacing="10">
-              <Label text="Statut:                     " />
+              <Label text="Commentaire:                     " />
               <TextField fx:id="txtStatus" prefHeight="25.0" prefWidth="169.0" />
           </HBox>
       

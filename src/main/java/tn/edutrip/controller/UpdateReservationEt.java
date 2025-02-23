@@ -35,6 +35,7 @@ public class UpdateReservationEt {
     @FXML
     void saveUpdate(ActionEvent event) {
         try {
+            LocalDate today = LocalDate.now();
             LocalDate startLocalDate = dateStartPicker.getValue();
             LocalDate endLocalDate = dateEndPicker.getValue();
 
@@ -43,7 +44,11 @@ public class UpdateReservationEt {
                 return;
             }
 
-            // ✅ Validation: End date must be after start date
+            if (startLocalDate.isBefore(today)) {
+                showAlert(Alert.AlertType.ERROR, "Date invalide", "La date de début ne peut pas être avant aujourd'hui !");
+                return;
+            }
+
             if (!endLocalDate.isAfter(startLocalDate)) {
                 showAlert(Alert.AlertType.ERROR, "Date invalide", "La date de fin doit être après la date de début !");
                 return;

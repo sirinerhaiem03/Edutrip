@@ -2,17 +2,80 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="350.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.edutrip.controller.DetailsReservationEt">
+<AnchorPane prefHeight="584.0" prefWidth="622.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.edutrip.controller.DetailsReservationEt">
     <children>
-        <Label layoutX="30.0" layoutY="30.0" text="Détails de la Réservation" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
-        <Label fx:id="dateStartLabel" layoutX="30.0" layoutY="130.0" />
-        <Label fx:id="dateEndLabel" layoutX="30.0" layoutY="160.0" />
-        <Label fx:id="statusLabel" layoutX="30.0" layoutY="190.0" />
+        <Label layoutX="286.0" layoutY="170.0" prefHeight="27.0" prefWidth="223.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+        <Label fx:id="dateStartLabel" layoutX="285.0" layoutY="231.0" prefHeight="27.0" prefWidth="209.0" />
+        <Label fx:id="dateEndLabel" layoutX="282.0" layoutY="269.0" prefHeight="27.0" prefWidth="231.0" />
+        <Label fx:id="statusLabel" layoutX="273.0" layoutY="336.0" prefHeight="101.0" prefWidth="307.0" />
 
         <!-- Update and Delete Buttons -->
-        <Button fx:id="updateButton" layoutX="50.0" layoutY="250.0" text="Modifier" onAction="#updateReservation" />
-        <Button fx:id="deleteButton" layoutX="200.0" layoutY="250.0" text="Supprimer" onAction="#deleteReservation" />
+        <Button fx:id="updateButton" layoutX="229.0" layoutY="462.0" onAction="#updateReservation" prefHeight="25.0" prefWidth="198.0" style="-fx-background-color: #57A0D2;" text="Modifier" />
+        <Button fx:id="deleteButton" layoutX="538.0" layoutY="462.0" onAction="#deleteReservation" prefHeight="25.0" prefWidth="198.0" style="-fx-background-color: #57A0D2;" text="Supprimer" />
+      <AnchorPane layoutY="123.0" prefHeight="501.0" prefWidth="159.0" style="-fx-background-color: #57A0D2;">
+         <children>
+            <Label layoutX="69.0" layoutY="130.0" text="universités" />
+            <Label layoutX="69.0" layoutY="296.0" text="posts" />
+            <Label layoutX="61.0" layoutY="253.0" text="hébergements" />
+            <Label layoutX="69.0" layoutY="211.0" text="vols" />
+            <Label layoutX="69.0" layoutY="172.0" text="agences" />
+            <ImageView fitHeight="27.0" fitWidth="41.0" layoutX="21.0" layoutY="125.0">
+               <image>
+                  <Image url="@images/UNIVERSITY.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="27.0" fitWidth="41.0" layoutX="20.0" layoutY="167.0">
+               <image>
+                  <Image url="@images/AGENCE.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="27.0" fitWidth="31.0" layoutX="22.0" layoutY="206.0">
+               <image>
+                  <Image url="@images/VOL.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="37.0" fitWidth="31.0" layoutX="17.0" layoutY="243.0">
+               <image>
+                  <Image url="@images/HEBERGEMENT.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="37.0" fitWidth="44.0" layoutX="14.0" layoutY="286.0">
+               <image>
+                  <Image url="@images/POST.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="65.0" layoutY="42.0" text="compte" />
+            <ImageView fitHeight="37.0" fitWidth="38.0" layoutX="12.0" layoutY="24.0">
+               <image>
+                  <Image url="@images/PROFIL.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="-5.0" layoutY="-4.0" prefHeight="127.0" prefWidth="785.0" style="-fx-background-color: FFFFFF;">
+         <children>
+            <Label layoutX="265.0" layoutY="42.0" text="Détails de la Réservation" textFill="#57a0d2">
+               <font>
+                  <Font name="Bell MT Bold" size="21.0" />
+               </font>
+               <effect>
+                  <Bloom />
+               </effect>
+            </Label>
+            <AnchorPane layoutX="-9.0" layoutY="110.0" prefHeight="17.0" prefWidth="799.0" style="-fx-background-color: #57A0D2;" />
+            <ImageView fitHeight="117.0" fitWidth="129.0" layoutY="-7.0">
+               <image>
+                  <Image url="@images/LOGO.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="776.0" layoutY="106.0" prefHeight="501.0" prefWidth="20.0" style="-fx-background-color: #57A0D2;" />
     </children>
 </AnchorPane>
