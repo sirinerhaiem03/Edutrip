@@ -30,6 +30,7 @@ public class AffichagePostController {
     private Pane ajoutPostPane;
 
     private String imagePath;
+
     @FXML
     private TextField IdCategorie;
 
@@ -66,6 +67,7 @@ public class AffichagePostController {
                         VBox vbox = loader.load();
                         PostItemController controller = loader.getController();
                         controller.setPostData(post, PostListView);
+                        controller.setAffichagePostController(AffichagePostController.this);
                         setGraphic(vbox);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -73,6 +75,25 @@ public class AffichagePostController {
                 }
             }
         });
+    }
+
+    public void updatePostInList(Post updatedPost) {
+        int index = -1;
+
+        // Trouver l'index du post mis à jour dans la liste
+        for (int i = 0; i < posts.size(); i++) {
+            if (posts.get(i).getId_post() == updatedPost.getId_post()) {
+                index = i;
+                break;
+            }
+        }
+
+        // Mettre à jour le post dans la liste
+        if (index != -1) {
+            posts.set(index, updatedPost);
+            PostListView.refresh(); // Rafraîchir la ListView
+            System.out.println("Post mis à jour dans la liste : " + updatedPost);
+        }
     }
 
     @FXML
@@ -93,6 +114,7 @@ public class AffichagePostController {
         post.setDate_creation(java.time.LocalDate.now().toString());
 
         servicePost.add(post);
+        posts.add(post); // Ajouter le nouveau post à la liste
         showAlert("Succès", "Le post a été ajouté avec succès !", Alert.AlertType.INFORMATION);
 
         IdCategorie.clear();

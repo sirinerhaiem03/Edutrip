@@ -9,7 +9,7 @@ public class MyDatabase {
     private static final String USER = "root";
     private static final String PASSWORD = "";
 
-    private static MyDatabase instance; // Déclaration correcte (ajout de "static")
+    private static MyDatabase instance;
     private Connection con;
 
     private MyDatabase() {
