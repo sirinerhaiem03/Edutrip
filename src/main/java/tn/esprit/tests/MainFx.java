@@ -14,7 +14,7 @@ public class MainFx extends Application {
         Parent root = loader.load();//store new in
 
         // Get the actual width and height from the FXML
-        double prefWidth = root.prefWidth(-1);
+        double prefWidth = root.prefWidth(-1);//preferred
         double prefHeight = root.prefHeight(-1);
 
 

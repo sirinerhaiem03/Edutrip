@@ -7,13 +7,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceUniversity {
+public class ServiceUniversity implements IService<University>{
 
     private Connection connection = MyDatabase.getInstance().getConnection();//MyDatabase singleton instance. all db use same conn
 
     public void ajouter(University university) throws SQLException {
         String query = "INSERT INTO university (nom, ville, email, description) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(query)) { //prevent sql injection
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, university.getNom());//Sets the values dynamically
             stmt.setString(2, university.getVille());
             stmt.setString(3, university.getEmail());
@@ -22,7 +22,7 @@ public class ServiceUniversity {
         }
     }
 
-    public void update(University university) throws SQLException {
+    public void modifier(University university) throws SQLException {
         String query = "UPDATE university SET nom = ?, ville = ?, email = ?, description = ? WHERE idUniversity = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, university.getNom());

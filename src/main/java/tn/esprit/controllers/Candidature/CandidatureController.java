@@ -40,12 +40,12 @@ public class CandidatureController {
     @FXML
     private Button btnClose;
 
-    private final ServiceCandidature serviceCandidature = new ServiceCandidature();
+    private final ServiceCandidature serviceCandidature = new ServiceCandidature();//interact with service
 
     @FXML
     public void initialize() {
         try {
-            afficherCandidatures();
+            afficherCandidatures();//call
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -69,7 +69,7 @@ public class CandidatureController {
 
         // Afficher uniquement le nom du fichier pour CV, Lettre et Diplôme
         colCv.setCellValueFactory(cellData ->
-                new javafx.beans.property.SimpleStringProperty(getFileName(cellData.getValue().getCv())));//creates a property that JavaFX can observe and update automatically
+                new javafx.beans.property.SimpleStringProperty(getFileName(cellData.getValue().getCv())));//xtracting the file name from a file path
         colLettre.setCellValueFactory(cellData ->
                 new javafx.beans.property.SimpleStringProperty(getFileName(cellData.getValue().getLettre_motivation())));
         colDiplome.setCellValueFactory(cellData ->
@@ -81,7 +81,7 @@ public class CandidatureController {
         candidatureTable.setItems(candidatureObservableList);
     }
 
-    // Récupérer uniquement le nom du fichier depuis un chemin
+    // le nom du fichier depuis un chemin
     private String getFileName(String filePath) {
         if (filePath == null || filePath.isEmpty()) return "";
         return new File(filePath).getName();

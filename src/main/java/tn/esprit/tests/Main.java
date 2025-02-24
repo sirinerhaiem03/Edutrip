@@ -23,10 +23,10 @@ public class Main {
 
 
         // Create instances of University and Candidature
-        University university1 = new University("Université de Tunis", "Tunis", "contact@utunis.tn", "Université publique d'enseignement supérieur.");
-        University university2 = new University("Université de Monastir", "Monastir", "contact@umonastir.tn", "Université en sciences et technologies.");
-        University nouvelleUniversite = new University("Université de Sfax", "Sfax", "contact@usfax.tn", "Université spécialisée en ingénierie.");
-        University newUniversity = new University("Université Centrale", "Tunis", "contact@ucentrale.tn", "Université privée spécialisée en gestion et ingénierie.");
+        University university1 = new University("Université de Miami", "Miami", "contact@utunis.tn", "Université publique d'enseignement supérieur.");
+        University university2 = new University("Université de california", "california", "contact@umonastir.tn", "Université en sciences et technologies.");
+        University nouvelleUniversite = new University("Université de paris", "paris", "contact@usfax.tn", "Université spécialisée en ingénierie.");
+        University newUniversity = new University("Université berlin", "berlin", "contact@ucentrale.tn", "Université privée spécialisée en gestion et ingénierie.");
 
         int universityId = universities.get(0).getIdUniversity();
         //Candidature candidature1 = new Candidature("cv1.pdf", "Motivation 1", "Bac", EtatCandidature.EN_ATTENTE, universityId);

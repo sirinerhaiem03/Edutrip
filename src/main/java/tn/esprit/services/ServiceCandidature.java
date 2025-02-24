@@ -10,9 +10,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceCandidature {
+public class ServiceCandidature implements IService<Candidature>{
 
-    private Connection connection = MyDatabase.getInstance().getConnection();
+    private Connection connection = MyDatabase.getInstance().getConnection();// get the singleton instance of the MyDatabase class
 
     public void ajouter(Candidature candidature) throws SQLException {
         String query = "INSERT INTO candidature (cv, lettre_motivation, diplome, etat, idUser, idUniversity) VALUES (?, ?, ?, ?, ?, ?)";

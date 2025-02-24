@@ -52,13 +52,12 @@ public class AjouterUniversityController {
         );
         nomComboBox.setItems(FXCollections.observableArrayList(universities));
     }
-//2 cases if selected university = uni so we update it other =wise we add a new
 
-    public void setUniversityToEdit(University university) {
+    public void setUniversityToEdit(University university) {//Pre-fills the form when editing an existing university.
         this.selectedUniversity = university;
 
         if (university != null) {
-            nomComboBox.setValue(university.getNom());//remplit les champs avec ses données.
+            nomComboBox.setValue(university.getNom());//filled  already les champs avec ses données.
             villeComboBox.setValue(university.getVille());
             emailField.setText(university.getEmail());
             descriptionField.setText(university.getDescription());
@@ -68,8 +67,8 @@ public class AjouterUniversityController {
     }
 
     @FXML
-    private void handleSave() {
-        String nom = nomComboBox.getValue();
+    private void handleSave() {//2 cases
+        String nom = nomComboBox.getValue();//input data
         String ville = villeComboBox.getValue();
         String email = emailField.getText();
         String description = descriptionField.getText();
@@ -85,7 +84,7 @@ public class AjouterUniversityController {
         }
 
         if (selectedUniversity == null) {
-            // Adding new university
+            //no selection in adding
             University university = new University(nom, ville, email, description);
             try {
                 serviceUniversity.ajouter(university);
@@ -102,7 +101,7 @@ public class AjouterUniversityController {
             selectedUniversity.setDescription(description);
 
             try {
-                serviceUniversity.update(selectedUniversity);
+                serviceUniversity.modifier(selectedUniversity);
                 showAlert("Success", "University updated successfully.");
             } catch (Exception e) {
                 showAlert("Error", "Failed to update university.");
@@ -133,7 +132,7 @@ public class AjouterUniversityController {
 
     private void navigateToList() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/University/university.fxml"));//This line loads the new UI from the Candidature.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/University/university.fxml"));//This line loads the new UI from the Cuniversity.fxml file
             Stage stage = (Stage) btnSave.getScene().getWindow();//gets the scene associated with the button.
             stage.setScene(new Scene(loader.load()));//Wraps it inside new Scene
         } catch (IOException e) {

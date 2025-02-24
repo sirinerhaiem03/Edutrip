@@ -44,9 +44,9 @@ public class UniversityController {
 
     private ServiceUniversity serviceUniversity = new ServiceUniversity();
     @FXML
-    public void initialize() {
+    public void initialize() {//Sets up the table columns, loads university data
         // Map columns to object properties
-        colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));//nom-> colNom
         colVille.setCellValueFactory(new PropertyValueFactory<>("ville"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -55,12 +55,12 @@ public class UniversityController {
         loadUniversityData();
 
         // Set up button actions
-        btnAjouter.setOnAction(event -> navigateToAjouterForm());
+        btnAjouter.setOnAction(event -> navigateToAjouterForm());//fnctions ajou supp
         btnSupprimer.setOnAction(event -> supprimerUniversity());
     }
 
 
-    private void loadUniversityData() {//Afficher list after ajout delete update ..
+    private void loadUniversityData() {//Afficher
         try {
             // Load universities from database and populate TableView
             List<University> universities = serviceUniversity.afficher();
@@ -77,8 +77,8 @@ public class UniversityController {
     private void navigateToAjouterForm() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/University/ajouter.fxml"));
-            AnchorPane ajouterForm = loader.load();//load the new fxml in ajouterform of type anchorpane
-            universityTable.getScene().setRoot(ajouterForm);
+            AnchorPane ajouterForm = loader.load();//load the new fxml in ajouter form of type anchorpane
+            universityTable.getScene().setRoot(ajouterForm);//replace root with
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -93,7 +93,7 @@ public class UniversityController {
                 Stage stage = (Stage) universityTable.getScene().getWindow();
                 Scene scene = new Scene(loader.load());
 
-                AjouterUniversityController controller = loader.getController();
+                AjouterUniversityController controller = loader.getController();//manage ed and aj form
                 controller.setUniversityToEdit(selectedUniversity); // Pass the university for editing
 
                 stage.setScene(scene);

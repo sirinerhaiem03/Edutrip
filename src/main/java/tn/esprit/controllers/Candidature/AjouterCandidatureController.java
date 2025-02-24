@@ -14,7 +14,7 @@ import tn.esprit.entities.University;
 import tn.esprit.entities.User;
 import tn.esprit.services.ServiceCandidature;
 import tn.esprit.services.UserService;
-//import tn.esprit.utils.SessionManager;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -32,7 +32,7 @@ public class AjouterCandidatureController {
     private UserService us = new UserService();
     private final ServiceCandidature serviceCandidature = new ServiceCandidature();
 
-    public void setUniversity(University university) {//It updates the txtUniversity field
+    public void setUniversity(University university) {// txtUniversity field filled
         this.selectedUniversity = university;
         txtUniversity.setText(university.getNom());
     }
@@ -75,7 +75,7 @@ public class AjouterCandidatureController {
             return;
         }
 
-        User currentUser = us.getUserById(1);
+        User currentUser = us.getUserById(1);//store
         if (currentUser == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Vous devez être connecté.", ButtonType.OK);
             alert.show();
@@ -85,12 +85,13 @@ public class AjouterCandidatureController {
         try {
             Candidature candidature = new Candidature( fileCV.getAbsolutePath(), fileLettre.getAbsolutePath(),
                     fileDiplome.getAbsolutePath(), EtatCandidature.EN_ATTENTE, currentUser, selectedUniversity);
+
             serviceCandidature.ajouter(candidature);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Candidature ajoutée avec succès!", ButtonType.OK);
             alert.showAndWait();
 
-            // Naviguer vers la vue des candidatures après l'ajout
+            // Naviguer vers la vue des candidatures
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Candidature/Candidature.fxml"));
             Parent root = loader.load();//This line loads the new UI from the Candidature.fxml file and stores it in root car on ajoute une personne donc il va se changer le file fxml
             Stage stage = (Stage) txtUniversity.getScene().getWindow();//Retrieves the current window
