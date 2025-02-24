@@ -2,11 +2,14 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
@@ -16,7 +19,24 @@
          <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <children>
             
-                <ListView fx:id="listViewReservation" layoutX="7.0" layoutY="39.0" prefHeight="361.0" prefWidth="505.0" />
+                <ListView fx:id="listViewReservation" layoutX="5.0" layoutY="89.0" prefHeight="369.0" prefWidth="509.0" />
+               <TextField fx:id="nomidh" layoutX="75.0" layoutY="36.0" prefHeight="27.0" prefWidth="276.0" promptText="enterer le nom" style="-fx-background-color: #57A0D2;">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+                  <effect>
+                     <DropShadow>
+                        <color>
+                           <Color red="0.859649121761322" green="0.8198505640029907" blue="0.8198505640029907" />
+                        </color>
+                     </DropShadow>
+                  </effect>
+               </TextField>
+               <ImageView fitHeight="26.0" fitWidth="38.0" layoutX="304.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@images/loop.png" />
+                  </image>
+               </ImageView>
             </children>
          </AnchorPane>
       

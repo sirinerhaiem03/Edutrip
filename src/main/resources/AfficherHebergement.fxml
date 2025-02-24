@@ -2,10 +2,13 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
@@ -28,7 +31,7 @@
       <AnchorPane layoutX="771.0" layoutY="117.0" prefHeight="475.0" prefWidth="20.0" style="-fx-background-color: #57A0D2;" />
 
       <!-- ListView for Hébergements -->
-      <ListView fx:id="listViewHebergement" layoutX="180.0" layoutY="140.0" prefHeight="430.0" prefWidth="570.0" />
+      <ListView fx:id="listViewHebergement" layoutX="167.0" layoutY="171.0" prefHeight="399.0" prefWidth="583.0" />
       <AnchorPane layoutY="127.0" prefHeight="475.0" prefWidth="159.0" style="-fx-background-color: #57A0D2;">
          <children>
             <Label layoutX="51.0" layoutY="229.0" prefHeight="17.0" prefWidth="75.0" text="Universitès" />
@@ -98,6 +101,23 @@
             </ImageView>
          </children>
       </AnchorPane>
+      <TextField fx:id="nomidh" layoutX="235.0" layoutY="135.0" prefHeight="27.0" prefWidth="276.0" promptText="enterer le nom" style="-fx-background-color: #57A0D2;">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color red="0.859649121761322" green="0.8198505640029907" blue="0.8198505640029907" />
+               </color>
+            </DropShadow>
+         </effect>
+      </TextField>
+      <ImageView fitHeight="27.0" fitWidth="31.0" layoutX="474.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/loop.png" />
+         </image>
+      </ImageView>
 
    </children>
 </AnchorPane>

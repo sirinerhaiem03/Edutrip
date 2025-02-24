@@ -2,10 +2,13 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
@@ -14,7 +17,7 @@
         <Label layoutX="196.0" layoutY="25.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
 
         <!-- ListView to display offers -->
-        <ListView fx:id="listViewHebergement" layoutX="170.0" layoutY="146.0" prefHeight="417.0" prefWidth="576.0" />
+        <ListView fx:id="listViewHebergement" layoutX="174.0" layoutY="170.0" prefHeight="393.0" prefWidth="572.0" />
         <AnchorPane prefHeight="127.0" prefWidth="785.0" style="-fx-background-color: FFFFFF;">
             <children>
                 <Label layoutX="265.0" layoutY="42.0" text="Liste des Hebergements" textFill="#57a0d2">
@@ -103,5 +106,22 @@
             </ImageView>
          </children>
       </AnchorPane>
+      <TextField fx:id="nomidh" layoutX="229.0" layoutY="134.0" prefHeight="27.0" prefWidth="276.0" promptText="enterer le nom" style="-fx-background-color: #57A0D2;">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color red="0.859649121761322" green="0.8198505640029907" blue="0.8198505640029907" />
+               </color>
+            </DropShadow>
+         </effect>
+      </TextField>
+      <ImageView fitHeight="29.0" fitWidth="38.0" layoutX="460.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/loop.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>
