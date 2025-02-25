@@ -109,16 +109,19 @@ public class AfficherHebergementController {
     }
 
     private void filterHebergementList(String searchText) {
-        // Filter the list based on the search text
-        filteredHebergementList.setPredicate(hebergement -> {
-            if (searchText == null || searchText.isEmpty()) {
-                return true; // Show all items if the search text is empty
-            }
-
-            // Compare the hebergement name with the search text (case-insensitive)
+        if (searchText == null || searchText.isEmpty()) {
+            filteredHebergementList.setPredicate(hebergement -> true); // Show all items if search is empty
+        } else {
             String lowerCaseFilter = searchText.toLowerCase();
-            return hebergement.getNomh().toLowerCase().contains(lowerCaseFilter);
-        });
+
+            // Use Stream API to filter the list
+            List<Hebergement> filteredList = hebergementList.stream()
+                    .filter(hebergement -> hebergement.getNomh().toLowerCase().contains(lowerCaseFilter))
+                    .toList(); // Available in Java 16+, otherwise use .collect(Collectors.toList())
+
+            // Update the filtered list
+            filteredHebergementList.setPredicate(filteredList::contains);
+        }
     }
 
 

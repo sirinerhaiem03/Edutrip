@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
@@ -10,11 +11,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Line?>
-
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="587.0" prefWidth="771.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.edutrip.controller.AfficherHebergementController"
->
+<AnchorPane prefHeight="587.0" prefWidth="771.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.edutrip.controller.AfficherHebergementController">
    <children>
 
       <AnchorPane prefHeight="127.0" prefWidth="785.0" style="-fx-background-color: FFFFFF;">
@@ -102,7 +101,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <TextField fx:id="nomidh" layoutX="235.0" layoutY="135.0" prefHeight="27.0" prefWidth="276.0" promptText="enterer le nom" style="-fx-background-color: #57A0D2;">
+      <TextField fx:id="nomidh" layoutX="167.0" layoutY="135.0" prefHeight="29.0" prefWidth="251.0" promptText="enterer le nom" style="-fx-background-color: #57A0D2;">
          <font>
             <Font size="14.0" />
          </font>
@@ -114,11 +113,12 @@
             </DropShadow>
          </effect>
       </TextField>
-      <ImageView fitHeight="27.0" fitWidth="31.0" layoutX="474.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="27.0" fitWidth="31.0" layoutX="380.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/loop.png" />
          </image>
       </ImageView>
+      <ChoiceBox layoutX="587.0" layoutY="137.0" prefWidth="150.0" />
 
    </children>
 </AnchorPane>

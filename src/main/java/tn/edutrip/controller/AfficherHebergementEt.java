@@ -2,6 +2,7 @@ package tn.edutrip.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,21 +20,33 @@ import java.io.IOException;
 import java.util.List;
 
 public class AfficherHebergementEt {
+
     @FXML
     private ListView<Hebergement> listViewHebergement;
 
+    @FXML
+    private TextField nomidh; // Add this field for search
+
     private final ServiceHebergement serviceHebergement = new ServiceHebergement();
     private ObservableList<Hebergement> hebergementList;
+    private FilteredList<Hebergement> filteredHebergementList; // Add this field for filtering
 
     @FXML
     public void initialize() {
         loadData();
+
+        // Add a listener to the TextField for search functionality
+        nomidh.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterHebergementList(newValue);
+        });
     }
 
     private void loadData() {
         List<Hebergement> hebergements = serviceHebergement.getAll();
         hebergementList = FXCollections.observableArrayList(hebergements);
-        listViewHebergement.setItems(hebergementList);
+        filteredHebergementList = new FilteredList<>(hebergementList, p -> true); // Initialize filtered list
+
+        listViewHebergement.setItems(filteredHebergementList); // Set the filtered list to the ListView
 
         listViewHebergement.setCellFactory(param -> new ListCell<>() {
             @Override
@@ -92,6 +105,23 @@ public class AfficherHebergementEt {
             }
         });
     }
+
+    private void filterHebergementList(String searchText) {
+        if (searchText == null || searchText.isEmpty()) {
+            filteredHebergementList.setPredicate(hebergement -> true); // Show all items if search is empty
+        } else {
+            String lowerCaseFilter = searchText.toLowerCase();
+
+            // Use Stream API to filter the list
+            List<Hebergement> filteredList = hebergementList.stream()
+                    .filter(hebergement -> hebergement.getNomh().toLowerCase().contains(lowerCaseFilter))
+                    .toList(); // Available in Java 16+, otherwise use .collect(Collectors.toList())
+
+            // Update the filtered list
+            filteredHebergementList.setPredicate(filteredList::contains);
+        }
+    }
+
 
     private void handleDetails(Hebergement hebergement) {
         try {
