@@ -17,6 +17,7 @@ import tn.edutrip.entities.Hebergement;
 import tn.edutrip.services.ServiceHebergement;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,11 +27,14 @@ public class AfficherHebergementController {
     private ListView<Hebergement> listViewHebergement;
 
     @FXML
-    private TextField nomidh; // Add this field
+    private TextField nomidh; // For search functionality
+
+    @FXML
+    private ChoiceBox<String> choicebox; // For sorting functionality
 
     private ServiceHebergement serviceHebergement = new ServiceHebergement();
     private ObservableList<Hebergement> hebergementList;
-    private FilteredList<Hebergement> filteredHebergementList; // Add this field
+    private FilteredList<Hebergement> filteredHebergementList;
 
     @FXML
     public void initialize() {
@@ -40,12 +44,25 @@ public class AfficherHebergementController {
         nomidh.textProperty().addListener((observable, oldValue, newValue) -> {
             filterHebergementList(newValue);
         });
+
+        // Add a listener to the ChoiceBox for sorting functionality
+        choicebox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            sortHebergementList(newValue);
+        });
+
+        // Initialize the ChoiceBox with sorting options
+        choicebox.setItems(FXCollections.observableArrayList(
+                "Trier par nom",
+                "Trier par prix",
+                "Trier par capacité"
+        ));
+        choicebox.setValue("Trier par nom"); // Default sorting option
     }
 
     private void loadData() {
         List<Hebergement> hebergements = serviceHebergement.getAll();
         hebergementList = FXCollections.observableArrayList(hebergements);
-        filteredHebergementList = new FilteredList<>(hebergementList, p -> true); // Initialize filtered list
+        filteredHebergementList = new FilteredList<>(hebergementList, p -> true);
 
         listViewHebergement.setItems(filteredHebergementList); // Set the filtered list to the ListView
 
@@ -124,6 +141,26 @@ public class AfficherHebergementController {
         }
     }
 
+    private void sortHebergementList(String sortOption) {
+        Comparator<Hebergement> comparator = null;
+
+        switch (sortOption) {
+            case "Trier par nom":
+                comparator = Comparator.comparing(Hebergement::getNomh);
+                break;
+            case "Trier par prix":
+                comparator = Comparator.comparingDouble(Hebergement::getPrixh);
+                break;
+            case "Trier par capacité":
+                comparator = Comparator.comparingInt(Hebergement::getCapaciteh);
+                break;
+            default:
+                comparator = Comparator.comparing(Hebergement::getNomh); // Default sorting
+        }
+
+        // Sort the list using the comparator
+        hebergementList.sort(comparator);
+    }
 
     private void handleDelete(Hebergement hebergement) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -144,7 +181,6 @@ public class AfficherHebergementController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/UpdateHebergement.fxml"));
             Parent root = loader.load();
 
-            //Récupère le contrôleur (Controller) lié au fichier UpdateHebergement.fxml
             UpdateHebergementController controller = loader.getController();
             controller.setHebergement(hebergement);
 
@@ -173,10 +209,10 @@ public class AfficherHebergementController {
             e.printStackTrace();
         }
     }
+
     public void refreshHebergementList() {
         loadData();
     }
-
 
     private void handleReservation(Hebergement hebergement) {
         try {

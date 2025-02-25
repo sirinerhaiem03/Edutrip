@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
@@ -106,7 +107,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <TextField fx:id="nomidh" layoutX="229.0" layoutY="134.0" prefHeight="27.0" prefWidth="276.0" promptText="enterer le nom" style="-fx-background-color: #57A0D2;">
+      <TextField fx:id="nomidh" layoutX="174.0" layoutY="134.0" prefHeight="29.0" prefWidth="254.0" promptText="enterer le nom" style="-fx-background-color: #57A0D2;">
          <font>
             <Font size="14.0" />
          </font>
@@ -118,10 +119,11 @@
             </DropShadow>
          </effect>
       </TextField>
-      <ImageView fitHeight="29.0" fitWidth="38.0" layoutX="460.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="29.0" fitWidth="38.0" layoutX="387.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/loop.png" />
          </image>
       </ImageView>
+      <ComboBox fx:id="choicebox" layoutX="509.0" layoutY="136.0" prefHeight="25.0" prefWidth="182.0" style="-fx-background-color: #57A0D2;" />
     </children>
 </AnchorPane>
