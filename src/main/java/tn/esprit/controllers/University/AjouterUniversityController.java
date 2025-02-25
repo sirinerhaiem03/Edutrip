@@ -74,12 +74,12 @@ public class AjouterUniversityController {
         String description = descriptionField.getText();
 
         if (nom == null || ville == null || email.isEmpty() || description.isEmpty()) {
-            showAlert("Validation Error", "All fields must be filled.");
+            showAlert("Validation Error", "Il faut remplir tous les champs.");
             return;
         }
 
         if (!isValidEmail(email)) {
-            showAlert("Validation Error", "Invalid email format. Email must contain '@' and end with '.tn'.");
+            showAlert("Validation Error", "Format invalide. Email doit contenir '@' et se termine par '.tn'.");
             return;
         }
 
@@ -88,9 +88,9 @@ public class AjouterUniversityController {
             University university = new University(nom, ville, email, description);
             try {
                 serviceUniversity.ajouter(university);
-                showAlert("Success", "University added successfully.");
+                showAlert("Success", "University bien ajoutée.");
             } catch (Exception e) {
-                showAlert("Error", "Failed to add university.");
+                showAlert("Error", "University pas ajoutée.");
                 e.printStackTrace();
             }
         } else {
@@ -102,9 +102,9 @@ public class AjouterUniversityController {
 
             try {
                 serviceUniversity.modifier(selectedUniversity);
-                showAlert("Success", "University updated successfully.");
+                showAlert("Success", "University bien modifiée.");
             } catch (Exception e) {
-                showAlert("Error", "Failed to update university.");
+                showAlert("Error", "University pas modifée.");
                 e.printStackTrace();
             }
         }

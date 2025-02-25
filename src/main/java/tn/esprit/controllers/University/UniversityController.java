@@ -8,11 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -23,6 +19,7 @@ import tn.esprit.services.ServiceUniversity;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UniversityController {
 
@@ -36,53 +33,77 @@ public class UniversityController {
     private TableColumn<University, String> colEmail;
     @FXML
     private TableColumn<University, String> colDescription;
-
     @FXML
     private Button btnAjouter;
     @FXML
     private Button btnSupprimer;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private Button btnSort;
 
     private ServiceUniversity serviceUniversity = new ServiceUniversity();
+    private ObservableList<University> allUniversities;
+
     @FXML
-    public void initialize() {//Sets up the table columns, loads university data
-        // Map columns to object properties
-        colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));//nom-> colNom
+    public void initialize() {
+        colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         colVille.setCellValueFactory(new PropertyValueFactory<>("ville"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 
-        // Load data into the TableView
         loadUniversityData();
 
-        // Set up button actions
-        btnAjouter.setOnAction(event -> navigateToAjouterForm());//fnctions ajou supp
+        // Adding listener to automatically update the table when user types
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> handleSearch());
+
+        btnAjouter.setOnAction(event -> navigateToAjouterForm());
         btnSupprimer.setOnAction(event -> supprimerUniversity());
     }
 
-
-    private void loadUniversityData() {//Afficher
+    private void loadUniversityData() {
         try {
-            // Load universities from database and populate TableView
             List<University> universities = serviceUniversity.afficher();
-            if (universities.isEmpty()) {
-                System.out.println("No universities found.");
-            }
-            ObservableList<University> observableUniversities = FXCollections.observableArrayList(universities);
-            universityTable.setItems(observableUniversities); // Set the items to the TableView
+            allUniversities = FXCollections.observableArrayList(universities);
+            universityTable.setItems(allUniversities);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    @FXML
+    private void handleSearch() {
+        String searchText = searchField.getText().toLowerCase();
+        if (searchText.isEmpty()) {
+            universityTable.setItems(allUniversities);  // Reset to show all universities
+        } else {
+            List<University> filteredList = allUniversities.stream()
+                    .filter(u -> u.getNom().toLowerCase().contains(searchText) ||
+                            u.getVille().toLowerCase().contains(searchText) ||
+                            u.getEmail().toLowerCase().contains(searchText))
+                    .collect(Collectors.toList());
+            universityTable.setItems(FXCollections.observableArrayList(filteredList));  // Update the table
+        }
+    }
+
+    @FXML
+    private void handleSort() {
+        List<University> sortedList = allUniversities.stream()
+                .sorted((u1, u2) -> u1.getNom().compareToIgnoreCase(u2.getNom()))
+                .collect(Collectors.toList());
+        universityTable.setItems(FXCollections.observableArrayList(sortedList));
+    }
+
     private void navigateToAjouterForm() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/University/ajouter.fxml"));
-            AnchorPane ajouterForm = loader.load();//load the new fxml in ajouter form of type anchorpane
-            universityTable.getScene().setRoot(ajouterForm);//replace root with
+            AnchorPane ajouterForm = loader.load();
+            universityTable.getScene().setRoot(ajouterForm);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     @FXML
     private void handleEdit() {
         University selectedUniversity = universityTable.getSelectionModel().getSelectedItem();
@@ -93,15 +114,15 @@ public class UniversityController {
                 Stage stage = (Stage) universityTable.getScene().getWindow();
                 Scene scene = new Scene(loader.load());
 
-                AjouterUniversityController controller = loader.getController();//manage ed and aj form
-                controller.setUniversityToEdit(selectedUniversity); // Pass the university for editing
+                AjouterUniversityController controller = loader.getController();
+                controller.setUniversityToEdit(selectedUniversity);
 
                 stage.setScene(scene);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
-            showAlert("Selection Error", "Please select a university to edit.");
+            showAlert("Selection Error", "Il faut sélectionner une université à modifier.");
         }
     }
 
@@ -115,7 +136,7 @@ public class UniversityController {
                 Parent root = loader.load();
 
                 AjouterCandidatureController controller = loader.getController();
-                controller.setUniversity(selectedUniversity); // Pass university data
+                controller.setUniversity(selectedUniversity);
 
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(new Scene(root));
@@ -124,7 +145,7 @@ public class UniversityController {
                 e.printStackTrace();
             }
         } else {
-            showAlert("Selection Required", "Please select a university first.");
+            showAlert("Selection Required", "Il faut sélectionner une université.");
         }
     }
 
@@ -134,16 +155,15 @@ public class UniversityController {
     }
 
     private void supprimerUniversity() {
-        // Check if a university is selected
         University selectedUniversity = universityTable.getSelectionModel().getSelectedItem();
         if (selectedUniversity == null) {
-            showAlert("Selection Required", "Please select a university first.");
+            showAlert("Selection Required", "Il faut sélectionner une université.");
             return;
         }
 
         try {
             serviceUniversity.supprimer(selectedUniversity.getIdUniversity());
-            loadUniversityData(); // Refresh
+            loadUniversityData();  // Refresh data after deletion
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -160,7 +180,7 @@ public class UniversityController {
     }
 
     private void showAlert(String title, String content) {
-        Alert alert = new Alert(AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(content);
