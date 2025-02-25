@@ -155,7 +155,7 @@ public class ServicePack_agence {
     }
     public List<Agence> getAllAgences() {
         List<Agence> agences = new ArrayList<>();
-        String query = "SELECT * FROM agence";  // Assurez-vous que la table "agence" existe et est correctement définie
+        String query = "SELECT * FROM agence";
         try (PreparedStatement ps = connection.prepareStatement(query);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {

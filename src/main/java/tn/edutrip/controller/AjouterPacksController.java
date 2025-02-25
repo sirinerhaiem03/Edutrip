@@ -54,10 +54,8 @@ public class AjouterPacksController {
             statusField.getItems().addAll("disponible", "indisponible");
         }
 
-        // Charger les agences dans la ChoiceBox
         loadAgences();
 
-        // Gérer la sélection d'une agence
         agenceChoiceBox.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
             if (newValue != null) {
                 System.out.println("Sélectionné : " + newValue.getIdAgence() + " - " + newValue.getNomAg());
@@ -66,7 +64,7 @@ public class AjouterPacksController {
     }
 
     private void loadAgences() {
-        List<Agence> agences = servicePack_agence.getAllAgences(); // Assurez-vous que cette méthode fonctionne
+        List<Agence> agences = servicePack_agence.getAllAgences();
         if (agences != null && !agences.isEmpty()) {
             agenceChoiceBox.getItems().setAll(agences);
         } else {
@@ -76,6 +74,7 @@ public class AjouterPacksController {
 
     @FXML
     void ajouterPack(ActionEvent event) {
+        // Vérification des champs
         if (nomPkField.getText().isEmpty() || descriptionPkField.getText().isEmpty() || prixField.getText().isEmpty() ||
                 dureeField.getText().isEmpty() || serviceField.getText().isEmpty() || dateDajoutField.getText().isEmpty() ||
                 statusField.getValue() == null || agenceChoiceBox.getValue() == null) {
@@ -83,11 +82,29 @@ public class AjouterPacksController {
             return;
         }
 
+        // Vérification des valeurs dans nom, description et services
+        if (!validateInputs()) {
+            return;
+        }
+
         try {
             String nomPk = nomPkField.getText();
             String descriptionPk = descriptionPkField.getText();
+
+            // Vérification du prix positif
             BigDecimal prix = new BigDecimal(prixField.getText());
+            if (prix.compareTo(BigDecimal.ZERO) <= 0) {
+                showErrorAlert("Le prix doit être un nombre positif.");
+                return;
+            }
+
+            // Vérification de la durée positive
             int duree = Integer.parseInt(dureeField.getText());
+            if (duree <= 0) {
+                showErrorAlert("La durée doit être un nombre positif.");
+                return;
+            }
+
             String services = serviceField.getText();
             Date dateAjout = validateDate(dateDajoutField.getText());
 
@@ -99,11 +116,9 @@ public class AjouterPacksController {
             String status = statusField.getValue().trim().toLowerCase();
             Pack_agence.Status statusEnum = Pack_agence.Status.valueOf(status);
 
-            // Récupérer l'agence sélectionnée
             Agence selectedAgence = agenceChoiceBox.getValue();
-            int idAgence = selectedAgence.getIdAgence(); // Utiliser l'ID de l'agence sélectionnée
+            int idAgence = selectedAgence.getIdAgence();
 
-            // Créer un nouveau Pack_agence
             Pack_agence newPack = new Pack_agence();
             newPack.setNomPk(nomPk);
             newPack.setDescriptionPk(descriptionPk);
@@ -118,7 +133,7 @@ public class AjouterPacksController {
             showSuccessAlert("Pack ajouté avec succès!");
             clearFields();
 
-            // Fermer la fenêtre actuelle et ouvrir la fenêtre des packs
+            // Charger la liste des packs
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListPacks.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
@@ -131,6 +146,36 @@ public class AjouterPacksController {
         }
     }
 
+    /**
+     * Valide si les champs ne contiennent pas de chiffres (nom, description, services).
+     */
+    private boolean validateInputs() {
+        String nom = nomPkField.getText().trim();
+        String description = descriptionPkField.getText().trim();
+        String services = serviceField.getText().trim();
+
+        // Vérifier si ces champs contiennent des chiffres
+        if (nom.matches(".*\\d.*")) {
+            showErrorAlert("Le nom du pack ne doit pas contenir de chiffres.");
+            return false;
+        }
+
+        if (description.matches(".*\\d.*")) {
+            showErrorAlert("La description ne doit pas contenir de chiffres.");
+            return false;
+        }
+
+        if (services.matches(".*\\d.*")) {
+            showErrorAlert("Les services inclus ne doivent pas contenir de chiffres.");
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Valide et convertit la date d'ajout.
+     */
     private Date validateDate(String dateStr) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {

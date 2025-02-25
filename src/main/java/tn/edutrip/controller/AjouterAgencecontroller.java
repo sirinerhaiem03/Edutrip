@@ -74,6 +74,11 @@ public class AjouterAgencecontroller {
                 showAlert("Erreur", "Le numéro de téléphone doit être un nombre !");
                 return;
             }
+            if (telephoneStr.length() != 8) { // Vérifie que le téléphone a exactement 8 chiffres
+                showAlert("Erreur", "Le numéro de téléphone doit contenir exactement 8 chiffres !");
+                return;
+            }
+
 
 
             Date dateCreation;
