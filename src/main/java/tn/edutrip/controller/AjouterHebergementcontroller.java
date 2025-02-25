@@ -44,9 +44,11 @@ public class AjouterHebergementcontroller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Initialize ChoiceBox for disponibilité
         disponibleh.getItems().addAll("Disponible", "Non disponible", "Réservée");
         disponibleh.setValue("Disponible");
 
+        // Initialize ChoiceBox for type
         typeh.getItems().addAll(
                 "Résidences universitaires publiques",
                 "Résidences étudiantes privées",
@@ -61,6 +63,7 @@ public class AjouterHebergementcontroller implements Initializable {
         ServiceHebergement serviceHebergement = new ServiceHebergement();
 
         try {
+            // Validate and parse inputs
             int capacite = Integer.parseInt(capaciteh.getText());
             float prix = Float.parseFloat(prixh.getText());
 
@@ -74,6 +77,7 @@ public class AjouterHebergementcontroller implements Initializable {
                 return;
             }
 
+            // Validate non-empty fields
             String nom = nomh.getText().trim();
             String adresse = adressh.getText().trim();
             String disponibilite = disponibleh.getValue();
@@ -86,6 +90,7 @@ public class AjouterHebergementcontroller implements Initializable {
                 return;
             }
 
+            // Create and add Hebergement
             Hebergement hebergement = new Hebergement(
                     0, nom, capacite, type, adresse, disponibilite, description, image, prix
             );
@@ -93,10 +98,11 @@ public class AjouterHebergementcontroller implements Initializable {
             serviceHebergement.add(hebergement);
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Hébergement ajouté avec succès !");
 
+            // Load AfficherHebergement.fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherHebergement.fxml"));
             Parent parent = loader.load();
             AfficherHebergementController controller = loader.getController();
-            controller.initialize();
+            controller.initialize(); // Refresh the list
             nomh.getScene().setRoot(parent);
 
         } catch (NumberFormatException e) {
@@ -109,6 +115,7 @@ public class AjouterHebergementcontroller implements Initializable {
     @FXML
     public void AfficherHebergement(ActionEvent event) {
         try {
+            // Load AfficherHebergement.fxml
             Parent root = FXMLLoader.load(getClass().getResource("/AfficherHebergement.fxml"));
             nomh.getScene().setRoot(root);
         } catch (IOException e) {

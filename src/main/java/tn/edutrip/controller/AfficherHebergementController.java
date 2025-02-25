@@ -2,6 +2,7 @@ package tn.edutrip.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,21 +21,33 @@ import java.util.List;
 import java.util.Optional;
 
 public class AfficherHebergementController {
+
     @FXML
     private ListView<Hebergement> listViewHebergement;
 
+    @FXML
+    private TextField nomidh; // Add this field
+
     private ServiceHebergement serviceHebergement = new ServiceHebergement();
-    private ObservableList<Hebergement> hebergementList;//JavaFX that automatically updates the UI when the data changes.
+    private ObservableList<Hebergement> hebergementList;
+    private FilteredList<Hebergement> filteredHebergementList; // Add this field
 
     @FXML
     public void initialize() {
         loadData();
+
+        // Add a listener to the TextField for search functionality
+        nomidh.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterHebergementList(newValue);
+        });
     }
 
     private void loadData() {
         List<Hebergement> hebergements = serviceHebergement.getAll();
         hebergementList = FXCollections.observableArrayList(hebergements);
-        listViewHebergement.setItems(hebergementList);
+        filteredHebergementList = new FilteredList<>(hebergementList, p -> true); // Initialize filtered list
+
+        listViewHebergement.setItems(filteredHebergementList); // Set the filtered list to the ListView
 
         listViewHebergement.setCellFactory(param -> new ListCell<>() {
             @Override
@@ -45,6 +58,7 @@ public class AfficherHebergementController {
                     setText(null);
                     setGraphic(null);
                 } else {
+                    // Create UI components for each item
                     ImageView imageView = new ImageView();
                     imageView.setFitHeight(80);
                     imageView.setFitWidth(80);
@@ -89,19 +103,26 @@ public class AfficherHebergementController {
                     hBox.setStyle("-fx-padding: 10px; -fx-background-color: #f9f9f9; -fx-border-color: #ddd; -fx-border-radius: 5px;");
 
                     setGraphic(hBox);
-
-                    // Empêcher le changement de couleur du texte lorsqu'un élément est sélectionné
-                    selectedProperty().addListener((obs, wasSelected, isSelected) -> {
-                        if (isSelected) {
-                            nameLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: black;");
-                        }
-                    });
                 }
             }
         });
     }
 
-        private void handleDelete(Hebergement hebergement) {
+    private void filterHebergementList(String searchText) {
+        // Filter the list based on the search text
+        filteredHebergementList.setPredicate(hebergement -> {
+            if (searchText == null || searchText.isEmpty()) {
+                return true; // Show all items if the search text is empty
+            }
+
+            // Compare the hebergement name with the search text (case-insensitive)
+            String lowerCaseFilter = searchText.toLowerCase();
+            return hebergement.getNomh().toLowerCase().contains(lowerCaseFilter);
+        });
+    }
+
+
+    private void handleDelete(Hebergement hebergement) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation de suppression");
         alert.setHeaderText("Supprimer Hébergement");

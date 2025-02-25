@@ -10,9 +10,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Line?>
+
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="587.0" prefWidth="771.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.edutrip.controller.AfficherHebergementController">
+<AnchorPane prefHeight="587.0" prefWidth="771.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.edutrip.controller.AfficherHebergementController"
+>
    <children>
 
       <AnchorPane prefHeight="127.0" prefWidth="785.0" style="-fx-background-color: FFFFFF;">
@@ -31,8 +33,7 @@
       <AnchorPane layoutX="771.0" layoutY="117.0" prefHeight="475.0" prefWidth="20.0" style="-fx-background-color: #57A0D2;" />
 
       <!-- ListView for Hébergements -->
-      <ListView fx:id="listViewHebergement" layoutX="167.0" layoutY="171.0" prefHeight="399.0" prefWidth="583.0" />
-      <AnchorPane layoutY="127.0" prefHeight="475.0" prefWidth="159.0" style="-fx-background-color: #57A0D2;">
+      <ListView fx:id="listViewHebergement" layoutX="167.0" layoutY="171.0" prefHeight="399.0" prefWidth="583.0" />      <AnchorPane layoutY="127.0" prefHeight="475.0" prefWidth="159.0" style="-fx-background-color: #57A0D2;">
          <children>
             <Label layoutX="51.0" layoutY="229.0" prefHeight="17.0" prefWidth="75.0" text="Universitès" />
             <Label layoutX="58.0" layoutY="271.0" prefHeight="17.0" prefWidth="75.0" />
