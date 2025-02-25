@@ -144,6 +144,7 @@ public class AfficherHebergementController {
     private void sortHebergementList(String sortOption) {
         Comparator<Hebergement> comparator = null;
 
+        // Determine the comparator based on the selected sorting option
         switch (sortOption) {
             case "Trier par nom":
                 comparator = Comparator.comparing(Hebergement::getNomh);
@@ -158,8 +159,13 @@ public class AfficherHebergementController {
                 comparator = Comparator.comparing(Hebergement::getNomh); // Default sorting
         }
 
-        // Sort the list using the comparator
-        hebergementList.sort(comparator);
+        // Use Java Streams to sort the list
+        List<Hebergement> sortedList = hebergementList.stream()
+                .sorted(comparator)
+                .toList(); // Collect the sorted list (Java 16+)
+
+        // Update the ObservableList with the sorted data
+        hebergementList.setAll(sortedList);
     }
 
     private void handleDelete(Hebergement hebergement) {
