@@ -1,9 +1,7 @@
 package tn.edutrip.Controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import tn.edutrip.entities.Commentaire;
@@ -27,7 +25,7 @@ public class CommentsItemsController {
 
     private Commentaire currentComment; // Commentaire actuel
     private ServiceCommentaire serviceCommentaire; // Service pour gérer les commentaires
-
+    private PostItemController postItemController;
     public CommentsItemsController() {
         serviceCommentaire = new ServiceCommentaire(); // Initialiser le service
     }
@@ -44,6 +42,9 @@ public class CommentsItemsController {
         setupContextMenu();
     }
 
+    public void setPostItemController(PostItemController postItemController) {
+        this.postItemController = postItemController;
+    }
     private void setupContextMenu() {
         // Créer un menu contextuel
         ContextMenu contextMenu = new ContextMenu();
@@ -84,11 +85,18 @@ public class CommentsItemsController {
     }
 
     private void supprimerCommentaire() {
-        // Supprimer le commentaire de la base de données
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation de suppression");
+        alert.setHeaderText("Voulez-vous vraiment supprimer ce commentaire ?");
+        alert.setContentText("Cette action est irréversible.");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
         serviceCommentaire.remove(currentComment.getId_commentaire());
         System.out.println("Commentaire supprimé : " + currentComment.getId_commentaire());
 
-        // Rafraîchir l'affichage des commentaires (si nécessaire)
-        // Par exemple, vous pouvez notifier le contrôleur parent pour qu'il mette à jour la liste des commentaires
-    }
+            if (postItemController != null) {
+                postItemController.loadCommentsAsync();
+            }
+    }}
 }
