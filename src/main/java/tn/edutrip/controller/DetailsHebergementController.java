@@ -14,12 +14,13 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import tn.edutrip.entities.Hebergement;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 public class DetailsHebergementController {
 
@@ -48,12 +49,15 @@ public class DetailsHebergementController {
     private Label labelDescription;
 
     @FXML
-    private Button pdfid; // Add this field
+    private Button pdfid;
 
-    private Hebergement hebergement; // Store the Hebergement object
+    @FXML
+    private Button mapid;  // Google Maps button
+
+    private Hebergement hebergement;
 
     public void setHebergement(Hebergement hebergement) {
-        this.hebergement = hebergement; // Store the Hebergement object
+        this.hebergement = hebergement;
 
         labelNom.setText(hebergement.getNomh());
         labelType.setText(hebergement.getTypeh());
@@ -63,7 +67,6 @@ public class DetailsHebergementController {
         labelPrix.setText(hebergement.getPrixh() + " TND");
         labelDescription.setText(hebergement.getDescriptionh());
 
-        // Set Image Path
         String imagePath = "C:/Users/maram/IdeaProjects/EDUTRIP3/src/main/resources/images/" + hebergement.getImageh();
         File imageFile = new File(imagePath);
 
@@ -73,10 +76,22 @@ public class DetailsHebergementController {
             imageHebergement.setImage(new Image("file:/C:/Users/maram/IdeaProjects/EDUTRIP3/src/main/resources/images/default_hebergement.png"));
         }
 
-        // Add an event handler to the PDF button
         pdfid.setOnAction(event -> generatePDF());
+        mapid.setOnAction(event -> openGoogleMaps());  // Set action for Google Maps button
     }
 
+    private void openGoogleMaps() {
+        try {
+            String address = hebergement.getAdressh();
+            String encodedAddress = URLEncoder.encode(address, StandardCharsets.UTF_8);
+            String googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=" + encodedAddress;
+
+            Desktop.getDesktop().browse(URI.create(googleMapsUrl));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error opening Google Maps: " + e.getMessage());
+        }
+    }
     private void generatePDF() {
         try (PDDocument document = new PDDocument()) {
             PDPage page = new PDPage();

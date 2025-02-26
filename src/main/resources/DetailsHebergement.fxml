@@ -45,7 +45,7 @@
                   <Bloom />
                </effect>
             </Label>
-            <AnchorPane layoutX="-9.0" layoutY="110.0" prefHeight="17.0" prefWidth="799.0" style="-fx-background-color: #57A0D2;" />
+            <AnchorPane layoutX="-9.0" layoutY="110.0" prefHeight="26.0" prefWidth="799.0" style="-fx-background-color: #57A0D2;" />
             <ImageView fitHeight="117.0" fitWidth="129.0" layoutY="-7.0">
                <image>
                   <Image url="@images/LOGO.png" />
@@ -123,7 +123,18 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <Button fx:id="pdfid" layoutX="637.0" layoutY="507.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: #57A0D2;" text="pdf" />
+      <Button fx:id="pdfid" layoutX="557.0" layoutY="502.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="182.0" style="-fx-background-color: #57A0D2;" text="PDF" />
+      <ImageView fitHeight="26.0" fitWidth="29.0" layoutX="704.0" layoutY="503.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/pdf.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="mapid" layoutX="561.0" layoutY="430.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="182.0" style="-fx-background-color: #57A0D2;" text="Google Map" />
+      <ImageView fitHeight="30.0" fitWidth="33.0" layoutX="702.0" layoutY="430.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/map.png" />
+         </image>
+      </ImageView>
 
     </children>
 </AnchorPane>
