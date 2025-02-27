@@ -24,7 +24,7 @@
         <Label layoutX="517.0" layoutY="378.0" text="DescriptionAg" />
         <TextField fx:id="descriptionAgField" layoutX="613.0" layoutY="329.0" prefHeight="116.0" prefWidth="182.0" />
         <Label layoutX="228.0" layoutY="494.0" text="Date_Creation" />
-        <TextField fx:id="dateCreationField" layoutX="318.0" layoutY="490.0" prefHeight="26.0" prefWidth="139.0" />
+        <TextField fx:id="dateCreationField" layoutX="318.0" layoutY="495.0" prefHeight="26.0" prefWidth="139.0" />
         <Button layoutX="660.0" layoutY="491.0" onAction="#updateAgence" prefHeight="35.0" prefWidth="147.0" style="-fx-background-color: #57A0D2;" text="Mettre à jour" />
       <AnchorPane layoutY="2.0" prefHeight="116.0" prefWidth="916.0" style="-fx-background-color: FFFFFF;">
          <children>

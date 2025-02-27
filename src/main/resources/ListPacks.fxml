@@ -15,7 +15,7 @@
         <Label layoutX="196.0" layoutY="25.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Liste des Packs" />
 
         <!-- ListView affichant les packs -->
-        <ListView fx:id="listDesPacks" layoutX="223.0" layoutY="159.0" prefHeight="462.0" prefWidth="650.0" />
+        <ListView fx:id="listDesPacks" layoutX="223.0" layoutY="144.0" prefHeight="506.0" prefWidth="656.0" />
 
         <!-- Zone vide (peut être utilisée pour d'autres éléments ou pour l'espacement) -->
         <AnchorPane layoutX="894.0" layoutY="111.0" prefHeight="558.0" prefWidth="23.0" style="-fx-background-color: #57A0D2;" />
