@@ -1,109 +1,99 @@
-package tn.edutrip.tests;
+package tn.EduTrip.tests;
 
-import tn.edutrip.entities.Commentaire;
-import tn.edutrip.entities.Post;
-import tn.edutrip.services.ServiceCommentaire;
-import tn.edutrip.services.ServicePost;
-import tn.edutrip.utils.MyDatabase;
+import tn.EduTrip.entites.ReserVol;
+import tn.EduTrip.entites.Vol;
+import tn.EduTrip.services.Iservice;
+import tn.EduTrip.services.ServiceReserVol;
+import tn.EduTrip.services.ServiceVol;
+import tn.EduTrip.utils.MyDatabase;
+
 import java.sql.Connection;
-import java.sql.Date;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+
+import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class Main {
-    public static void main(String[] args) {
+ public class Main {
+     public static void main(String[] args) {
 
 
-        Connection conn = MyDatabase.getInstance().getConnection();
+         ServiceVol serviceVol = new ServiceVol();
+         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+         ServiceReserVol serviceRes = new ServiceReserVol();
 
 
-       ServicePost servicePost = new ServicePost();
+         try {
+             // Parsing des dates
+             Timestamp dateDepart = Timestamp.valueOf("2025-02-25 16:00:00");
+             Timestamp dateArrivee = Timestamp.valueOf("2025-02-25 18:00:00");
+
+             Timestamp newDateDepart = Timestamp.valueOf("2025-12-31 13:00:00");
+             Timestamp newDateArrivee = Timestamp.valueOf("2025-01-01 15:30:00");
+
+             Timestamp newDateDepart1= Timestamp.valueOf("2025-03-03 5:00:00");
+             Timestamp newDateArrivee1 = Timestamp.valueOf("2025-03-03 8:00:00");
+
+             Vol vol1 = new Vol(1, 12, "egl102", "TunisCartage", "Paris", dateDepart, dateArrivee, 1500);
+             Vol vol2 = new Vol(2, 50, "egl103", "JerbaZarzis", "Lyon", dateDepart, dateArrivee, 1200);
+             Vol vol3 = new Vol(8, 100, "egl202", "gihvugvb", "bnbnbn", dateDepart, dateArrivee, 1120);
+             Vol vol4 = new Vol(9, 2, "wafa55", "Nice", "Algerie", dateDepart, dateArrivee, 1120);
 
 
-       /* Post newPost = new Post(
-                1, "Contenu de test", "2025-02-08", 123, "image.png", "universite"
-        );
-
-        Post newPost2 = new Post(
-                1, "mon expeience", "2025-01-08", 13, "image.png", "hebergement"
-        );
-        //servicePost.add(newPost2);
+                 //serviceVol.ajouter(vol1);
+                 //serviceVol.ajouter(vol2);
+                 //serviceVol.ajouter(vol3);
+                 //  serviceVol.ajouter(vol4);
 
 
-        newPost.setContenu("bonjour a tous");
-        newPost.setImage("image2.png");
-        servicePost.update(newPost);*/
-        servicePost.remove(11);
+             ReserVol reservation1 = new ReserVol(1, 1, 1, new java.util.Date(), "Confirmée", 1000, "Carte Bancaire");
+             ReserVol reservation2 = new ReserVol(2, 2, 2, new java.util.Date(), "Confirmée", 1500, "Carte Bancaire");
+             ReserVol reservation3 = new ReserVol(3, 12, 7, new java.util.Date(), "Confirmée", 2200, "Espece");
+             ReserVol reservation4 = new ReserVol(4, 9, 4, new java.util.Date(), "Confirmée", 2500, "PayPal");
+             ReserVol reservation6 = new ReserVol(6, 11, 8, new java.util.Date(), "Confirmée", 2075, "Carte Bancaire");
 
-       /* List<Post> posts = servicePost.getAll();
-
-
-        if (posts.isEmpty()) {
-            System.out.println("Aucun post trouvé.");
-        } else {
-            for (Post post : posts) {
-
-                System.out.println("ID du Post: " + post.getId_post());
-                System.out.println("Contenu: " + post.getContenu());
-                System.out.println("Date de création: " + post.getDate_creation());
-                System.out.println("ID de l'étudiant: " + post.getId_etudiant());
-                System.out.println("Image: " + post.getImage());
-                System.out.println("Catégorie: " + post.getCategorie());
-
-            }
-        }
+             //serviceRes.ajouter(reservation2);
+             //serviceRes.ajouter(reservation1);
+            // serviceRes.ajouter(reservation3);
+            // serviceRes.ajouter(reservation4);
+             serviceRes.ajouter(reservation6);
 
 
-*/
+                 //Vol volModifie = new Vol(1, 10, "egl105", "Tunis", "Londres", newDateDepart, newDateArrivee, 1700);
+
+               //serviceVol.modifier(volModifie);
+
+             //ReserVol reservationModifiee = new ReserVol(2, 2, 2, new java.util.Date(), "Annulée", 0, "Aucun");
+            // serviceRes.modifier(reservationModifiee);
+
+             // serviceVol.supprimer(6);
+              //serviceVol.supprimer(7);
+            // serviceRes.supprimer(1);
+
+             //serviceRes.supprimer(1);
+
+
+             List<Vol> vols = serviceVol.afficher();
+             System.out.println("📋 Liste des vols :");
+             for (Vol v : vols) {
+                 System.out.println(v);
+             }
+             List<ReserVol> reservations = serviceRes.afficher();
+             System.out.println("📋 Liste des réservations :");
+             for (ReserVol res : reservations) {
+                 System.out.println(res);
+             }
+
+
+             ServiceReserVol.getReservationsWithVols();
+
+             } catch (SQLException e) {
+                 System.err.println( e.getMessage());
+             }
+
+         }
 
 
 
-
-
-
-     /*   ServiceCommentaire serviceCommentaire = new ServiceCommentaire();
-        String dateString = "2025-02-07";
-
-        // Convertit la chaîne en un objet java.sql.Date
-        Date dateCommentaire = Date.valueOf(dateString);
-
-        // Ajout d'un commentaire
-        Commentaire newCommentaire = new Commentaire(
-                7, // ID commentaire sera généré automatiquement
-                6, // ID du post auquel ce commentaire est lié
-                123, // ID de l'étudiant
-                "experience....", // Contenu du commentaire
-                dateCommentaire // Date du commentaire (date actuelle)
-        );
-
-        // Ajouter le commentaire dans la base de données
-        //serviceCommentaire.add(newCommentaire);
-// Mise à jour d'un commentaire existant
-        newCommentaire.setContenu("C'est un super post, vraiment intéressant !");
-        serviceCommentaire.update(newCommentaire);
-
-        // Suppression d'un commentaire par ID (ici on utilise l'ID 1 comme exemple)
-        serviceCommentaire.remove(3);
-
-        // Récupération et affichage de tous les commentaires
-        List<Commentaire> commentaires = serviceCommentaire.getAll();
-
-        if (commentaires.isEmpty()) {
-            System.out.println("Aucun commentaire trouvé.");
-        } else {
-            for (Commentaire commentaire : commentaires) {
-                System.out.println("ID du Commentaire: " + commentaire.getId_commentaire());
-                System.out.println("ID du Post: " + commentaire.getId_post());
-                System.out.println("ID de l'étudiant: " + commentaire.getId_etudiant());
-                System.out.println("Contenu: " + commentaire.getContenu());
-                System.out.println("Date du commentaire: " + commentaire.getDate_commentaire());
-
-            }
-        }
-
-*/
-
-        servicePost.getPostsWithComments();
-    }
-
-
-}
+     }
