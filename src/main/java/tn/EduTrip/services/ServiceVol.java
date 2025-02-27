@@ -178,9 +178,8 @@ public class ServiceVol implements Iservice<Vol> {
     private Vol extraireVolDuResultSet(ResultSet rs) throws SQLException {
         return new Vol(
             rs.getInt("id_vol"),
-            rs.getInt("places_dispo"),
-            rs.getString("num_vol"),
-            rs.getString("aeroport_depart"),
+                rs.getString("num_vol"), rs.getInt("places_dispo"),
+                rs.getString("aeroport_depart"),
             rs.getString("aeroport_arrivee"),
             rs.getTimestamp("date_depart"),
             rs.getTimestamp("date_arrivee"),

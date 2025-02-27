@@ -8,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.scene.Node;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -41,7 +40,7 @@ public class AjouterVolController {
             int places = validerEntier(placesField, "Places disponibles");
 
 
-            Vol vol = new Vol(0, places, numVol, depart, arrivee,
+            Vol vol = new Vol(0, numVol, places, depart, arrivee,
                     Timestamp.valueOf(dateDepart.atTime(heureDepart)),
                     Timestamp.valueOf(dateDepart.atTime(heureDepart).plusHours(2)), prix);
 

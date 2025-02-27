@@ -4,19 +4,21 @@ import java.sql.Timestamp;
 
 public class Vol {
     private int id;
-    private int places;
+
     private String numVol;
+    private int places;
     private String depart;
     private String arrivee;
     private Timestamp dateDepart;
     private Timestamp dateArrivee;
     private double prix;
 
-    public Vol(int id, int places, String numVol, String depart, String arrivee, 
-              Timestamp dateDepart, Timestamp dateArrivee, double prix) {
+    public Vol(int id, String numVol, int places, String depart, String arrivee,
+               Timestamp dateDepart, Timestamp dateArrivee, double prix) {
         this.id = id;
-        this.places = places;
+
         this.numVol = numVol;
+        this.places = places;
         this.depart = depart;
         this.arrivee = arrivee;
         this.dateDepart = dateDepart;

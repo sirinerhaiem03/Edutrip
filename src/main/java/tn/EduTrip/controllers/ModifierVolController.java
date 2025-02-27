@@ -91,8 +91,7 @@ public class ModifierVolController implements Initializable {
             // Create modified flight object
             Vol volModifie = new Vol(
                     volAModifier.getId(),
-                    places,
-                    numVol,
+                    numVol, places,
                     depart,
                     arrivee,
                     Timestamp.valueOf(dateDepart.atTime(heureDepart)),

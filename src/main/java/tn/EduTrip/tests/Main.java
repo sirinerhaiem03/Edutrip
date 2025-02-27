@@ -2,12 +2,9 @@ package tn.EduTrip.tests;
 
 import tn.EduTrip.entites.ReserVol;
 import tn.EduTrip.entites.Vol;
-import tn.EduTrip.services.Iservice;
 import tn.EduTrip.services.ServiceReserVol;
 import tn.EduTrip.services.ServiceVol;
-import tn.EduTrip.utils.MyDatabase;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
@@ -35,10 +32,10 @@ import java.util.List;
              Timestamp newDateDepart1= Timestamp.valueOf("2025-03-03 5:00:00");
              Timestamp newDateArrivee1 = Timestamp.valueOf("2025-03-03 8:00:00");
 
-             Vol vol1 = new Vol(1, 12, "egl102", "TunisCartage", "Paris", dateDepart, dateArrivee, 1500);
-             Vol vol2 = new Vol(2, 50, "egl103", "JerbaZarzis", "Lyon", dateDepart, dateArrivee, 1200);
-             Vol vol3 = new Vol(8, 100, "egl202", "gihvugvb", "bnbnbn", dateDepart, dateArrivee, 1120);
-             Vol vol4 = new Vol(9, 2, "wafa55", "Nice", "Algerie", dateDepart, dateArrivee, 1120);
+             Vol vol1 = new Vol(1, "egl102", 12, "TunisCartage", "Paris", dateDepart, dateArrivee, 1500);
+             Vol vol2 = new Vol(2, "egl103", 50, "JerbaZarzis", "Lyon", dateDepart, dateArrivee, 1200);
+             Vol vol3 = new Vol(8, "egl202", 100, "gihvugvb", "bnbnbn", dateDepart, dateArrivee, 1120);
+             Vol vol4 = new Vol(9, "wafa55", 2, "Nice", "Algerie", dateDepart, dateArrivee, 1120);
 
 
                  //serviceVol.ajouter(vol1);
