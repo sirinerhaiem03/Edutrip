@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,7 +17,7 @@
         <Label layoutX="196.0" layoutY="25.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Liste des Packs" />
 
         <!-- ListView affichant les packs -->
-        <ListView fx:id="listDesPacks" layoutX="223.0" layoutY="144.0" prefHeight="506.0" prefWidth="656.0" />
+        <ListView fx:id="listDesPacks" layoutX="223.0" layoutY="204.0" prefHeight="446.0" prefWidth="656.0" />
 
         <!-- Zone vide (peut être utilisée pour d'autres éléments ou pour l'espacement) -->
         <AnchorPane layoutX="894.0" layoutY="111.0" prefHeight="558.0" prefWidth="23.0" style="-fx-background-color: #57A0D2;" />
@@ -99,5 +101,12 @@
             <Label layoutX="80.0" layoutY="240.0" text="home" textFill="WHITE" />
          </children>
       </AnchorPane>
+      <TextField fx:id="nompackrecherche" layoutX="228.0" layoutY="159.0" prefHeight="35.0" prefWidth="230.0" style="-fx-background-color: #57A0D2;" />
+      <ImageView fitHeight="35.0" fitWidth="41.0" layoutX="408.0" layoutY="159.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/recherche.png" />
+         </image>
+      </ImageView>
+      <ComboBox fx:id="combotripack" layoutX="645.0" layoutY="159.0" onAction="#trierAgences" prefHeight="35.0" prefWidth="202.0" style="-fx-background-color: #57A0D2;" />
     </children>
 </AnchorPane>
