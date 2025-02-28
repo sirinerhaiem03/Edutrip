@@ -109,6 +109,7 @@
             <Image url="@image/recherche.png" />
          </image>
       </ImageView>
-      <ComboBox fx:id="comboTri" layoutX="672.0" layoutY="149.0" onAction="#trierAgences" prefHeight="35.0" prefWidth="202.0" style="-fx-background-color: #57A0D2;" />
+      <ComboBox fx:id="comboTri" layoutX="562.0" layoutY="149.0" onAction="#trierAgences" prefHeight="35.0" prefWidth="202.0" style="-fx-background-color: #57A0D2;" />
+      <Button fx:id="StatAgence" layoutX="798.0" layoutY="154.0" mnemonicParsing="false" onAction="#StatAgence" text="statAgence" />
    </children>
 </AnchorPane>
