@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.edutrip.Controllers.ChatController">
+    <padding>
+        <Insets bottom="10" left="10" right="10" top="10" />
+    </padding>
+
+    <!-- Zone de conversation -->
+    <ScrollPane fitToHeight="true" fitToWidth="true">
+        <TextArea fx:id="chatArea" editable="false" prefHeight="414.0" prefWidth="1880.0" style="-fx-font-size: 14px; -fx-border-color: #57A0D2; -fx-background-color: #cfedff;" wrapText="true" />
+    </ScrollPane>
+
+    <!-- Zone de saisie et bouton d'envoi -->
+    <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
+        <TextField fx:id="inputField" prefHeight="42.0" prefWidth="246.0" promptText="Tapez votre message ici..." HBox.hgrow="ALWAYS" />
+        <Button onAction="#sendMessage" style="-fx-font-size: 14px; -fx-background-color: #57A0D2;" text="Envoyer">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="12.0" />
+         </font></Button>
+
+    </HBox>
+    <Button text="Retour" onAction="#goBack" style="-fx-font-size: 14px;"/>
+</VBox>

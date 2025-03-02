@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="272.0" prefWidth="363.0" spacing="10" style="-fx-padding: 20px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.edutrip.Controllers.UpdatePostController">
+    <TextField fx:id="txtCategorie" promptText="Catégorie" />
+    <TextField fx:id="txtContenu" prefHeight="117.0" prefWidth="323.0" promptText="Contenu du post" />
+    <Button onAction="#validerModification" style="-fx-background-color: #57A0D2;" text="Enregistrer">
+      <VBox.margin>
+         <Insets left="120.0" />
+      </VBox.margin></Button>
+    <Button onAction="#annulerModification" prefHeight="26.0" prefWidth="74.0" style="-fx-background-color: #FF5733;" text="Fermer">
+      <VBox.margin>
+         <Insets left="120.0" />
+      </VBox.margin></Button>
+</VBox>
