@@ -15,6 +15,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tn.edutrip.entities.Post;
+import tn.edutrip.entities.User;
 import tn.edutrip.services.ServicePost;
 import tn.edutrip.services.ServiceCommentaire;
 import java.io.IOException;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import tn.edutrip.entities.Commentaire;
+import tn.edutrip.services.ServiceUser;
 import tn.edutrip.utils.OpenAIModerationAPI;
 
 public class PostItemController {
@@ -79,13 +81,22 @@ public class PostItemController {
         currentPost = post;
         this.PostListView = postListView;
 
+        // Get the User corresponding to the post's id_etudiant
+        User author = getUserById(post.getId_etudiant());
+
         // Display post data
-        IdAuthor.setText("Author ID: " + post.getId_etudiant());
+        if (author != null) {
+            IdAuthor.setText(author.getNom() + " " + author.getPrenom()); // Set the name and surname
+        } else {
+            IdAuthor.setText("Unknown Author");
+        }
+
         IdDate.setText(post.getDate_creation());
         IdContenu.setText(post.getContenu());
         IdCategorie.setText("Category: " + post.getCategorie());
         likeCountText.setText(String.valueOf(post.getLikes()));
         dislikeCountText.setText(String.valueOf(post.getDislikes()));
+
         // Load post image if it exists
         if (post.getImage() != null && !post.getImage().isEmpty()) {
             try {
@@ -95,6 +106,7 @@ public class PostItemController {
                 System.out.println("Image not found: " + post.getImage());
             }
         }
+
         CommentsIcon.setOnMouseClicked(event -> loadCommentsAsync());
         // Add events for edit and delete
         editIcon.setOnMouseClicked(event -> openEditWindow());
@@ -102,6 +114,12 @@ public class PostItemController {
         // Add event to submit a comment
         submitCommentButton.setOnAction(event -> submitComment());
     }
+    private User getUserById(int id_etudiant) {
+        // You can replace this with your actual logic to fetch a User by id from the database
+        ServiceUser userService = new ServiceUser(); // Assuming you have a service class for users
+        return userService.getUserById(id_etudiant); // Implement the logic to get the user from the DB
+    }
+
     @FXML
     private void likePost() {
         if (currentPost != null) {

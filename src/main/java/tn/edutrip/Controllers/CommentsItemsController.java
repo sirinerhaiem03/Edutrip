@@ -5,7 +5,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import tn.edutrip.entities.Commentaire;
+import tn.edutrip.entities.User;
 import tn.edutrip.services.ServiceCommentaire;
+import tn.edutrip.services.ServiceUser;
 
 import java.util.Optional;
 
@@ -25,8 +27,10 @@ public class CommentsItemsController {
 
     private Commentaire currentComment; // Commentaire actuel
     private ServiceCommentaire serviceCommentaire; // Service pour gérer les commentaires
+    private ServiceUser serviceUser;
     private PostItemController postItemController;
     public CommentsItemsController() {
+        serviceUser = new ServiceUser();
         serviceCommentaire = new ServiceCommentaire(); // Initialiser le service
     }
 
@@ -34,7 +38,13 @@ public class CommentsItemsController {
         currentComment = commentaire;
 
         // Afficher les données du commentaire
-        CommentAuthor.setText("Auteur ID: " + commentaire.getId_etudiant());
+        User author = serviceUser.getUserById(commentaire.getId_etudiant()); // This fetches the User by id_etudiant
+        if (author != null) {
+            CommentAuthor.setText(  author.getNom() + " " + author.getPrenom());
+        } else {
+            CommentAuthor.setText("Auteur inconnu");
+        }
+
         CommentDate.setText(commentaire.getDate_commentaire().toString());
         CommentContent.setText(commentaire.getContenu());
 

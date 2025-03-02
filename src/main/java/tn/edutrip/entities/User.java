@@ -14,26 +14,9 @@ public class User {
     // Constructeurs
     public User() {}
 
-    public User(String nom, String prenom, String mail, String tel, String password, String confirmpassword, String status, String role) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.mail = mail;
-        this.tel = tel;
-        this.password = password;
-        this.confirmpassword = confirmpassword;
-        this.status = (status != null) ? status : "inactive";  // Assurez-vous que le statut ne soit jamais null
-        this.role = (role != null) ? role : "USER";  // Assurez-vous que le rôle ne soit jamais null
-    }
 
-    public User(int id, String nom, String prenom, String mail, String tel, String status) {
-        this.id_etudiant = id;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.mail = mail;
-        this.tel = tel;
-        this.status = (status != null) ? status : "inactive";  // Assurez-vous que le statut ne soit jamais null
-        this.role = "USER";  // Par défaut "USER"
-    }
+
+
 
     public User(int id, String nom, String prenom, String mail, String password, String tel, String status) {
         this.id_etudiant = id;
@@ -46,15 +29,7 @@ public class User {
         this.role = "USER";  // Par défaut "USER"
     }
 
-    public User(String nom, String prenom, String mail, String tel, String password, String confirmpassword) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.mail = mail;
-        this.tel = tel;
-        this.password = password;
-        this.confirmpassword = confirmpassword;
-        this.role = "USER"; // Par défaut "USER"
-    }
+
 
     // Getters et Setters
     public int getId() { return id_etudiant; }
