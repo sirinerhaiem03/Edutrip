@@ -25,6 +25,17 @@ public class Vol {
         this.dateArrivee = dateArrivee;
         this.prix = prix;
     }
+    public Vol(String numVol, String depart, String arrivee,
+               Timestamp dateDepart, Timestamp dateArrivee,
+               double prix, int places) {
+        this.numVol = numVol;
+        this.depart = depart;
+        this.arrivee = arrivee;
+        this.dateDepart = dateDepart;
+        this.dateArrivee = dateArrivee;
+        this.prix = prix;
+        this.places = places;
+    }
 
     // Getters
     public int getId() {

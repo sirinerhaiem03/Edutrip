@@ -1,6 +1,9 @@
 package tn.EduTrip.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -16,6 +19,13 @@ import tn.EduTrip.services.ServiceVol;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.TemporalAccessor;
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.io.IOException;
@@ -32,28 +42,68 @@ import tn.EduTrip.utils.AviationStackService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class AfficherVolController implements Initializable {
     private final Random random = new Random();
 
     @FXML
     private ListView<Vol> volsListView;
+    @FXML private TextField departureFilter;
+    @FXML private TextField arrivalFilter;
+    @FXML private DatePicker dateFilter;
     @FXML
     private Button ajouterVolBtn;
+    private final ObservableList<Vol> allVols = FXCollections.observableArrayList();
+    private final FilteredList<Vol> filteredVols = new FilteredList<>(allVols);
 
     private final ServiceVol serviceVol = new ServiceVol();
-    private final AviationStackService apiService = new AviationStackService(); // Service pour l'API AviationStack
+    private final AviationStackService apiService = new AviationStackService();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
+            volsListView.setItems(filteredVols);
             setupListView();
             chargerVols();
         } catch (Exception e) {
-            afficherAlerte("Erreur d'initialisation", "Une erreur est survenue lors de l'initialisation : " + e.getMessage());
+            afficherAlerte("Erreur d'initialisation", "Erreur lors de l'initialisation : " + e.getMessage());
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void appliquerFiltres(ActionEvent event) {
+        updateFilters();
+    }
+
+    @FXML
+    private void reinitialiserFiltres(ActionEvent event) {
+        departureFilter.clear();
+        arrivalFilter.clear();
+        dateFilter.setValue(null);
+        updateFilters();
+    }
+
+    private void updateFilters() {
+        filteredVols.setPredicate(vol -> {
+            String depart = departureFilter.getText().toLowerCase();
+            String arrivee = arrivalFilter.getText().toLowerCase();
+            LocalDate date = dateFilter.getValue();
+
+            boolean matchDepart = depart.isEmpty() || vol.getDepart().toLowerCase().contains(depart);
+            boolean matchArrivee = arrivee.isEmpty() || vol.getArrivee().toLowerCase().contains(arrivee);
+            boolean matchDate = date == null || matchesDate(vol.getDateDepart(), date);
+
+            return matchDepart && matchArrivee && matchDate;
+        });
+    }
+
+    private boolean matchesDate(Timestamp timestamp, LocalDate date) {
+        return timestamp.toLocalDateTime().toLocalDate().isEqual(date);
+    }
+
 
     private void setupListView() {
         volsListView.setCellFactory(listView -> new ListCell<Vol>() {
@@ -181,7 +231,7 @@ public class AfficherVolController implements Initializable {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-      } catch (IOException e) {
+        } catch (IOException e) {
 
 
             afficherAlerte("Erreur", "Impossible d'ouvrir la page d'ajout : " + e.getMessage());
@@ -190,14 +240,12 @@ public class AfficherVolController implements Initializable {
     }
     public void chargerVols() {
         try {
-            volsListView.getItems().clear();
-            volsListView.getItems().addAll(serviceVol.afficher());
+            allVols.clear();
+            allVols.addAll(serviceVol.afficher());
 
-            // Récupération des données de l'API
             JSONArray apiResponse = apiService.getFlights();
-
             if (apiResponse == null || apiResponse.isEmpty()) {
-                afficherAlerte("Information", "Aucun vol disponible via l'API pour le moment");
+                afficherAlerte("Information", "Aucun vol disponible via l'API");
                 return;
             }
 
@@ -206,52 +254,115 @@ public class AfficherVolController implements Initializable {
                 try {
                     JSONObject departure = flight.getJSONObject("departure");
                     JSONObject arrival = flight.getJSONObject("arrival");
-                    JSONObject flightInfo = flight.getJSONObject("flight");
 
-                    // Gestion des dates avec format alternatif
-                    String dateDepartStr = departure.optString("estimated", "");
-                    String dateArriveeStr = arrival.optString("estimated", "");
+                    // Nouvelle gestion des aéroports
+                    String aeroportDepart = parseAirport(departure.opt("airport"));
+                    String aeroportArrivee = parseAirport(arrival.opt("airport"));
 
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
-                    Date dateDepart = !dateDepartStr.isEmpty() ? sdf.parse(dateDepartStr) : new Date();
-                    Date dateArrivee = !dateArriveeStr.isEmpty() ? sdf.parse(dateArriveeStr) : new Date();
+                    // Nouvelle gestion des dates
+                    Date dateDepart = parseDate(departure.optString("estimated", ""));
+                    Date dateArrivee = parseDate(arrival.optString("estimated", ""));
 
-                    // Récupération des informations du vol
-                    String numVol = flightInfo.optString("iata", "N/A");
-                    String aeroportDepart = departure.optString("airport", "Inconnu");
-                    String aeroportArrivee = arrival.optString("airport", "Inconnu");
+                    // Gestion sécurisée des informations du vol
+                    JSONObject flightInfo = flight.optJSONObject("flight");
+                    String numVol = (flightInfo != null) ?
+                            flightInfo.optString("iata", "N/A") : "N/A";
 
-                    Random random = new Random();
-                    int placesDisponibles = flight.optInt("available_seats", 100);
-                    double prixVol = flight.optDouble("price", 200.0);
+                    int placesDisponibles = flight.optInt("available_seats",
+                            random.nextInt(50) + 50);
+                    double prixVol = flight.optDouble("price",
+                            150.0 + random.nextDouble() * 200);
+
                     Vol vol = new Vol(
                             0,
                             numVol,
-                            placesDisponibles, // Places aléatoires
+                            placesDisponibles,
                             aeroportDepart,
                             aeroportArrivee,
                             new Timestamp(dateDepart.getTime()),
                             new Timestamp(dateArrivee.getTime()),
-                            prixVol // Prix aléatoire
+                            prixVol
+                    );
+                    System.out.println(
+                            "Départ Brut: " + departure.optString("estimated", "") +
+                                    " → Parsé: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dateDepart) +
+                                    " | Arrivée Brut: " + arrival.optString("estimated", "") +
+                                    " → Parsé: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dateArrivee)
                     );
 
-                    volsListView.getItems().add(vol);
+                    allVols.add(vol);
                 } catch (JSONException e) {
-                    System.err.println("Erreur de structure JSON pour le vol " + i);
-                    e.printStackTrace();
-                } catch (Exception e) {
                     System.err.println("Erreur de traitement du vol " + i);
                     e.printStackTrace();
                 }
             }
         } catch (SQLException e) {
-            afficherAlerte("Erreur BDD", "Erreur de chargement depuis la base de données: " + e.getMessage());
-            e.printStackTrace();
-        } catch (JSONException e) {
-            afficherAlerte("Erreur API", "Réponse API malformée: " + e.getMessage());
+            afficherAlerte("Erreur BDD", "Erreur de chargement : " + e.getMessage());
             e.printStackTrace();
         }
     }
+
+    // Méthodes utilitaires ajoutées
+    private String parseAirport(Object airport) {
+        if (airport instanceof JSONObject) {
+            return ((JSONObject) airport).optString("name", "Aéroport inconnu");
+        } else if (airport instanceof String) {
+            return (String) airport;
+        }
+        return "Aéroport inconnu";
+    }
+
+    private Date parseDate(String dateStr) {
+        if (dateStr == null || dateStr.isEmpty()) {
+            return generateRandomRealisticDate();
+        }
+
+        // Nettoyer la chaîne de date
+        dateStr = dateStr.replace("Z", "+00:00") // Gérer le format Zulu time
+                .split("\\.")[0]; // Enlever les millisecondes
+
+        // Ajouter tous les formats possibles
+        DateTimeFormatter[] formatters = {
+                DateTimeFormatter.ISO_OFFSET_DATE_TIME,
+                DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX"),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        };
+
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                TemporalAccessor parsed = formatter.parse(dateStr);
+                LocalDateTime ldt = LocalDateTime.from(parsed);
+                return Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
+            } catch (DateTimeParseException e) {
+                // Continuer avec le formateur suivant
+            }
+        }
+
+        System.err.println("Aucun format ne correspond pour : " + dateStr);
+        return generateRandomRealisticDate();
+    }
+
+
+    private Date generateRandomRealisticDate() {
+        // Générer entre maintenant et 6 mois avec des heures/minutes réalistes
+        LocalDateTime baseDate = LocalDateTime.now()
+                .plusMonths(ThreadLocalRandom.current().nextInt(0, 6))
+                .plusDays(ThreadLocalRandom.current().nextInt(0, 30));
+
+        // Heures de vol réalistes (06h-23h)
+        int hour = ThreadLocalRandom.current().nextInt(6, 24);
+        int minute = ThreadLocalRandom.current().nextInt(0, 60);
+
+        LocalDateTime randomDate = baseDate
+                .withHour(hour)
+                .withMinute(minute)
+                .withSecond(0);
+
+        return Date.from(randomDate.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
 
     private void afficherAlerte(String titre, String contenu) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

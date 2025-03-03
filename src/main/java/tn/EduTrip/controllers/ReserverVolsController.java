@@ -6,7 +6,6 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import tn.EduTrip.entites.Vol;
 import tn.EduTrip.services.ServiceVol;
-
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -42,7 +41,6 @@ public class ReserverVolsController implements Initializable {
 
         nombrePlacesSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10));
     }
-
     public void setVol(Vol vol) {
         this.vol = vol;
         if (vol != null) {
