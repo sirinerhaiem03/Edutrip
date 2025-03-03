@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class DeepSeekAPI {
     private static final String API_URL = "https://openrouter.ai/api/v1/chat/completions";
-    private static final String API_KEY = "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";
+    private static final String API_KEY = "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";
 
     private OkHttpClient client;
 

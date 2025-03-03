@@ -28,7 +28,7 @@
 
             <artifactId>javafx-fxml</artifactId>
 
-            <version>21.0.2</version>
+            <version>17</version>
 
         </dependency>
 

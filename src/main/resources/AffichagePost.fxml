@@ -16,7 +16,14 @@
 
 <AnchorPane prefHeight="600.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.edutrip.Controllers.AffichagePostController">
    <children>
-      <!-- Conteneur pour la partie formulaire et la liste des posts -->
+      <!-- Conteneur pour la partie formulaire et la liste des posts --><!-- Champ de recherche pour filtrer les posts -->
+      <Label layoutX="71.0" layoutY="10.0" text="Rechercher :">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="rechercheTextField" layoutX="576.0" layoutY="30.0" onKeyReleased="#filtrerPosts" />
+
       <VBox alignment="TOP_CENTER" layoutX="228.0" layoutY="70.0" spacing="20" AnchorPane.bottomAnchor="-29.199999999999932" AnchorPane.leftAnchor="228.0" AnchorPane.rightAnchor="20.799999999999955" AnchorPane.topAnchor="70.0"> <!-- Centrer le contenu horizontalement -->
 
          <!-- Formulaire d'ajout de post avec un cadre -->
@@ -171,6 +178,11 @@
       <Button layoutX="1362.0" layoutY="44.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="53.0" style="-fx-background-color: #57a0d2;" text="Profil" textFill="WHITE">
          <font>
             <Font name="Arial Black" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="767.0" layoutY="30.0" mnemonicParsing="false" onAction="#AjouterPost" prefHeight="26.0" prefWidth="106.0" style="-fx-background-color: #57A0D2;" text="Rechercher">
+         <font>
+            <Font name="System Bold" size="12.0" />
          </font>
       </Button>
    </children>

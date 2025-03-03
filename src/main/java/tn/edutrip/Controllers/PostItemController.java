@@ -25,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import tn.edutrip.entities.Commentaire;
 import tn.edutrip.services.ServiceUser;
+import tn.edutrip.utils.CommentAnalysis;
 import tn.edutrip.utils.OpenAIModerationAPI;
 
 public class PostItemController {
@@ -98,14 +99,18 @@ public class PostItemController {
         dislikeCountText.setText(String.valueOf(post.getDislikes()));
 
         // Load post image if it exists
+        // Si l'image est dans le dossier resources/images
         if (post.getImage() != null && !post.getImage().isEmpty()) {
             try {
-                Image img = new Image(getClass().getResource("/images/" + post.getImage()).toExternalForm());
+                // Utilise le chemin relatif
+                String imagePath = "/images/" + post.getImage(); // Dans le classpath
+                Image img = new Image(getClass().getResource(imagePath).toExternalForm());
                 IdPostImage.setImage(img);
             } catch (Exception e) {
                 System.out.println("Image not found: " + post.getImage());
             }
         }
+
 
         CommentsIcon.setOnMouseClicked(event -> loadCommentsAsync());
         // Add events for edit and delete
@@ -147,14 +152,9 @@ public class PostItemController {
         }
     }
 
-    private void showAlert(String title, String message, javafx.scene.control.Alert.AlertType alertType) {
-        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
 
+
+    @FXML
     private void submitComment() {
         String commentText = commentInput.getText().trim();
 
@@ -164,26 +164,40 @@ public class PostItemController {
             return;
         }
 
+        // Analyser le commentaire avec l'API de modération
+        String analysisResult = CommentAnalysis.analyzeComment(commentText);
 
+        // Vérifie si l'analyse a trouvé des problèmes dans le commentaire
+        if (analysisResult != null && analysisResult.contains("negative") /* Exemple de critère à adapter selon la réponse de l'API */) {
+            showAlert("Modération", "Votre commentaire contient un langage inapproprié. Veuillez le modifier.", Alert.AlertType.WARNING);
+            return;
+        }
 
         // Si le commentaire est approprié, l'ajouter à la base de données
-        if (currentPost != null) {
-            Commentaire newComment = new Commentaire();
-            newComment.setId_post(currentPost.getId_post());
-            newComment.setId_etudiant(1); // Remplacez par l'ID de l'utilisateur actuel
-            newComment.setContenu(commentText);
-            newComment.setDate_commentaire(new Date());
+        Commentaire newComment = new Commentaire();
+        newComment.setId_post(currentPost.getId_post());
+        newComment.setId_etudiant(1); // Remplacez par l'ID de l'utilisateur actuel
+        newComment.setContenu(commentText);
+        newComment.setDate_commentaire(new Date());
 
-            // Ajouter le commentaire à la base de données
-            ServiceCommentaire.add(newComment);
+        // Ajouter le commentaire à la base de données
+        ServiceCommentaire.add(newComment);
 
-            // Effacer le champ de texte
-            commentInput.clear();
+        // Effacer le champ de texte
+        commentInput.clear();
 
-            // Recharger les commentaires
-            loadCommentsAsync();
-        }
+        // Recharger les commentaires
+        loadCommentsAsync();
     }
+
+    private void showAlert(String title, String message, javafx.scene.control.Alert.AlertType alertType) {
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 
 
 
