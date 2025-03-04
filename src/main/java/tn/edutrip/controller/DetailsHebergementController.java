@@ -174,11 +174,7 @@ public class DetailsHebergementController {
         mapStage.setScene(new Scene(webView, 800, 600));
         mapStage.show();
     }
-
-
-
-
-
+    
     private void shareOnFacebook() {
         try {
             String url = "https://www.facebook.com/sharer/sharer.php?u=" + URLEncoder.encode("https://www.edutrip.com/hebergement/" + hebergement.getId_hebergement(), StandardCharsets.UTF_8);
