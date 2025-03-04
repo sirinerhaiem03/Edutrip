@@ -155,7 +155,7 @@ public class DetailsHebergementController {
         } catch (IOException e) {
             e.printStackTrace();
         }}
-    
+
     private void openGoogleMaps() {
         String address = hebergement.getAdressh();
         String encodedAddress = URLEncoder.encode(address, StandardCharsets.UTF_8);
@@ -195,11 +195,6 @@ public class DetailsHebergementController {
         }
 
     }
-
-
-
-
-
     private void shareOnInstagram() {
         try {
             Desktop.getDesktop().browse(URI.create("https://www.instagram.com/"));
@@ -208,6 +203,9 @@ public class DetailsHebergementController {
             System.err.println("Error opening Instagram: " + e.getMessage());
         }
     }
+
+
+    
     private void generatePDF() {
         try (PDDocument document = new PDDocument()) {
             PDPage page = new PDPage();
