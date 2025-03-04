@@ -197,6 +197,10 @@ public class DetailsHebergementController {
 
     }
 
+    
+
+
+
     private void shareOnInstagram() {
         try {
             Desktop.getDesktop().browse(URI.create("https://www.instagram.com/"));
