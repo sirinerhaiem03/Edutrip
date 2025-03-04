@@ -171,7 +171,7 @@ public class AfficherReservationController {
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 18);
                 contentStream.beginText();
                 contentStream.newLineAtOffset((pageWidth / 2) - 80, pageHeight - 45);
-                contentStream.showText("facture de la Réservation");
+                contentStream.showText("Facture de la Réservation");
                 contentStream.endText();
 
                 float yPosition = pageHeight - 140;
