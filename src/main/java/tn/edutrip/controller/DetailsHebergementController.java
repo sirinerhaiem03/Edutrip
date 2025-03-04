@@ -81,9 +81,7 @@ public class DetailsHebergementController {
         instagramShareButton.setOnAction(event -> shareOnInstagram());
 
     }
-
-
-
+    
     private void fetchLocalEvents() {
         if (hebergement == null || hebergement.getAdressh() == null || hebergement.getAdressh().isEmpty()) {
             System.err.println("No address available for this hebergement.");
