@@ -149,15 +149,13 @@ public class DetailsHebergementController {
     }
 
 
-
-
-
     private void openURL(String url) {
         try {
             Desktop.getDesktop().browse(URI.create(url));
         } catch (IOException e) {
             e.printStackTrace();
         }}
+    
     private void openGoogleMaps() {
         String address = hebergement.getAdressh();
         String encodedAddress = URLEncoder.encode(address, StandardCharsets.UTF_8);
@@ -174,7 +172,9 @@ public class DetailsHebergementController {
         mapStage.setScene(new Scene(webView, 800, 600));
         mapStage.show();
     }
-    
+
+
+
     private void shareOnFacebook() {
         try {
             String url = "https://www.facebook.com/sharer/sharer.php?u=" + URLEncoder.encode("https://www.edutrip.com/hebergement/" + hebergement.getId_hebergement(), StandardCharsets.UTF_8);
@@ -184,7 +184,6 @@ public class DetailsHebergementController {
             System.err.println("Error sharing on Facebook: " + e.getMessage());
         }
     }
-
     private void shareOnTwitter() {
         try {
             String text = URLEncoder.encode("Check out this amazing Hebergement: " + hebergement.getNomh(), StandardCharsets.UTF_8);
