@@ -174,6 +174,8 @@ public class AfficherReservationController {
                 contentStream.showText("Facture de la Réservation");
                 contentStream.endText();
 
+
+                
                 float yPosition = pageHeight - 140;
 
                 // Récupération des détails de l'hébergement
