@@ -16,8 +16,8 @@ public class ServiceReserVol implements Iservice<ReserVol> {
 
     @Override
     public void ajouter(ReserVol Rvol) throws SQLException {
-        String req = "INSERT INTO reservationvol (id_etudiant, id_vol, date_reservation, statut, prix, mode_paiement) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+        String req = "INSERT INTO reservationvol (id_etudiant, id_vol, date_reservation, statut, prix, mode_paiement, nom, prenom, email) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement st = con.prepareStatement(req)) {
             st.setInt(1, Rvol.getIdEtudiant());
             st.setInt(2, Rvol.getId_Vol());
@@ -25,6 +25,9 @@ public class ServiceReserVol implements Iservice<ReserVol> {
             st.setString(4, Rvol.getStatut());
             st.setDouble(5, Rvol.getPrix());
             st.setString(6, Rvol.getModePaiement());
+            st.setString(7, Rvol.getNom());       // Ajout du nom
+            st.setString(8, Rvol.getPrenom());    // Ajout du prénom
+            st.setString(9, Rvol.getEmail());     // Ajout de l'email
 
             st.executeUpdate();
             System.out.println("✅ Réservation ajoutée avec succès !");
@@ -33,8 +36,8 @@ public class ServiceReserVol implements Iservice<ReserVol> {
 
     @Override
     public void modifier(ReserVol Rvol) throws SQLException {
-        String req = "UPDATE reservationvol SET id_etudiant=?, id_vol=?, date_reservation=?, statut=?, prix=?, mode_paiement=? " +
-                "WHERE id_reservation=?";
+        String req = "UPDATE reservationvol SET id_etudiant=?, id_vol=?, date_reservation=?, statut=?, prix=?, mode_paiement=?, " +
+                "nom=?, prenom=?, email=? WHERE id_reservation=?";
         try (PreparedStatement st = con.prepareStatement(req)) {
             st.setInt(1, Rvol.getIdEtudiant());
             st.setInt(2, Rvol.getId_Vol());
@@ -42,7 +45,10 @@ public class ServiceReserVol implements Iservice<ReserVol> {
             st.setString(4, Rvol.getStatut());
             st.setDouble(5, Rvol.getPrix());
             st.setString(6, Rvol.getModePaiement());
-            st.setInt(7, Rvol.getIdReservation());
+            st.setString(7, Rvol.getNom());       // Mise à jour du nom
+            st.setString(8, Rvol.getPrenom());    // Mise à jour du prénom
+            st.setString(9, Rvol.getEmail());     // Mise à jour de l'email
+            st.setInt(10, Rvol.getIdReservation());
 
             st.executeUpdate();
             System.out.println("✅ Réservation modifiée avec succès !");
@@ -75,7 +81,10 @@ public class ServiceReserVol implements Iservice<ReserVol> {
                         rs.getDate("date_reservation"),
                         rs.getString("statut"),
                         rs.getDouble("prix"),
-                        rs.getString("mode_paiement")
+                        rs.getString("mode_paiement"),
+                        rs.getString("nom"),         // Récupération du nom
+                        rs.getString("prenom"),      // Récupération du prénom
+                        rs.getString("email")        // Récupération de l'email
                 );
                 reservations.add(res);
             }
@@ -83,12 +92,11 @@ public class ServiceReserVol implements Iservice<ReserVol> {
         return reservations;
     }
 
-
-    // Le jointure les réservations avec leurs vols associés
     public static void getReservationsWithVols() {
         try {
             String query = "SELECT r.id_reservation, r.id_etudiant, r.date_reservation, r.statut, r.prix, r.mode_paiement, " +
-                    "v.id_vol, v.num_vol, v.aeroport_depart, v.aeroport_arrivee, v.date_depart, v.date_arrivee, v.prix_vol " +
+                    "v.id_vol, v.num_vol, v.aeroport_depart, v.aeroport_arrivee, v.date_depart, v.date_arrivee, v.prix_vol, " +
+                    "r.nom, r.prenom, r.email " +  // Ajout des champs nom, prenom, email
                     "FROM reservationvol r " +
                     "JOIN vol v ON r.id_vol = v.id_vol";
 
@@ -103,6 +111,10 @@ public class ServiceReserVol implements Iservice<ReserVol> {
                 System.out.println("   - Prix payé: " + rs.getDouble("prix"));
                 System.out.println("   - Mode de paiement: " + rs.getString("mode_paiement"));
 
+                System.out.println("   - Nom: " + rs.getString("nom"));      // Affichage du nom
+                System.out.println("   - Prénom: " + rs.getString("prenom"));  // Affichage du prénom
+                System.out.println("   - Email: " + rs.getString("email"));    // Affichage de l'email
+
                 System.out.println("✈️ Vol associé :");
                 System.out.println("   - Vol ID: " + rs.getInt("id_vol"));
                 System.out.println("   - Numéro de vol: " + rs.getString("num_vol"));
@@ -116,5 +128,4 @@ public class ServiceReserVol implements Iservice<ReserVol> {
             System.out.println("❌ Erreur lors de la récupération des réservations avec vols : " + e.getMessage());
         }
     }
-
 }
