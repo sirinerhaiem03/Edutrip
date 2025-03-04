@@ -59,10 +59,12 @@ public class UserService implements IUserService {
         }
         return null;
     }
-    public User searchuser(int ID) {
-        String query = "SELECT * FROM user WHERE id = ? ";
+
+    @Override
+    public User getUserByEmail(String email) {
+        String query = "SELECT * FROM user WHERE mail = ?";
         try (PreparedStatement pst = conn.prepareStatement(query)) {
-            pst.setInt(1, ID);
+            pst.setString(1, email);
             try (ResultSet rs = pst.executeQuery()) {
                 if (rs.next()) {
                     return new User(
@@ -92,7 +94,6 @@ public class UserService implements IUserService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -129,6 +130,35 @@ public class UserService implements IUserService {
                         rs.getString("tel"),
                         rs.getString("status") != null ? rs.getString("status") : "inactive"
                 ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    @Override
+    public List<User> searchUser(String keyword) {
+        List<User> users = new ArrayList<>();
+        String query = "SELECT * FROM user WHERE nom LIKE ? OR prenom LIKE ? OR mail LIKE ?";
+        try (PreparedStatement pst = conn.prepareStatement(query)) {
+            String searchPattern = "%" + keyword + "%";
+            pst.setString(1, searchPattern);
+            pst.setString(2, searchPattern);
+            pst.setString(3, searchPattern);
+
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    users.add(new User(
+                            rs.getInt("id"),
+                            rs.getString("nom"),
+                            rs.getString("prenom"),
+                            rs.getString("mail"),
+                            rs.getString("password"),
+                            rs.getString("tel"),
+                            rs.getString("role")
+                    ));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -81,9 +81,12 @@ public class AvisController implements Initializable {
                     String nameStyle = "-fx-fill: #000000; -fx-font-size: 30;";
                     String name1Style = "-fx-fill: #000000; -fx-font-size: 24;";
                     String dataStyle = "-fx-fill: #000000; -fx-font-size: 20;";
-                    User u = MRC1.searchuser(UserSession.getId());
 
-                    Text NomData = new Text(u.getNom() + " : \n");
+                    // Assuming searchuser returns a List of users, get the first one
+                    List<User> users = MRC1.searchUser(String.valueOf(UserSession.getId()));
+                    User u = users.isEmpty() ? null : users.get(0);
+
+                    Text NomData = new Text(u != null ? u.getNom() + " : \n" : "Unknown User : \n");
                     NomData.setStyle(nameStyle);
                     Text AvisData = new Text(avis.getCommentaire() + "\n");
                     AvisData.setStyle(name1Style);
@@ -227,4 +230,4 @@ public class AvisController implements Initializable {
         // Rafraîchir l'affichage de la liste
         List.refresh();
     }
-}
+}  // End of AvisController

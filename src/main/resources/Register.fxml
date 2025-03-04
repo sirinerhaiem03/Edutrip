@@ -23,7 +23,7 @@
         <HBox spacing="0" HBox.hgrow="ALWAYS">
 
             <!-- Left Section: Form -->
-            //hhh
+
             <VBox alignment="CENTER" spacing="20" styleClass="left-container" VBox.vgrow="ALWAYS">
 
                 <ImageView fitHeight="102.0" fitWidth="198.0">
