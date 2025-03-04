@@ -71,7 +71,6 @@ public class DetailsHebergementController {
 
         // Load image
         loadImage();
-
         // Fetch local events
         fetchLocalEvents();
 
@@ -82,6 +81,8 @@ public class DetailsHebergementController {
         instagramShareButton.setOnAction(event -> shareOnInstagram());
 
     }
+
+
 
     private void fetchLocalEvents() {
         if (hebergement == null || hebergement.getAdressh() == null || hebergement.getAdressh().isEmpty()) {
@@ -205,7 +206,7 @@ public class DetailsHebergementController {
     }
 
 
-    
+
     private void generatePDF() {
         try (PDDocument document = new PDDocument()) {
             PDPage page = new PDPage();
