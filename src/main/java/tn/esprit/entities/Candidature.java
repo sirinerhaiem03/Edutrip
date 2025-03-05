@@ -9,7 +9,7 @@ public class Candidature {
     private User user; // Association with User
     private University university; // Association with University
 
-    
+
 
     public Candidature() {
     }
