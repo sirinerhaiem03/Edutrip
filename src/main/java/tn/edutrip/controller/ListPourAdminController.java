@@ -233,7 +233,7 @@ public class ListPourAdminController {
         Message message = Message.creator(
                 new PhoneNumber("+21625096025"),
                 new PhoneNumber(TWILIO_PHONE_NUMBER),
-                "Cher étudiant : Nouvelle offre disponible ! Consultez notre site pour plus de détails et merci." // Message
+                "Cher étudiant : Nouvelle offre disponible ! Consultez notre site pour plus de détails et Merci." // Message
         ).create();
 
         System.out.println("SMS envoyé avec SID: " + message.getSid());
