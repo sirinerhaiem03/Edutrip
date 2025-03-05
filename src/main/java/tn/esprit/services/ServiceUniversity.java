@@ -20,6 +20,7 @@ public class ServiceUniversity {
     private Connection connection = MyDatabase.getInstance().getConnection();//MyDatabase singleton instance. all db use same conn
     private static final String API_URL = "http://universities.hipolabs.com/search";//uni info
 
+    
 
     public void ajouter(University university) throws SQLException {
         String query = "INSERT INTO university (nom, ville, email, description) VALUES (?, ?, ?, ?)";

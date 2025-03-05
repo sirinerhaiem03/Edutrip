@@ -16,7 +16,7 @@ public class UserService {
     public UserService() {}
 
 
-    
+
     // Ajouter un utilisateur
     public void addUser(User user) {
         String query = "INSERT INTO utilisateur (nom, prenom, mail, tel, password, confirm_password, status, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
