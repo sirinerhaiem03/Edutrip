@@ -28,6 +28,16 @@ public class User {
         this.status = (status != null) ? status : "inactive";  // Assurez-vous que le statut ne soit jamais null
         this.role = "USER";  // Par défaut "USER"
     }
+    public User(int id, String nom, String prenom, String mail) {
+        this.id_etudiant = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mail = mail;
+        this.password = ""; // Valeur par défaut
+        this.tel = "";
+        this.status = "inactive";
+        this.role = "USER";
+    }
 
 
 

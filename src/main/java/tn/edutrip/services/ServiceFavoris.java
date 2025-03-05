@@ -55,6 +55,24 @@ public class ServiceFavoris implements Iservices<Favoris>  {
         }
     }
 
+    public boolean estDejaFavoris(int userId, int postId) {
+        String query = "SELECT COUNT(*) FROM favoris WHERE id_etudiant = ? AND id_post = ?";
+        try (PreparedStatement ps = con.prepareStatement(query)) {
+
+            ps.setInt(1, userId);
+            ps.setInt(2, postId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
+
     public boolean estFavoris(int id_etudiant, int id_post) {
         String query = "SELECT COUNT(*) FROM favoris WHERE id_etudiant = ? AND id_post = ?";
         try (PreparedStatement stmt = con.prepareStatement(query)) {
@@ -67,5 +85,5 @@ public class ServiceFavoris implements Iservices<Favoris>  {
             System.out.println("Erreur lors de la vérification des favoris : " + e.getMessage());
             return false;
         }
-    }
-}
+
+}}

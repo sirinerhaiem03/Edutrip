@@ -76,6 +76,9 @@ public class ServiceUser {
             System.out.println("❌ Erreur lors de la mise à jour de l'utilisateur : " + e.getMessage());
         }
     }
+    public User getCurrentUser() {
+        return new User(1, "NomUtilisateur", "PrenomUtilisateur", "email@example.com"); // Remplace avec des données réelles
+    }
 
     public User getUserById(int userId) {
         String query = "SELECT * FROM utilisateur WHERE id_etudiant = ?"; // Utiliser id_etudiant au lieu de id

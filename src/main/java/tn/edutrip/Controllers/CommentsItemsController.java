@@ -24,7 +24,7 @@ public class CommentsItemsController {
 
     @FXML
     private ImageView menuIcon; // Icône des trois points
-
+    private AdminPostController adminPostController;
     private Commentaire currentComment; // Commentaire actuel
     private ServiceCommentaire serviceCommentaire; // Service pour gérer les commentaires
     private ServiceUser serviceUser;
@@ -109,4 +109,8 @@ public class CommentsItemsController {
                 postItemController.loadCommentsAsync();
             }
     }}
+
+    public void setAdminPostController(AdminPostController adminPostController) {
+        this.adminPostController = adminPostController;
+    }
 }

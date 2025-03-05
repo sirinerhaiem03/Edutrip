@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox fx:id="postBox" spacing="10" style="-fx-padding: 10px; -fx-border-color: #57A0D2; -fx-border-width: 1px; -fx-background-color: #f9f9f9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.edutrip.Controllers.AdminPostController">
+    <children>
+        <!-- Section du post (auteur, date, contenu, etc.) -->
+        <HBox spacing="10">
+            <ImageView fitHeight="27.0" fitWidth="29.0" preserveRatio="true">
+                <image>
+                    <Image url="@images/user.png" />
+                </image>
+            </ImageView>
+
+            <VBox spacing="5">
+                <HBox prefHeight="6.0" prefWidth="400.0">
+                    <children>
+                        <Text fx:id="IdAuthor" style="-fx-font-weight: bold;" />
+                        <Text fx:id="IdDate" style="-fx-font-size: 12px; -fx-text-fill: #888;">
+                            <HBox.margin>
+                                <Insets left="400.0" />
+                            </HBox.margin>
+                        </Text>
+                    </children>
+                </HBox>
+                <Text fx:id="IdCategorie" style="-fx-font-size: 12px; -fx-text-fill: #777;" />
+            </VBox>
+
+
+        </HBox>
+        <Text fx:id="IdContenu" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333;">
+            <VBox.margin>
+                <Insets />
+            </VBox.margin>
+        </Text>
+        <ImageView fx:id="IdPostImage" fitHeight="203.0" fitWidth="293.0" preserveRatio="true">
+            <VBox.margin>
+                <Insets left="150.0" />
+            </VBox.margin>
+        </ImageView>
+        <HBox prefHeight="52.0" prefWidth="579.0">
+            <children>
+                <ImageView fx:id="CommentsIcon" fitHeight="22.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/comment.png" />
+                    </image>
+                    <HBox.margin>
+                        <Insets left="10.0" />
+                    </HBox.margin>
+                </ImageView>
+                <!-- Conteneur pour les commentaires -->
+                <VBox fx:id="commentsContainer" spacing="10" />
+
+            </children>
+
+        </HBox>
+        <!-- Section des actions (commentaires, modifier, supprimer) -->
+        <HBox prefHeight="0.0" prefWidth="438.0">
+            <children>
+                <ImageView fx:id="editIcon" accessibleRole="BUTTON" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/edit2.png" />
+                    </image>
+                    <HBox.margin>
+                        <Insets left="480.0" right="20.0" />
+                    </HBox.margin>
+                </ImageView>
+                <ImageView fx:id="deleteIcon" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/bin.png" />
+                    </image>
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                </ImageView>
+            </children>
+        </HBox>
+        <!-- Champ de texte et bouton pour ajouter un commentaire -->
+
+    </children>
+</VBox>

@@ -25,17 +25,13 @@ import tn.edutrip.entities.Commentaire;
 import tn.edutrip.services.ServiceUser;
 import tn.edutrip.utils.CommentAnalysis;
 import tn.edutrip.utils.OpenAIModerationAPI;
-
-public class PostItemController {
+public class AdminPostController {
 
     @FXML
     private ImageView CommentsIcon;
     @FXML
     private VBox commentsContainer;
-    @FXML
-    private TextField commentInput; // Text field for the comment
-    @FXML
-    private Button submitCommentButton;
+
     @FXML
     private Text IdAuthor;
     @FXML
@@ -51,25 +47,17 @@ public class PostItemController {
     @FXML
     private ImageView deleteIcon;
     @FXML
-    private ImageView likeIcon;
-    @FXML
-    private ImageView dislikeIcon;
-    @FXML
-    private Text likeCountText;  // Afficher le nombre de likes
-    @FXML
-    private Text dislikeCountText;
-    @FXML
-    private ImageView favorisIcon;
+
 
     private Post currentPost;
     private ServicePost servicePost;
     private ListView<Post> PostListView;
     private AffichagePostController affichagePostController;
     private ServiceCommentaire ServiceCommentaire;
-
+    private AffichageAdminController affichageAdminController;
     private static final Logger logger = Logger.getLogger(PostItemController.class.getName());
 
-    public PostItemController() {
+    public AdminPostController() {
         ServiceCommentaire = new ServiceCommentaire();
         servicePost = new ServicePost();
     }
@@ -90,8 +78,7 @@ public class PostItemController {
         IdDate.setText(post.getDate_creation());
         IdContenu.setText(post.getContenu());
         IdCategorie.setText("Category: " + post.getCategorie());
-        likeCountText.setText(String.valueOf(post.getLikes()));
-        dislikeCountText.setText(String.valueOf(post.getDislikes()));
+
         // Display post data
         if (author != null) {
             IdAuthor.setText(author.getNom() + " " + author.getPrenom()); // Set the name and surname
@@ -120,7 +107,7 @@ public class PostItemController {
         editIcon.setOnMouseClicked(event -> openEditWindow());
         deleteIcon.setOnMouseClicked(event -> deletePost());
         // Add event to submit a comment
-        submitCommentButton.setOnAction(event -> submitComment());
+
 
 
     }
@@ -136,8 +123,8 @@ public class PostItemController {
             // Incrémentez le nombre de likes
             currentPost.setLikes(currentPost.getLikes() + 1);
 
-            // Mettez à jour l'interface
-            likeCountText.setText(String.valueOf(currentPost.getLikes()));
+
+
 
             // Sauvegarder la modification dans la base de données
             servicePost.update(currentPost);
@@ -149,8 +136,7 @@ public class PostItemController {
             // Incrémentez le nombre de dislikes
             currentPost.setDislikes(currentPost.getDislikes() + 1);
 
-            // Mettez à jour l'interface
-            dislikeCountText.setText(String.valueOf(currentPost.getDislikes()));
+
 
             // Sauvegarder la modification dans la base de données
             servicePost.update(currentPost);
@@ -160,40 +146,6 @@ public class PostItemController {
 
 
     @FXML
-    private void submitComment() {
-        String commentText = commentInput.getText().trim();
-
-        // Vérifier si le commentaire est vide
-        if (commentText.isEmpty()) {
-            showAlert("Erreur de saisie", "Le commentaire ne peut pas être vide.", Alert.AlertType.WARNING);
-            return;
-        }
-
-        // Analyser le commentaire avec l'API de modération
-        String analysisResult = CommentAnalysis.analyzeComment(commentText);
-
-        // Vérifie si l'analyse a trouvé des problèmes dans le commentaire
-        if (analysisResult != null && analysisResult.contains("negative") /* Exemple de critère à adapter selon la réponse de l'API */) {
-            showAlert("Modération", "Votre commentaire contient un langage inapproprié. Veuillez le modifier.", Alert.AlertType.WARNING);
-            return;
-        }
-
-        // Si le commentaire est approprié, l'ajouter à la base de données
-        Commentaire newComment = new Commentaire();
-        newComment.setId_post(currentPost.getId_post());
-        newComment.setId_etudiant(1); // Remplacez par l'ID de l'utilisateur actuel
-        newComment.setContenu(commentText);
-        newComment.setDate_commentaire(new Date());
-
-        // Ajouter le commentaire à la base de données
-        ServiceCommentaire.add(newComment);
-
-        // Effacer le champ de texte
-        commentInput.clear();
-
-        // Recharger les commentaires
-        loadCommentsAsync();
-    }
 
     private void showAlert(String title, String message, javafx.scene.control.Alert.AlertType alertType) {
         javafx.scene.control.Alert alert = new javafx.scene.control.Alert(alertType);
@@ -223,7 +175,7 @@ public class PostItemController {
                     VBox commentBox = loader.load();
                     CommentsItemsController controller = loader.getController();
                     controller.setCommentData(comment);
-                    controller.setPostItemController(PostItemController.this);
+                    controller.setAdminPostController(AdminPostController.this);
                     commentsContainer.getChildren().add(commentBox);
                 } catch (Exception e) {
                     logger.log(Level.SEVERE, "Error loading comment: " + comment.getId_commentaire(), e);
@@ -276,8 +228,9 @@ public class PostItemController {
         }
     }
 
-
-    public void setAffichagePostController(AffichagePostController affichagePostController) {
-        this.affichagePostController = affichagePostController;
+    public void setAffichageAdminController(AffichageAdminController affichageAdminController) {
+        this.affichageAdminController = affichageAdminController;
     }
 }
+
+
