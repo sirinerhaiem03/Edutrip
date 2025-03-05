@@ -27,7 +27,7 @@ public class PaymentController {
     @FXML private Label successLabel;
 
 
-    
+
     private String userName;
     private String userEmail;
     private float amount;
