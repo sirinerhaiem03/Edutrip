@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="635.0" prefWidth="902.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.edutrip.controller.ListPourAdminController">
+   <children>
+      <Label layoutX="196.0" layoutY="25.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+      <ListView fx:id="listDesAgences" layoutX="243.0" layoutY="210.0" prefHeight="443.0" prefWidth="639.0" />
+
+      <!-- Le bouton Packs, centré en haut à droite -->
+      <Button fx:id="packsButton" onAction="#openAjouterPacksWindow" prefWidth="100.0" text="Packs" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0" />
+
+      <AnchorPane layoutX="902.0" layoutY="126.0" prefHeight="535.0" prefWidth="15.0" style="-fx-background-color: #57A0D2;" />
+      <AnchorPane layoutY="1.0" prefHeight="124.0" prefWidth="916.0" style="-fx-background-color: FFFFFF;">
+         <children>
+            <Label layoutX="331.0" layoutY="33.0" prefHeight="26.0" prefWidth="238.0" text="List des Agences" textAlignment="CENTER" textFill="#57a0d2">
+               <font>
+                  <Font name="Bell MT Bold" size="29.0" />
+               </font>
+               <effect>
+                  <Bloom />
+               </effect>
+            </Label>
+            <ImageView fitHeight="93.0" fitWidth="95.0" layoutX="35.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/logo.jpg" />
+               </image>
+            </ImageView>
+            <AnchorPane layoutY="107.0" prefHeight="18.0" prefWidth="917.0" style="-fx-background-color: #57A0D2;" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="124.0" prefHeight="535.0" prefWidth="219.0" style="-fx-background-color: #57A0D2;">
+         <children>
+            <VBox layoutX="20.0" layoutY="50.0" spacing="15" />
+            <Label layoutX="68.0" layoutY="156.0" prefHeight="35.0" prefWidth="83.0" text="Welcome " textFill="#0d0d0d">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="73.0" layoutY="284.0" text="Université" textFill="white" />
+            <Label layoutX="79.0" layoutY="332.0" text="Agence" textFill="white" />
+            <Label layoutX="82.0" layoutY="384.0" text="Vols" textFill="white" />
+            <Label layoutX="73.0" layoutY="420.0" text="Hébergement" textFill="white" />
+            <Label layoutX="82.0" layoutY="469.0" text="Post" textFill="white" />
+            <ImageView fitHeight="35.0" fitWidth="39.0" layoutX="21.0" layoutY="460.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/post.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="35.0" fitWidth="39.0" layoutX="21.0" layoutY="411.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/hybergement.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="35.0" fitWidth="39.0" layoutX="21.0" layoutY="375.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/vol.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="35.0" fitWidth="44.0" layoutX="19.0" layoutY="323.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/agence.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="35.0" fitWidth="47.0" layoutX="20.0" layoutY="275.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/université.jpg" />
+               </image>
+            </ImageView>
+            <Label layoutX="76.0" layoutY="191.0" text="Admin">
+               <font>
+                  <Font name="Arial Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="82.0" layoutY="509.0" text="logout" textFill="WHITE" />
+            <ImageView fitHeight="35.0" fitWidth="42.0" layoutX="21.0" layoutY="500.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/LOGOUT.png" />
+               </image>
+            </ImageView>
+            <Line endX="201.90000915527344" endY="362.6999816894531" layoutX="-8.0" layoutY="-143.0" startX="24.200000762939453" startY="362.6999816894531" stroke="#f7f4f4" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="19.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/compte1.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="43.0" fitWidth="36.0" layoutX="21.0" layoutY="231.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/HOME.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="80.0" layoutY="240.0" text="home" textFill="WHITE" />
+         </children>
+      </AnchorPane>
+      <TextField fx:id="nomrecherche" layoutX="243.0" layoutY="131.0" prefHeight="35.0" prefWidth="179.0" style="-fx-background-color: #57A0D2;" />
+      <ImageView fitHeight="35.0" fitWidth="41.0" layoutX="382.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/recherche.png" />
+         </image>
+      </ImageView>
+      <ComboBox fx:id="comboTri" layoutX="242.0" layoutY="170.0" onAction="#trierAgences" prefHeight="35.0" prefWidth="179.0" style="-fx-background-color: #57A0D2;" />
+      <Button fx:id="StatAgence" layoutX="723.0" layoutY="131.0" mnemonicParsing="false" onAction="#StatAgence" prefHeight="35.0" prefWidth="158.0" style="-fx-background-color: #57A0d2;" text="les statistiques" />
+      <Button fx:id="SmsAgence" layoutX="723.0" layoutY="170.0" mnemonicParsing="false" onAction="#smsAgence" prefHeight="35.0" prefWidth="158.0" text="SmsAgence" />
+   </children>
+</AnchorPane>
