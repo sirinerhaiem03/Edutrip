@@ -9,13 +9,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import tn.esprit.tacheuser.models.Avis;
 import tn.esprit.tacheuser.services.AvisService;
+import tn.esprit.tacheuser.services.EmailService;
 import tn.esprit.tacheuser.utils.UserSession;
-import tn.esprit.tacheuser.services.EmailService; // ✅ Import du service d'email
 
 import java.io.File;
 import java.io.IOException;
@@ -35,8 +35,11 @@ public class AjoutAvis implements Initializable {
     @FXML
     private MFXLegacyComboBox<String> Note;
 
+    @FXML
+    private ListView<Avis> listView; // Liste pour afficher les avis
+
     private final AvisService exp = new AvisService();
-    private final EmailService emailService = new EmailService(); // ✅ Instance du service email
+    private final EmailService emailService = new EmailService();
 
     @FXML
     public void Ajoutrec(ActionEvent event) {
@@ -63,26 +66,54 @@ public class AjoutAvis implements Initializable {
             Avis avis = new Avis(UserSession.getId(), textarea.getText(), noteValue, Date.valueOf(LocalDate.now()), t);
             exp.add(avis);
 
-            // ✅ Envoi de l'email de confirmation après l'ajout d'un avis
-            String destinataire = UserSession.getMail(); // Utilisez getMail() ici
+            // Envoi d'email
+            String destinataire = UserSession.getMail();
             String sujet = "Confirmation de votre avis sur EduTrip";
             String contenu = "<h2>Merci d’avoir partagé votre avis !</h2>"
-                    + "<p>Votre retour est précieux pour améliorer notre plateforme EduTrip.</p>"
                     + "<p><strong>Note donnée :</strong> " + noteValue + "/5</p>"
-                    + "<p><strong>Votre commentaire :</strong> " + textarea.getText() + "</p>"
-                    + "<p>À bientôt sur EduTrip !</p>";
+                    + "<p><strong>Votre commentaire :</strong> " + textarea.getText() + "</p>";
 
-            emailService.envoyerEmail(destinataire, sujet, contenu); // ✅ Appel du service email
+            emailService.envoyerEmail(destinataire, sujet, contenu);
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/avis.fxml"));
-            Parent root = loader.load();
-            Scene currentScene = ((Node) event.getSource()).getScene();
-            currentScene.setRoot(root);
+            refreshListView(); // Mise à jour de la liste
         } catch (NumberFormatException e) {
             showAlert("Erreur", "La note doit être un nombre valide.");
-        } catch (IOException e) {
-            showAlert("Erreur", "Impossible de charger l'interface avis.fxml.");
         }
+    }
+
+    @FXML
+    private void modifierAvis(ActionEvent event) {
+        Avis selectedAvis = listView.getSelectionModel().getSelectedItem();
+        if (selectedAvis != null) {
+            selectedAvis.setCommentaire(textarea.getText());
+            selectedAvis.setNote(Integer.parseInt(Note.getValue().trim()));
+            selectedAvis.setPhoto(image.getText());
+
+          //  exp.update(selectedAvis);
+            refreshListView();
+        } else {
+            showAlert("Erreur", "Veuillez sélectionner un avis à modifier.");
+        }
+    }
+
+    @FXML
+    private void supprimerAvis(ActionEvent event) {
+        Avis selectedAvis = listView.getSelectionModel().getSelectedItem();
+        if (selectedAvis != null) {
+            exp.delete(selectedAvis.getId());
+            refreshListView();
+        } else {
+            showAlert("Erreur", "Veuillez sélectionner un avis à supprimer.");
+        }
+    }
+
+    @FXML
+    private void sortByRating(ActionEvent event) {
+      //  listView.getItems().setAll(exp.getAllSortedByRating());
+    }
+
+    private void refreshListView() {
+        listView.getItems().setAll(exp.getAll());
     }
 
     private void showAlert(String title, String message) {
@@ -97,7 +128,6 @@ public class AjoutAvis implements Initializable {
     void Browse(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir un fichier");
-
         File selectedFile = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
 
         if (selectedFile != null) {
@@ -108,7 +138,16 @@ public class AjoutAvis implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        String[] t2 = {"1", "2", "3", "4", "5"};
-        Note.getItems().addAll(t2);
+        Note.getItems().addAll("1", "2", "3", "4", "5");
+        refreshListView();
+
+        listView.setOnMouseClicked(event -> {
+            Avis selectedAvis = listView.getSelectionModel().getSelectedItem();
+            if (selectedAvis != null) {
+                textarea.setText(selectedAvis.getCommentaire());
+                Note.setValue(String.valueOf(selectedAvis.getNote()));
+                image.setText(selectedAvis.getPhoto());
+            }
+        });
     }
 }

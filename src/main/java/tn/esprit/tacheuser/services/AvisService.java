@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AvisService {
-    private final Connection cnx=MySQLConnection.getInstance().getConnection();
+    private final Connection cnx = MySQLConnection.getInstance().getConnection();
 
-    // Method to add a new Avis
+    // Méthode pour ajouter un Avis
     public void add(Avis a) {
         try {
             String req = "INSERT INTO avis(user_id, commentaire, note, date_creation, photo) VALUES (?,?,?,?,?)";
@@ -23,14 +23,14 @@ public class AvisService {
             ps.setDate(4, a.getDateCreation());
             ps.setString(5, a.getPhoto());
             ps.executeUpdate();
-            System.out.println("Avis Added Successfully!");
+            System.out.println("Avis ajouté avec succès !");
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
 
-    // Method to fetch all Avis records
-    public ObservableList<Avis> fetch() {
+    // Méthode pour récupérer tous les Avis
+    public ObservableList<Avis> getAll() {
         ObservableList<Avis> avisList = FXCollections.observableArrayList();
         try {
             String req = "SELECT * FROM avis";
@@ -53,7 +53,7 @@ public class AvisService {
         return avisList;
     }
 
-    // Method to search Avis by ID (using a LIKE query)
+    // Méthode pour rechercher un Avis par ID
     public List<Avis> rechercheAvis(int id) {
         List<Avis> avisList = new ArrayList<>();
         try {
@@ -78,35 +78,34 @@ public class AvisService {
         return avisList;
     }
 
-    // Method to delete an Avis by ID
-    //    ~\Desktop\JAVA\Edutrip-gestion_utilisateur\Edutrip-gestion_utilisateur\out/
+    // Méthode pour supprimer un Avis
     public void delete(int id) {
         try {
             String req = "DELETE FROM avis WHERE id = ?";
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, id);
             ps.executeUpdate();
-            System.out.println("Avis Deleted Successfully!");
+            System.out.println("Avis supprimé avec succès !");
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
 
-    // Method to update an Avis (by ID)
-    public void edit(int id, String commentaire, int note, String photo) {
+    // Méthode renommée en 'edit' pour correspondre à l'appel dans le contrôleur
+    public void edit(Avis a) {  // Correspond à la méthode 'update' initiale
         try {
             String req = "UPDATE avis SET commentaire = ?, note = ?, photo = ? WHERE id = ?";
             PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setString(1, commentaire);
-            ps.setInt(2, note);
-            ps.setString(3, photo);
-            ps.setInt(4, id);
+            ps.setString(1, a.getCommentaire());
+            ps.setInt(2, a.getNote());
+            ps.setString(3, a.getPhoto());
+            ps.setInt(4, a.getId());
 
             int rowsUpdated = ps.executeUpdate();
             if (rowsUpdated > 0) {
-                System.out.println("Avis Updated Successfully!");
+                System.out.println("Avis mis à jour avec succès !");
             } else {
-                System.out.println("Failed to update Avis. No matching record found.");
+                System.out.println("Échec de la mise à jour de l'avis. Aucun enregistrement correspondant trouvé.");
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

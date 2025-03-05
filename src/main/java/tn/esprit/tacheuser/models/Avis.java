@@ -4,22 +4,19 @@ import java.sql.Date;
 
 public class Avis {
     private int id;
-
-    public Avis() {
-    }
-
     private int userId;
     private String commentaire;
     private int note;
-    private java.sql.Date dateCreation;
-    private String photo; // new attribute
+    private Date dateCreation;
+    private String photo;
 
-    // Constructor for adding Avis (without ID, dateCreation is auto-set)
-    public Avis(int userId, String commentaire, int note, java.sql.Date dateCreation, String photo) {
+    // Constructeurs
+    public Avis() {}
+
+    public Avis(int userId, String commentaire, int note, Date dateCreation, String photo) {
         this.userId = userId;
         this.commentaire = commentaire;
         this.note = note;
-        // Automatically set the creation date using current system time
         this.dateCreation = dateCreation;
         this.photo = photo;
     }
@@ -33,7 +30,6 @@ public class Avis {
         this.photo = photo;
     }
 
-    // Constructor for updating Avis (with ID, without dateCreation)
     public Avis(int id, String commentaire, int note, String photo) {
         this.id = id;
         this.commentaire = commentaire;
@@ -41,50 +37,34 @@ public class Avis {
         this.photo = photo;
     }
 
-    // Complete constructor (for retrieving avis from the DB)
+    // Getters et Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
+    public int getUserId() { return userId; }
+    public void setUserId(int userId) { this.userId = userId; }
 
-    // Getters and Setters
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
+    public String getCommentaire() { return commentaire; }
+    public void setCommentaire(String commentaire) { this.commentaire = commentaire; }
 
-    public int getUserId() {
-        return userId;
-    }
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
+    public int getNote() { return note; }
+    public void setNote(int note) { this.note = note; }
 
-    public String getCommentaire() {
-        return commentaire;
-    }
-    public void setCommentaire(String commentaire) {
-        this.commentaire = commentaire;
-    }
+    public Date getDateCreation() { return dateCreation; }
+    public void setDateCreation(Date dateCreation) { this.dateCreation = dateCreation; }
 
-    public int getNote() {
-        return note;
-    }
-    public void setNote(int note) {
-        this.note = note;
-    }
+    public String getPhoto() { return photo; }
+    public void setPhoto(String photo) { this.photo = photo; }
 
-    public java.sql.Date getDateCreation() {
-        return dateCreation;
-    }
-    public void setDateCreation(java.sql.Date dateCreation) {
-        this.dateCreation = dateCreation;
-    }
-
-    // Getter and Setter for photo
-    public String getPhoto() {
-        return photo;
-    }
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    @Override
+    public String toString() {
+        return "Avis{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", commentaire='" + commentaire + '\'' +
+                ", note=" + note +
+                ", dateCreation=" + dateCreation +
+                ", photo='" + photo + '\'' +
+                '}';
     }
 }

@@ -40,7 +40,8 @@ public class AdminController {
     }
 
     private void loadReviews() {
-        for (Avis avis : avisService.fetch()) {
+        // Remplacez 'fetch()' par 'getAll()' selon la méthode dans AvisService
+        for (Avis avis : avisService.getAll()) {
             reviewListView.getItems().add(avis.getCommentaire() + " - Note: " + avis.getNote());
         }
     }
@@ -68,7 +69,7 @@ public class AdminController {
     private void deleteReview() {
         int selectedIndex = reviewListView.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
-            Avis selectedReview = avisService.fetch().get(selectedIndex);
+            Avis selectedReview = avisService.getAll().get(selectedIndex); // Mise à jour vers 'getAll()'
             showConfirmationAlert("Suppression de l'avis", "Voulez-vous vraiment supprimer cet avis ?", () -> {
                 avisService.delete(selectedReview.getId());
                 reviewListView.getItems().remove(selectedIndex);
@@ -96,6 +97,7 @@ public class AdminController {
         alert.setHeaderText(content);
         alert.showAndWait();
     }
+
     public void compte(MouseEvent mouseEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Compte.fxml"));
@@ -126,4 +128,3 @@ public class AdminController {
         }
     }
 }
-//uu

@@ -131,7 +131,8 @@ public class AvisController implements Initializable {
             }
         });
 
-        List.getItems().addAll(MRC.fetch());
+        // Remplacer 'fetch()' par 'getAll()' pour récupérer les avis
+        List.getItems().addAll(MRC.getAll());
     }
 
     public void deleteSelected(ActionEvent event) {
