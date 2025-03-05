@@ -16,7 +16,7 @@
 <AnchorPane prefHeight="635.0" prefWidth="902.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.edutrip.controller.ListPourAdminController">
    <children>
       <Label layoutX="196.0" layoutY="25.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
-      <ListView fx:id="listDesAgences" layoutX="243.0" layoutY="196.0" prefHeight="450.0" prefWidth="638.0" />
+      <ListView fx:id="listDesAgences" layoutX="243.0" layoutY="210.0" prefHeight="443.0" prefWidth="639.0" />
 
       <!-- Le bouton Packs, centré en haut à droite -->
       <Button fx:id="packsButton" onAction="#openAjouterPacksWindow" prefWidth="100.0" text="Packs" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0" />
@@ -103,13 +103,14 @@
             <Label layoutX="80.0" layoutY="240.0" text="home" textFill="WHITE" />
          </children>
       </AnchorPane>
-      <TextField fx:id="nomrecherche" layoutX="243.0" layoutY="149.0" prefHeight="35.0" prefWidth="230.0" style="-fx-background-color: #57A0D2;" />
-      <ImageView fitHeight="35.0" fitWidth="41.0" layoutX="424.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true">
+      <TextField fx:id="nomrecherche" layoutX="243.0" layoutY="131.0" prefHeight="35.0" prefWidth="179.0" style="-fx-background-color: #57A0D2;" />
+      <ImageView fitHeight="35.0" fitWidth="41.0" layoutX="382.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@image/recherche.png" />
          </image>
       </ImageView>
-      <ComboBox fx:id="comboTri" layoutX="562.0" layoutY="149.0" onAction="#trierAgences" prefHeight="35.0" prefWidth="202.0" style="-fx-background-color: #57A0D2;" />
-      <Button fx:id="StatAgence" layoutX="798.0" layoutY="154.0" mnemonicParsing="false" onAction="#StatAgence" text="statAgence" />
+      <ComboBox fx:id="comboTri" layoutX="242.0" layoutY="170.0" onAction="#trierAgences" prefHeight="35.0" prefWidth="179.0" style="-fx-background-color: #57A0D2;" />
+      <Button fx:id="StatAgence" layoutX="723.0" layoutY="131.0" mnemonicParsing="false" onAction="#StatAgence" prefHeight="35.0" prefWidth="158.0" style="-fx-background-color: #57A0d2;" text="les statistiques" />
+      <Button fx:id="SmsAgence" layoutX="723.0" layoutY="170.0" mnemonicParsing="false" onAction="#smsAgence" prefHeight="35.0" prefWidth="158.0" text="SmsAgence" />
    </children>
 </AnchorPane>

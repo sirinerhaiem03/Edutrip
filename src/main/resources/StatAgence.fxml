@@ -5,13 +5,13 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="tn.edutrip.controller.StatAgenceController">
-    <BarChart fx:id="barChart" title="Statistiques des agences par mois" prefHeight="400" prefWidth="600">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="tn.edutrip.controller.StatAgenceController">
+    <BarChart fx:id="barChart" prefHeight="400" prefWidth="600" title="Statistiques des agences par mois">
         <xAxis>
-            <CategoryAxis fx:id="xAxis"/>
+            <CategoryAxis fx:id="xAxis" />
         </xAxis>
         <yAxis>
-            <NumberAxis fx:id="yAxis"/>
+            <NumberAxis fx:id="yAxis" />
         </yAxis>
     </BarChart>
 </AnchorPane>
