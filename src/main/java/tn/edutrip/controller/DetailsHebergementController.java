@@ -77,7 +77,7 @@ public class DetailsHebergementController {
 
         pdfid.setOnAction(event -> generatePDF());
         mapid.setOnAction(event -> openGoogleMaps());
-        facebookShareButton.setOnAction(event -> postToFacebook());        twitterShareButton.setOnAction(event -> shareOnTwitter());
+        facebookShareButton.setOnAction(event -> shareOnFacebook());
         instagramShareButton.setOnAction(event -> shareOnInstagram());
 
     }
@@ -174,43 +174,16 @@ public class DetailsHebergementController {
 
 
 
-    private void postToFacebook() {
+
+    private void shareOnFacebook() {
         try {
-            // Construct the post message
-            String message = "Check out this amazing Hebergement: " + hebergement.getNomh() + "\n" +
-                    "Type: " + hebergement.getTypeh() + "\n" +
-                    "Address: " + hebergement.getAdressh() + "\n" +
-                    "Price: " + hebergement.getPrixh() + " TND";
-
-            // Encode the message for the URL
-            String postData = "message=" + URLEncoder.encode(message, StandardCharsets.UTF_8) +
-                    "&access_token=" + PAGE_ACCESS_TOKEN;
-
-            // Create the connection
-            URL url = new URL(FACEBOOK_GRAPH_URL);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setDoOutput(true);
-
-            // Write the post data
-            try (OutputStream os = conn.getOutputStream()) {
-                byte[] input = postData.getBytes(StandardCharsets.UTF_8);
-                os.write(input, 0, input.length);
-            }
-
-            // Get the response
-            int responseCode = conn.getResponseCode();
-            if (responseCode == 200) {
-                System.out.println("Post published successfully!");
-            } else {
-                System.err.println("Error publishing post: " + conn.getResponseMessage());
-            }
-        } catch (Exception e) {
+            String url = "https://www.facebook.com/sharer/sharer.php?u=" + URLEncoder.encode("https://www.edutrip.com/hebergement/" + hebergement.getId_hebergement(), StandardCharsets.UTF_8);
+            Desktop.getDesktop().browse(URI.create(url));
+        } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("Error posting to Facebook: " + e.getMessage());
+            System.err.println("Error sharing on Facebook: " + e.getMessage());
         }
     }
-
     private void shareOnTwitter() {
         try {
             String text = URLEncoder.encode("Check out this amazing Hebergement: " + hebergement.getNomh(), StandardCharsets.UTF_8);
