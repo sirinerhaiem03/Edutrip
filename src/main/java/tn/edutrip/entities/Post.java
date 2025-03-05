@@ -19,6 +19,8 @@ public class Post {
         this.id_etudiant = id_etudiant;
         this.image = image;
         this.categorie = categorie;
+        this.likes = likes;
+        this.dislikes = dislikes;
     }
 
     public int getId_post() {
@@ -98,4 +100,5 @@ public class Post {
                 ", dislikes=" + dislikes +
                 '}';
     }
+
 }

@@ -66,7 +66,6 @@ public class ServicePost implements Iservices<Post> {
             System.out.println("Erreur mise à jour : " + e.getMessage());
         }
     }
-
     public List<Post> getAll() {
         List<Post> posts = new ArrayList<>();
         try {
@@ -74,18 +73,21 @@ public class ServicePost implements Iservices<Post> {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
-            // Parcourir les résultats et ajouter chaque post à la liste
             while (rs.next()) {
-                Post post = new Post(
-                        rs.getInt("id_post"),
-                        rs.getString("contenu"),
-                        rs.getString("date_creation"),
-                        rs.getInt("Id_etudiant"),
-                        rs.getString("Image"),
-                        rs.getString("categorie"),
-                        rs.getInt("likes"),
-                        rs.getInt("dislikes")
-                );
+                int id_post = rs.getInt("id_post");
+                String contenu = rs.getString("contenu");
+                String date_creation = rs.getString("date_creation");
+                int id_etudiant = rs.getInt("Id_etudiant");
+                String image = rs.getString("Image");
+                String categorie = rs.getString("categorie");
+
+                // Vérifier si les valeurs sont bien récupérées
+                int likes = rs.getInt("likes");
+                int dislikes = rs.getInt("dislikes");
+
+                System.out.println("Post récupéré: ID=" + id_post + ", Likes=" + likes + ", Dislikes=" + dislikes);
+
+                Post post = new Post(id_post, contenu, date_creation, id_etudiant, image, categorie, likes, dislikes);
                 posts.add(post);
             }
         } catch (SQLException e) {
@@ -93,6 +95,7 @@ public class ServicePost implements Iservices<Post> {
         }
         return posts;
     }
+
 
 
 
@@ -124,6 +127,45 @@ public class ServicePost implements Iservices<Post> {
         } catch (SQLException e) {
             System.out.println("Erreur lors de la récupération des posts avec commentaires : " + e.getMessage());
         }
+    }
+    public void updateLikesDislikes(int postId, int likes, int dislikes) {
+        String query = "UPDATE post SET likes = ?, dislikes = ? WHERE id_post = ?";
+        try (Connection conn = MyDatabase.getInstance().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, likes);
+            pstmt.setInt(2, dislikes);
+            pstmt.setInt(3, postId);
+
+            System.out.println("Mise à jour : PostID = " + postId + ", Likes = " + likes + ", Dislikes = " + dislikes);
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Post getPostById(int postId) {
+        String query = "SELECT * FROM post WHERE id_post = ?";
+        try (Connection conn = MyDatabase.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, postId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new Post(
+                        rs.getInt("id_post"),
+                        rs.getString("contenu"),
+                        rs.getString("date_creation"), // Move this before `categorie`
+                        rs.getInt("id_etudiant"),
+                        rs.getString("image"),
+                        rs.getString("categorie"),  // This should come after `image`
+                        rs.getInt("likes"),
+                        rs.getInt("dislikes")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

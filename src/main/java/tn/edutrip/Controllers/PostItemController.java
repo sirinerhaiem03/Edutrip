@@ -136,26 +136,28 @@ public class PostItemController {
             // Incrémentez le nombre de likes
             currentPost.setLikes(currentPost.getLikes() + 1);
 
-            // Mettez à jour l'interface
-            likeCountText.setText(String.valueOf(currentPost.getLikes()));
-
             // Sauvegarder la modification dans la base de données
-            servicePost.update(currentPost);
+            servicePost.updateLikesDislikes(currentPost.getId_post(), currentPost.getLikes(), currentPost.getDislikes());
+
+            // Mettre à jour l'affichage
+            likeCountText.setText(String.valueOf(currentPost.getLikes()));
         }
     }
+
     @FXML
     private void dislikePost() {
         if (currentPost != null) {
             // Incrémentez le nombre de dislikes
             currentPost.setDislikes(currentPost.getDislikes() + 1);
 
-            // Mettez à jour l'interface
-            dislikeCountText.setText(String.valueOf(currentPost.getDislikes()));
-
             // Sauvegarder la modification dans la base de données
-            servicePost.update(currentPost);
+            servicePost.updateLikesDislikes(currentPost.getId_post(), currentPost.getLikes(), currentPost.getDislikes());
+
+            // Mettre à jour l'affichage
+            dislikeCountText.setText(String.valueOf(currentPost.getDislikes()));
         }
     }
+
 
 
 
