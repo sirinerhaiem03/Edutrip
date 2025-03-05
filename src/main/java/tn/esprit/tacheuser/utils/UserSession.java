@@ -1,7 +1,7 @@
 package tn.esprit.tacheuser.utils;
 
-
 import tn.esprit.tacheuser.models.User;
+
 public class UserSession {
     private static int id;
     private static String nom;
@@ -11,17 +11,16 @@ public class UserSession {
     private static String mdp;
     private static int numTel;
 
-
-    public static void setSession(User u){
+    public static void setSession(User u) {
         id = u.getId();
         nom = u.getNom();
         prenom = u.getPrenom();
         mail = u.getMail();
         mdp = u.getPassword();
         role = u.getRole();
-        numTel=Integer.parseInt(u.getTel());
-
+        numTel = Integer.parseInt(u.getTel());
     }
+
     public static int getId() {
         return id;
     }
@@ -46,7 +45,7 @@ public class UserSession {
         prenom = prenom;
     }
 
-    public static String getMail() {
+    public static String getMail() { // Cette méthode retourne l'email
         return mail;
     }
 
@@ -61,7 +60,10 @@ public class UserSession {
     public static void setRole(String role) {
         UserSession.role = role;
     }
-    public static int getNumTel() {return numTel;}
+
+    public static int getNumTel() {
+        return numTel;
+    }
 
     public static void setNumTel(int numTel) {
         UserSession.numTel = numTel;

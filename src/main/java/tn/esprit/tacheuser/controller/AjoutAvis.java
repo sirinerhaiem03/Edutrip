@@ -11,12 +11,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import tn.esprit.tacheuser.models.Avis;
 import tn.esprit.tacheuser.services.AvisService;
 import tn.esprit.tacheuser.utils.UserSession;
+import tn.esprit.tacheuser.services.EmailService; // ✅ Import du service d'email
 
 import java.io.File;
 import java.io.IOException;
@@ -37,34 +36,43 @@ public class AjoutAvis implements Initializable {
     private MFXLegacyComboBox<String> Note;
 
     private final AvisService exp = new AvisService();
+    private final EmailService emailService = new EmailService(); // ✅ Instance du service email
 
     @FXML
     public void Ajoutrec(ActionEvent event) {
         String imageText = image.getText();
         String t = imageText.replace("%20", " ").replace("/", "\\").replace("file:\\", "");
 
-        // Vérifier si Note est null ou vide pour éviter une erreur
         if (Note.getValue() == null || Note.getValue().trim().isEmpty()) {
             showAlert("Erreur", "Veuillez sélectionner une note.");
-            return ;
+            return;
         }
 
-        // Vérification du champ image
         if (image.getText() == null || image.getText().trim().isEmpty()) {
             showAlert("Erreur", "Veuillez entrer une image.");
-            return ;
+            return;
         }
 
-        // Vérification du champ textarea
-        if (textarea.getText() == null || textarea.getText().trim().isEmpty()||textarea.getText().length()<3) {
+        if (textarea.getText() == null || textarea.getText().trim().isEmpty() || textarea.getText().length() < 3) {
             showAlert("Erreur", "Veuillez remplir la zone de texte.");
-            return ;
+            return;
         }
 
         try {
             int noteValue = Integer.parseInt(Note.getValue().trim());
             Avis avis = new Avis(UserSession.getId(), textarea.getText(), noteValue, Date.valueOf(LocalDate.now()), t);
             exp.add(avis);
+
+            // ✅ Envoi de l'email de confirmation après l'ajout d'un avis
+            String destinataire = UserSession.getMail(); // Utilisez getMail() ici
+            String sujet = "Confirmation de votre avis sur EduTrip";
+            String contenu = "<h2>Merci d’avoir partagé votre avis !</h2>"
+                    + "<p>Votre retour est précieux pour améliorer notre plateforme EduTrip.</p>"
+                    + "<p><strong>Note donnée :</strong> " + noteValue + "/5</p>"
+                    + "<p><strong>Votre commentaire :</strong> " + textarea.getText() + "</p>"
+                    + "<p>À bientôt sur EduTrip !</p>";
+
+            emailService.envoyerEmail(destinataire, sujet, contenu); // ✅ Appel du service email
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/avis.fxml"));
             Parent root = loader.load();
@@ -85,8 +93,6 @@ public class AjoutAvis implements Initializable {
         alert.showAndWait();
     }
 
-
-
     @FXML
     void Browse(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -104,34 +110,5 @@ public class AjoutAvis implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         String[] t2 = {"1", "2", "3", "4", "5"};
         Note.getItems().addAll(t2);
-    }
-    public void compte(MouseEvent mouseEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Compte.fxml"));
-            Parent root = loader.load();
-            Scene currentScene = ((Node) mouseEvent.getSource()).getScene();
-            currentScene.setRoot(root);
-        } catch (IOException e) {
-        }
-    }
-
-    public void post(MouseEvent mouseEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/avis.fxml"));
-            Parent root = loader.load();
-            Scene currentScene = ((Node) mouseEvent.getSource()).getScene();
-            currentScene.setRoot(root);
-        } catch (IOException e) {
-        }
-    }
-
-    public void logout(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login.fxml"));
-            Parent root = loader.load();
-            Scene currentScene = ((Node) event.getSource()).getScene();
-            currentScene.setRoot(root);
-        } catch (IOException e) {
-        }
     }
 }
