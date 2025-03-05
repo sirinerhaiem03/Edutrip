@@ -57,7 +57,7 @@ public class AjouterCandidatureController {
     }
 
 
-    
+
     @FXML
     private void handleUploadDiplome(ActionEvent event) {
         fileDiplome = chooseFile();
