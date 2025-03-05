@@ -14,6 +14,7 @@ public class PaymentProcess {
     private static final String SUCCESS_URL = "http://localhost:8080/success"; // Replace with your success URL
     private static final String CANCEL_URL = "http://localhost:8080/cancel"; // Replace with your cancel URL
 
+    
     public static String createCheckoutSession(float amount) throws StripeException {//to generate a Stripe-hosted payment page.(page info)
         Stripe.apiKey = STRIPE_API_KEY;
 

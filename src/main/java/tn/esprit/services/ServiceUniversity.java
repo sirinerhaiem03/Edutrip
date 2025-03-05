@@ -32,7 +32,7 @@ public class ServiceUniversity {
             stmt.executeUpdate();
         }
     }
-    
+
 
     public void update(University university) throws SQLException {
         String query = "UPDATE university SET nom = ?, ville = ?, email = ?, description = ? WHERE idUniversity = ?";
