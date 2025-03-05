@@ -23,20 +23,19 @@ import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List; // Ensure you import java.util.List
 
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class DetailsHebergementController {
 
@@ -51,6 +50,8 @@ public class DetailsHebergementController {
 
     private Hebergement hebergement;
     private static final String API_KEY = "zOKd8WYOzQIYaThCoNRwSwKG31pBTsGj";  // Replace with your actual API key
+    private static final String PAGE_ACCESS_TOKEN = "EAAYAZCCMkMpsBO6LUqklugwdu5meO05TZCmyXZBDuPQfihkjmZA5OWGegyhUefJHcZCQGeu7ROS0tVKB3UjDjcp7uOGhEt9K8SiZBKpbOAiepnf4t9MNdXQqE1WUy82p6zmGd4egCzhvvZA7ZCHc8uEdN1VDnXHi6MVDIM8SAXTlijuzKhW5dESCjlmjPU5oZBreDDrgL4mF6LNSYIZBKShAZDZD"; // Replace with your Page Access Token
+    private static final String FACEBOOK_GRAPH_URL = "https://graph.facebook.com/v12.0/me/feed";
 
     public void setHebergement(Hebergement hebergement) {
         this.hebergement = hebergement;
@@ -76,8 +77,7 @@ public class DetailsHebergementController {
 
         pdfid.setOnAction(event -> generatePDF());
         mapid.setOnAction(event -> openGoogleMaps());
-        facebookShareButton.setOnAction(event -> shareOnFacebook());
-        twitterShareButton.setOnAction(event -> shareOnTwitter());
+        facebookShareButton.setOnAction(event -> postToFacebook());        twitterShareButton.setOnAction(event -> shareOnTwitter());
         instagramShareButton.setOnAction(event -> shareOnInstagram());
 
     }
@@ -174,15 +174,43 @@ public class DetailsHebergementController {
 
 
 
-    private void shareOnFacebook() {
+    private void postToFacebook() {
         try {
-            String url = "https://www.facebook.com/sharer/sharer.php?u=" + URLEncoder.encode("https://www.edutrip.com/hebergement/" + hebergement.getId_hebergement(), StandardCharsets.UTF_8);
-            Desktop.getDesktop().browse(URI.create(url));
-        } catch (IOException e) {
+            // Construct the post message
+            String message = "Check out this amazing Hebergement: " + hebergement.getNomh() + "\n" +
+                    "Type: " + hebergement.getTypeh() + "\n" +
+                    "Address: " + hebergement.getAdressh() + "\n" +
+                    "Price: " + hebergement.getPrixh() + " TND";
+
+            // Encode the message for the URL
+            String postData = "message=" + URLEncoder.encode(message, StandardCharsets.UTF_8) +
+                    "&access_token=" + PAGE_ACCESS_TOKEN;
+
+            // Create the connection
+            URL url = new URL(FACEBOOK_GRAPH_URL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+
+            // Write the post data
+            try (OutputStream os = conn.getOutputStream()) {
+                byte[] input = postData.getBytes(StandardCharsets.UTF_8);
+                os.write(input, 0, input.length);
+            }
+
+            // Get the response
+            int responseCode = conn.getResponseCode();
+            if (responseCode == 200) {
+                System.out.println("Post published successfully!");
+            } else {
+                System.err.println("Error publishing post: " + conn.getResponseMessage());
+            }
+        } catch (Exception e) {
             e.printStackTrace();
-            System.err.println("Error sharing on Facebook: " + e.getMessage());
+            System.err.println("Error posting to Facebook: " + e.getMessage());
         }
     }
+
     private void shareOnTwitter() {
         try {
             String text = URLEncoder.encode("Check out this amazing Hebergement: " + hebergement.getNomh(), StandardCharsets.UTF_8);
