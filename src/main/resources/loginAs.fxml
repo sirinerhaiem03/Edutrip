@@ -106,7 +106,7 @@
                   <Line endX="142.6666717529297" endY="252.3333282470703" layoutX="2.0" layoutY="-103.0" startX="10.166682243347168" startY="252.3333282470703" stroke="#ebebeb" />
                </children>
             </AnchorPane>
-            <Button fx:id="chatid" layoutX="313.0" layoutY="464.0" mnemonicParsing="false" onAction="#handleChatbot" prefHeight="25.0" prefWidth="167.0" text="CHAT AI" />
+            <Button fx:id="chatid" layoutX="280.0" layoutY="538.0" mnemonicParsing="false" onAction="#handleChatbot" prefHeight="17.0" prefWidth="280.0" style="-fx-background-color: #57A0D2;" text="CHAT AI" textFill="#f6f5f5" />
             </children>
         </AnchorPane>
     </children>

@@ -98,19 +98,19 @@ public class AfficherHebergementController {
                     priceLabel.setStyle("-fx-text-fill: #28a745; -fx-font-weight: bold;");
 
                     Button updateButton = new Button("Modifier");
-                    updateButton.setStyle("-fx-background-color: #5bc0de; -fx-text-fill: white;");
+                    updateButton.setStyle("-fx-background-color: #5A9BD4; -fx-text-fill: white;"); // Light Blue
                     updateButton.setOnAction(event -> handleUpdate(hebergement));
 
                     Button deleteButton = new Button("Supprimer");
-                    deleteButton.setStyle("-fx-background-color: #d9534f; -fx-text-fill: white;");
+                    deleteButton.setStyle("-fx-background-color: #357ABD; -fx-text-fill: white;"); // Medium Blue
                     deleteButton.setOnAction(event -> handleDelete(hebergement));
 
                     Button reserveButton = new Button("Réservation");
-                    reserveButton.setStyle("-fx-background-color: #f0ad4e; -fx-text-fill: white;");
+                    reserveButton.setStyle("-fx-background-color: #1F4E79; -fx-text-fill: white;"); // Dark Blue
                     reserveButton.setOnAction(event -> handleReservation(hebergement));
 
                     Button detailsButton = new Button("Détails");
-                    detailsButton.setStyle("-fx-background-color: #007bff; -fx-text-fill: white;");
+                    detailsButton.setStyle("-fx-background-color: #003366; -fx-text-fill: white;"); // Deep Navy Blue
                     detailsButton.setOnAction(event -> handleDetails(hebergement));
 
                     VBox textLayout = new VBox(5, nameLabel, locationLabel, priceLabel);
