@@ -47,7 +47,7 @@ public class AjouterCandidatureController {
     }
 
 
-    
+
     @FXML
     private void handleUploadLettre(ActionEvent event) {
         fileLettre = chooseFile();

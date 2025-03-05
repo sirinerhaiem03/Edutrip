@@ -26,6 +26,8 @@ public class PaymentController {
     @FXML private ProgressIndicator progressIndicator;
     @FXML private Label successLabel;
 
+
+    
     private String userName;
     private String userEmail;
     private float amount;
