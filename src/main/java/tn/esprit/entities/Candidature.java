@@ -6,23 +6,29 @@ public class Candidature {
     private String lettre_motivation;
     private String diplome;
     private EtatCandidature etat;
+    private User user; // Association with User
+    private University university; // Association with University
 
     public Candidature() {
     }
 
-    public Candidature(int id, String cv, String lettre_motivation, String diplome, EtatCandidature etat) {
+    public Candidature(int id, String cv, String lettre_motivation, String diplome, EtatCandidature etat, User user, University university) {
         this.id = id;
         this.cv = cv;
         this.lettre_motivation = lettre_motivation;
         this.diplome = diplome;
         this.etat = etat;
+        this.user = user;
+        this.university = university;
     }
 
-    public Candidature(String cv, String lettre_motivation, String diplome, EtatCandidature etat) {
+    public Candidature(String cv, String lettre_motivation, String diplome, EtatCandidature etat, User user, University university) {
         this.cv = cv;
         this.lettre_motivation = lettre_motivation;
         this.diplome = diplome;
         this.etat = etat;
+        this.user = user;
+        this.university = university;
     }
 
     public int getId() {
@@ -65,6 +71,22 @@ public class Candidature {
         this.etat = etat;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public University getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(University university) {
+        this.university = university;
+    }
+
     @Override
     public String toString() {
         return "Candidature{" +
@@ -73,6 +95,8 @@ public class Candidature {
                 ", lettre_motivation='" + lettre_motivation + '\'' +
                 ", diplome='" + diplome + '\'' +
                 ", etat=" + etat +
+                ", user=" + (user != null ? user.getNom() + " " + user.getPrenom() : "null") +
+                ", university=" + (university != null ? university.getNom() : "null") +
                 '}';
     }
 }

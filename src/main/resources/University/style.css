@@ -1,0 +1,188 @@
+/* General Styles */
+.root {
+    -fx-font-family: "Arial";
+    -fx-background-color: #f0f0f0;
+}
+
+/* Top Bar Styles */
+.top-bar {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #57A0D2;
+    -fx-border-width: 0 0 2px 0;
+}
+
+.top-bar .label {
+    -fx-text-fill: #57A0D2;
+    -fx-font-size: 22px;
+    -fx-font-family: "Bell MT Bold";
+}
+
+/* Sidebar Styles */
+.sidebar {
+    -fx-background-color: #58A0D2;
+    -fx-border-color: #57A0D2;
+    -fx-border-width: 0 2px 0 0;
+}
+
+.sidebar .label {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-family: "Arial";
+}
+
+.sidebar .image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.5, 0, 1);
+}
+
+/* Search Bar Styles */
+.search-bar {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #57A0D2;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+}
+
+.search-bar .text-field {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: #999999;
+}
+
+.search-bar .button {
+    -fx-background-color: #57A0D2;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.search-bar .button:hover {
+    -fx-background-color: #3e8bce;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.0, 0, 5);
+}
+
+/* TableView Styles */
+.table-view {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #57A0D2;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.table-view .column-header {
+    -fx-background-color: #57A0D2;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #f0f0f0;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #f9f9f9;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #57A0D2;
+    -fx-text-fill: white;
+}
+
+.table-view .table-cell {
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+}
+
+/* Button Styles */
+.button-with-icon {
+    -fx-background-color: #57A0D2;
+    -fx-text-fill: white;
+    -fx-background-radius: 10px;
+    -fx-padding: 5px 10px;
+    -fx-font-size: 14px;
+    -fx-font-family: "Arial";
+    -fx-font-weight: bold;
+    -fx-alignment: center-left;
+}
+
+.button-with-icon .text {
+    -fx-padding: 0 10px 0 0; /* Space between icon and text */
+}
+
+.button-with-icon:hover {
+    -fx-background-color: #3e8bce; /* Lighter blue */
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.0, 0, 5);
+}
+
+.button-with-icon:pressed {
+    -fx-background-color: #3b75a3; /* Darker blue */
+}
+
+.button-with-icon .graphic {
+    -fx-padding: 0 15px 0 0; /* Adjust the space between icon and text */
+    -fx-alignment: center-right;
+}
+
+/* Add CSS Transition to the button hover animation */
+.button-with-icon {
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+/* TextField Styles */
+.text-field {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #57A0D2;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: #999999;
+}
+
+.text-field:focused {
+    -fx-border-color: #3e8bce;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.0, 0, 5);
+}
+
+/* ImageView Styles */
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.5, 0, 1);
+}
+
+/* AnchorPane Styles */
+.anchor-pane {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #57A0D2;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+.combo-box {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #57A0D2;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: #999999;
+}
+
+.combo-box:focused {
+    -fx-border-color: #3e8bce;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.0, 0, 5);
+}

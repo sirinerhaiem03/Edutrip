@@ -26,15 +26,18 @@ public class Main {
         University university1 = new University("Université de Tunis", "Tunis", "contact@utunis.tn", "Université publique d'enseignement supérieur.");
         University university2 = new University("Université de Monastir", "Monastir", "contact@umonastir.tn", "Université en sciences et technologies.");
         University nouvelleUniversite = new University("Université de Sfax", "Sfax", "contact@usfax.tn", "Université spécialisée en ingénierie.");
+        University newUniversity = new University("Université Centrale", "Tunis", "contact@ucentrale.tn", "Université privée spécialisée en gestion et ingénierie.");
 
-        Candidature candidature1 = new Candidature("cv1.pdf", "Motivation lettre 1", "Baccalauréat", EtatCandidature.EN_ATTENTE);
-        Candidature candidature2 = new Candidature("cv2.pdf", "Motivation lettre 2", "Licence", EtatCandidature.ACCEPTEE);
-        Candidature nouvelleCandidature = new Candidature("cv_new.pdf", "Lettre de motivation", "Licence", EtatCandidature.EN_ATTENTE);
+        int universityId = universities.get(0).getIdUniversity();
+        //Candidature candidature1 = new Candidature("cv1.pdf", "Motivation 1", "Bac", EtatCandidature.EN_ATTENTE, universityId);
+        //Candidature candidature2 = new Candidature("cv2.pdf", "Motivation 2", "Licence", EtatCandidature.ACCEPTEE, universityId);
+
         try {
             // Add universities and candidatures
             //serviceUniversity.ajouter(university1);
             //serviceUniversity.ajouter(university2);
             //serviceUniversity.ajouter(nouvelleUniversite);
+
 
             // Add candidatures
             //serviceCandidature.ajouter(candidature1);
@@ -45,18 +48,19 @@ public class Main {
             //serviceUniversity.modifier(university2);
 
 
-            //University universityToUpdate = universities.get(universities.size() - 1); // Dernière ajoutée
+            //University universityToUpdate = universities.get(universities.size() - 1);
            // universityToUpdate.setNom("Université de Sfax - Ingénierie");
            // universityToUpdate.setVille("Sfax");
             //universityToUpdate.setEmail("new-contact@usfax.tn");
            // universityToUpdate.setDescription("Université renommée en sciences et ingénierie.");
             // Appliquer la modification
             //serviceUniversity.modifier(universityToUpdate);
-            //System.out.println("Liste des universités après modification : ");
-            //System.out.println(serviceUniversity.afficher());
+            //System.out.println(" Université mise à jour avec succès! ");
+
+
 
             // Modifier la candidature
-            // Candidature candidatureToUpdate = candidatures.get(candidatures.size() - 1); // Dernière ajoutée
+            // Candidature candidatureToUpdate = candidatures.get(candidatures.size() - 1);
             //candidatureToUpdate.setCv("cv_updated.pdf");
             //candidatureToUpdate.setLettre_motivation("Nouvelle lettre de motivation");
             //candidatureToUpdate.setDiplome("Master");
@@ -66,8 +70,11 @@ public class Main {
             // Afficher la liste mise à jour
             // System.out.println("Candidatures après modification : ");
             //System.out.println(serviceCandidature.afficher());
+            Candidature candidatureToUpdate = candidatures.get(0);
+            candidatureToUpdate.setEtat(EtatCandidature.EN_ATTENTE); // Modify status
+            serviceCandidature.modifier(candidatureToUpdate);
 
-
+ 
             //suppression
            // serviceCandidature.supprimer(16);
             // System.out.println("Candidatures après suppression : ");
