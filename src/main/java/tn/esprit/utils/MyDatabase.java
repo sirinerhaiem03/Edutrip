@@ -13,7 +13,7 @@ public class MyDatabase {
     Connection connection;
 
 
-    
+
     static MyDatabase instance;
 
     private MyDatabase(){

@@ -21,6 +21,7 @@ import java.util.Optional;
 
 public class CandidatureController {
 
+    
     @FXML
     private TableView<Candidature> candidatureTable;
     @FXML
