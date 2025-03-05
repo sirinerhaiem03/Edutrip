@@ -12,6 +12,8 @@ public class MyDatabase {
     final String PASSWORD="";
     Connection connection;
 
+
+    
     static MyDatabase instance;
 
     private MyDatabase(){

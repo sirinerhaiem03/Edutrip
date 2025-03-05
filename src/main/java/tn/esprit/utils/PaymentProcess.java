@@ -19,7 +19,7 @@ public class PaymentProcess {
         Stripe.apiKey = STRIPE_API_KEY;
 
 
-        
+
         // Convert amount to cents
         long amountInCents = (long) (amount * 100);
 
