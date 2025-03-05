@@ -53,8 +53,6 @@ public class DetailsHebergementController {
     private static final String PAGE_ACCESS_TOKEN = "EAAYAZCCMkMpsBO6LUqklugwdu5meO05TZCmyXZBDuPQfihkjmZA5OWGegyhUefJHcZCQGeu7ROS0tVKB3UjDjcp7uOGhEt9K8SiZBKpbOAiepnf4t9MNdXQqE1WUy82p6zmGd4egCzhvvZA7ZCHc8uEdN1VDnXHi6MVDIM8SAXTlijuzKhW5dESCjlmjPU5oZBreDDrgL4mF6LNSYIZBKShAZDZD"; // Replace with your Page Access Token
     private static final String FACEBOOK_GRAPH_URL = "https://graph.facebook.com/v12.0/me/feed";
 
-
-    
     public void setHebergement(Hebergement hebergement) {
         this.hebergement = hebergement;
 
