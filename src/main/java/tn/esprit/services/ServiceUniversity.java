@@ -106,7 +106,7 @@ public class ServiceUniversity {
 
 
 
-    public University getByName(String name){
+    public University getByName(String name){//search uni name in db and return the obj if found
         University u = null;//will later hold the University object
         String sql = "SELECT * FROM university WHERE nom = ?";
         try {

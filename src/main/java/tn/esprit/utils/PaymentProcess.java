@@ -8,7 +8,7 @@ import com.stripe.param.checkout.SessionCreateParams;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PaymentProcess {
+public class PaymentProcess {//integ Stripe Checkout into your application
 
     private static final String STRIPE_API_KEY = "sk_test_51QxtaB01XbQ3yAamSCRzLrqKN1Nxt3f6dnZhwyCj0QZOPD6qjuQ0ZTsEYoGv0YM2FzjVfC9JvSaNdHliFuaPPnle0074lLqKNN";//llowing your application to interact with the Stripe API.
     private static final String SUCCESS_URL = "http://localhost:8080/success"; // Replace with your success URL

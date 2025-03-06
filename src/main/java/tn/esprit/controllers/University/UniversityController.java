@@ -62,7 +62,7 @@ public class UniversityController {
         loadVilleFilter();
         btnSupprimer.setOnAction(event -> supprimerUniversity());
     }
-    private void loadVilleFilter() {
+    private void loadVilleFilter() {//Retrieves distinct city names from the database and put it in the combobox
         try {
             List<String> villes = serviceUniversity.getDistinctVilles();
             ObservableList<String> observableVilles = FXCollections.observableArrayList(villes);
@@ -82,7 +82,7 @@ public class UniversityController {
     }
 
     @FXML
-    private void handleVilleFilter() {
+    private void handleVilleFilter() {//Filters universities by the selected city from the ComboBox.
         String selectedVille = villeFilterComboBox.getSelectionModel().getSelectedItem();
         if (selectedVille != null && !selectedVille.isEmpty()) {
             try {
@@ -136,7 +136,7 @@ public class UniversityController {
     private void handleAjouter() {
         if (isApiData) {
             // Logic for adding API-searched universities
-            University selectedUniversity = universityTable.getSelectionModel().getSelectedItem();
+            University selectedUniversity = universityTable.getSelectionModel().getSelectedItem();//checks if the selected university exists in the database and adds it if necessary.
             if (selectedUniversity == null) {
                 showAlert("Selection Required", "Please select a university first.");
                 return;
@@ -197,7 +197,7 @@ public class UniversityController {
 
         if (selectedUniversity != null) {
             try {
-                if (serviceUniversity.getByName(selectedUniversity.getNom()) == null) {
+                if (serviceUniversity.getByName(selectedUniversity.getNom()) == null) {//checks existence then add
                     serviceUniversity.ajouter(selectedUniversity);
                 }
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Candidature/ajouter.fxml"));
@@ -219,7 +219,7 @@ public class UniversityController {
         }
     }
     @FXML
-    private void handleSearchOnKeyPress(KeyEvent event) {
+    private void handleSearchOnKeyPress(KeyEvent event) {//nom pays ou name ville
         // Get the text from the search field
         String country = countryField.getText().trim();
 

@@ -33,14 +33,15 @@ public class PaymentController {
     private float amount;
     private Candidature candidature;
     private final ServiceCandidature serviceCandidature = new ServiceCandidature();
-    public void setPaymentDetails(String userName, String userEmail, float amount, Candidature candidature) {
+    public void setPaymentDetails(String userName, String userEmail, float amount, Candidature candidature) {//Integrated Stripe Checkout to generate a payment URL, redirect users for payment, and save the Candidature upon successful transaction. 🚀
+
         this.userName = userName;
         this.userEmail = userEmail;
         this.amount = amount;
         this.candidature = candidature;
 
         // Update labels with payment details
-        lblName.setText("Name: " + userName);
+        lblName.setText("Name: " + userName);//current user name in the db
         lblEmail.setText("Email: " + userEmail);
         lblAmount.setText("Amount: $" + amount);
     }
@@ -55,7 +56,7 @@ public class PaymentController {
         try {
             // Redirect to Stripe Checkout
             String checkoutUrl = PaymentProcess.createCheckoutSession(amount);//to generate a Stripe payment URL.
-            openUrl(checkoutUrl);
+            openUrl(checkoutUrl);//fnction
 
             // Show a message to the user
             showAlert("Payment", "Please complete the payment on the Stripe page and return to this application.");
@@ -90,7 +91,7 @@ public class PaymentController {
             showAlert("Error", "Error saving candidature.");
         }
     }
-    private void redirectToListCandidatures() throws IOException {
+    private void redirectToListCandidatures() throws IOException {//button refresh
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Candidature/Candidature.fxml"));
         Parent root = loader.load();
         Stage stage = (Stage) back_btn.getScene().getWindow();
