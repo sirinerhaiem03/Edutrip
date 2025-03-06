@@ -147,7 +147,10 @@ public class AffichagePostController {
         post.setDate_creation(java.time.LocalDate.now().toString());
 
         servicePost.add(post);
-        posts.add(post); // Ajouter le nouveau post à la liste
+        posts.add(post);
+        // Ajouter le nouveau post à la liste
+        PostListView.refresh();
+
         showAlert("Succès", "Le post a été ajouté avec succès !", Alert.AlertType.INFORMATION);
 
         IdCategorie.clear();

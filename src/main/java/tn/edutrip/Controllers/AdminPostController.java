@@ -17,14 +17,12 @@ import tn.edutrip.entities.User;
 import tn.edutrip.services.ServicePost;
 import tn.edutrip.services.ServiceCommentaire;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import tn.edutrip.entities.Commentaire;
 import tn.edutrip.services.ServiceUser;
-import tn.edutrip.utils.CommentAnalysis;
-import tn.edutrip.utils.OpenAIModerationAPI;
+
 public class AdminPostController {
 
     @FXML
