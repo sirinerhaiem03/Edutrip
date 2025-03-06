@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Root and BorderPane styles */
 .root {
     -fx-background-color: linear-gradient(to bottom right, #f4f4f4, #d4d4d4);
@@ -98,3 +99,14 @@
 .hyperlink:hover {
     -fx-text-fill: #2980b9;
 }
+=======
+.root {
+    -fx-background-color: #f4f4f4;
+}
+
+Button {
+    -fx-background-color: #57A0D2;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+>>>>>>> gestion_hebergement_maram

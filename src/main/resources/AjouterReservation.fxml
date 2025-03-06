@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="487.0" prefWidth="616.0" style="-fx-background-color: FFFFFF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.edutrip.controller.AjouterReservationController">
+    <children>
+      <ImageView fitHeight="365.0" fitWidth="521.0" layoutX="179.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/CADRE.png" />
+         </image>
+      </ImageView>
+        <VBox alignment="CENTER" layoutX="179.0" layoutY="151.0" spacing="10" />
+
+         <!-- Date Pickers -->
+         <DatePicker fx:id="dateStart" layoutX="323.0" layoutY="299.0" prefHeight="25.0" prefWidth="255.0" promptText="Date de début" style="-fx-border-color: #57a0d2; -fx-border-radius: 50; -fx-background-radius: 50; -fx-border-width: 1;" />
+         <DatePicker fx:id="dateEnd" layoutX="324.0" layoutY="360.0" prefHeight="25.0" prefWidth="247.0" promptText="Date de fin" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-border-color: #57a0d2;" />
+         <Label layoutX="220.0" layoutY="51.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+        <Label layoutX="233.0" layoutY="402.0" text="Commentaire" />
+        <TextField fx:id="statusField" layoutX="327.0" layoutY="419.0" prefHeight="25.0" prefWidth="247.0" promptText="Entrez le commentaire" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-color: #57a0d2;" />
+         <!-- Display the selected Hebergement name -->
+         <TextField fx:id="hebergementName" editable="false" layoutX="326.0" layoutY="219.0" prefHeight="25.0" prefWidth="247.0" promptText="Nom de l'hébergement" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-border-color: #57a0d2;" />
+      <AnchorPane prefHeight="105.0" prefWidth="751.0" style="-fx-background-color: FFFFFF;">
+         <children>
+            <Label layoutX="265.0" layoutY="42.0" text="Réserver Hébergement" textFill="#57a0d2">
+               <font>
+                  <Font name="Bell MT Bold" size="21.0" />
+               </font>
+               <effect>
+                  <Bloom />
+               </effect>
+            </Label>
+            <ImageView fitHeight="103.0" fitWidth="112.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/LOGO.png" />
+               </image>
+            </ImageView>
+            <AnchorPane layoutX="-57.0" layoutY="92.0" prefHeight="17.0" prefWidth="808.0" style="-fx-background-color: #57A0D2;" />
+         </children>
+      </AnchorPane>
+        <Button layoutX="359.0" layoutY="482.0" mnemonicParsing="false" onAction="#AjouterReservation" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: #57A0D2;" text="Réserver" textFill="#f8f6f6" />
+
+        <Label layoutX="216.0" layoutY="192.0" text="Nom de l'hebergement" />
+      <Label layoutX="231.0" layoutY="272.0" text="Date de debut" />
+      <Label layoutX="240.0" layoutY="343.0" text="Date de fin" />
+      <Button layoutX="362.0" layoutY="521.0" mnemonicParsing="false" onAction="#AfficherReservation" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: #57A0D2;" text="liste reservation" textFill="#fdfafa" />
+      <AnchorPane layoutY="105.0" prefHeight="475.0" prefWidth="159.0" style="-fx-background-color: #57A0D2;">
+         <children>
+            <Label layoutX="51.0" layoutY="229.0" prefHeight="17.0" prefWidth="75.0" text="Universitès" />
+            <Label layoutX="58.0" layoutY="271.0" prefHeight="17.0" prefWidth="75.0" />
+            <Label layoutX="54.0" layoutY="356.0" prefHeight="17.0" prefWidth="75.0" text="Posts" />
+            <Label layoutX="50.0" layoutY="323.0" prefHeight="17.0" prefWidth="83.0" text="Hèbergements" />
+            <Label layoutX="51.0" layoutY="288.0" prefHeight="17.0" prefWidth="75.0" text="Vols" />
+            <Label layoutX="51.0" layoutY="256.0" prefHeight="17.0" prefWidth="75.0" text="Agences" />
+            <ImageView fitHeight="27.0" fitWidth="41.0" layoutX="14.0" layoutY="216.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/UNIVERSITY.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="27.0" fitWidth="41.0" layoutX="14.0" layoutY="251.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/AGENCE.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="27.0" fitWidth="31.0" layoutX="16.0" layoutY="283.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/VOL.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="37.0" fitWidth="31.0" layoutX="14.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/HEBERGEMENT.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="33.0" layoutX="12.0" layoutY="350.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/POST.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="42.0" layoutY="104.0" prefHeight="17.0" prefWidth="75.0" text="Welcome ,">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="51.0" layoutY="430.0" text="Logout" />
+            <Label layoutX="48.0" layoutY="121.0" text="Admin">
+               <font>
+                  <Font name="Arial Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="30.0" fitWidth="38.0" layoutX="12.0" layoutY="424.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/logout.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="38.0" layoutX="14.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/home.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="54.0" layoutY="195.0" text="Home" />
+            <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="14.0" layoutY="377.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/AVIS.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="56.0" layoutY="382.0" text="Avis" />
+            <Line endX="142.6666717529297" endY="252.3333282470703" layoutX="2.0" layoutY="-94.0" startX="10.166682243347168" startY="252.3333282470703" stroke="#ebebeb" />
+            <ImageView fitHeight="103.0" fitWidth="112.0" layoutX="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/user.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="25.0" fitWidth="30.0" layoutX="376.0" layoutY="521.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/LIST.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="17.0" fitWidth="26.0" layoutX="381.0" layoutY="486.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/ADD.png" />
+         </image>
+      </ImageView>
+      <Line endX="1.0000152587890625" endY="68.66668701171875" layoutX="198.0" layoutY="385.0" startX="1.0000152587890625" startY="-24.0" stroke="#57a0d2" strokeWidth="2.0" />
+      <Line endX="100.0" layoutX="460.0" layoutY="140.0" startX="-100.0" stroke="#57a0d2" strokeWidth="2.0" />
+      <AnchorPane layoutX="741.0" layoutY="92.0" prefHeight="492.0" prefWidth="20.0" style="-fx-background-color: #57A0D2;" />
+    </children>
+</AnchorPane>

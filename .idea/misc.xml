@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
+<<<<<<< HEAD
   <component name="MavenCompilerTasksManager">
     <option name="afterCompileTasks">
       <set>
@@ -11,6 +12,8 @@
       </set>
     </option>
   </component>
+=======
+>>>>>>> gestion_hebergement_maram
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
@@ -18,7 +21,11 @@
       </list>
     </option>
   </component>
+<<<<<<< HEAD
   <component name="ProjectRootManager" version="2" languageLevel="JDK_23" default="true" project-jdk-name="openjdk-23" project-jdk-type="JavaSDK">
+=======
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
+>>>>>>> gestion_hebergement_maram
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
