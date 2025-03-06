@@ -1,6 +1,6 @@
 package tn.EduTrip.controllers;
 
-import com.fasterxml.jackson.databind.JsonNode;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -13,13 +13,13 @@ import javafx.scene.layout.Priority;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import tn.EduTrip.entites.Vol;
 import tn.EduTrip.services.ServiceVol;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -42,7 +42,6 @@ import tn.EduTrip.utils.AviationStackService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.TimeZone;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class AfficherVolController implements Initializable {
@@ -120,17 +119,16 @@ public class AfficherVolController implements Initializable {
 
             {
                 // Cell styling
-                cellBox.setStyle("-fx-padding: 15; -fx-background-color: white; -fx-border-color: #e0e0e0; " +
+                cellBox.setStyle("-fx-padding: 15; -fx-background-color: white; -fx-border-color:  #57A0D2; " +
                         "-fx-border-radius: 5; -fx-background-radius: 5;");
                 cellBox.setAlignment(Pos.CENTER_LEFT);
 
-                numVolLabel.setStyle("-fx-font-size: 16; -fx-font-weight: bold;");
-                aeroportLabel.setStyle("-fx-font-size: 14;");
+                numVolLabel.setStyle("-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #333;");
+                aeroportLabel.setStyle("-fx-font-size: 14; -fx-text-fill: #444;");
                 dateLabel.setStyle("-fx-font-size: 12; -fx-text-fill: #666;");
                 prixLabel.setStyle("-fx-font-size: 14; -fx-font-weight: bold; -fx-text-fill: #1a237e;");
                 placesLabel.setStyle("-fx-font-size: 12; -fx-text-fill: #4CAF50;");
 
-                // Ajouter les icônes aux boutons
                 ImageView modifierIcon = new ImageView(new Image(getClass().getResource("/images/modif.png").toExternalForm()));
                 modifierIcon.setFitHeight(24);
                 modifierIcon.setFitWidth(24);
@@ -164,12 +162,16 @@ public class AfficherVolController implements Initializable {
                     setText(null);
                     setGraphic(null);
                 } else {
+                    cellBox.setStyle("-fx-background-color: white; -fx-border-color: #e0e0e0; " +
+                        "-fx-border-radius: 5; -fx-background-radius: 5;");
+
+
                     numVolLabel.setText("Vol " + vol.getNumVol());
                     aeroportLabel.setText(vol.getDepart() + " ➜ " + vol.getArrivee());
                     dateLabel.setText("Départ : " + vol.getDateDepart().toLocalDateTime().format(
-                            java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) +
+                            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) +
                             " | Arrivée : " + vol.getDateArrivee().toLocalDateTime().format(
-                            java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+                            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
                     prixLabel.setText(String.format("Prix : %.2f TND", vol.getPrix()));
                     placesLabel.setText("Places disponibles : " + vol.getPlaces());
 
@@ -211,7 +213,7 @@ public class AfficherVolController implements Initializable {
         confirmation.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
                 try {
-                    serviceVol.supprimer(vol.getId());
+                    serviceVol.supprimer(vol.getId_Vol());
                     afficherAlerte("Succès", "Vol supprimé avec succès !");
                     chargerVols();
                 } catch (SQLException e) {
@@ -226,6 +228,23 @@ public class AfficherVolController implements Initializable {
     private void handleAjouterVol(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajoutervol.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+
+
+            afficherAlerte("Erreur", "Impossible d'ouvrir la page d'ajout : " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handlajouterPerturbation(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Perturbation.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -255,23 +274,19 @@ public class AfficherVolController implements Initializable {
                     JSONObject departure = flight.getJSONObject("departure");
                     JSONObject arrival = flight.getJSONObject("arrival");
 
-                    // Nouvelle gestion des aéroports
+                    // Extraction correcte des aéroports
                     String aeroportDepart = parseAirport(departure.opt("airport"));
                     String aeroportArrivee = parseAirport(arrival.opt("airport"));
 
-                    // Nouvelle gestion des dates
-                    Date dateDepart = parseDate(departure.optString("estimated", ""));
-                    Date dateArrivee = parseDate(arrival.optString("estimated", ""));
+                    // Utilisation de 'scheduled' au lieu de 'estimated'
+                    Date dateDepart = parseDate(departure.optString("scheduled", ""));
+                    Date dateArrivee = parseDate(arrival.optString("scheduled", ""));
 
-                    // Gestion sécurisée des informations du vol
                     JSONObject flightInfo = flight.optJSONObject("flight");
-                    String numVol = (flightInfo != null) ?
-                            flightInfo.optString("iata", "N/A") : "N/A";
+                    String numVol = flightInfo != null ? flightInfo.optString("iata", "N/A") : "N/A";
 
-                    int placesDisponibles = flight.optInt("available_seats",
-                            random.nextInt(50) + 50);
-                    double prixVol = flight.optDouble("price",
-                            150.0 + random.nextDouble() * 200);
+                    int placesDisponibles = flight.optInt("available_seats", random.nextInt(50) + 50);
+                    double prixVol = flight.optDouble("price", 150.0 + random.nextDouble() * 200);
 
                     Vol vol = new Vol(
                             0,
@@ -283,19 +298,15 @@ public class AfficherVolController implements Initializable {
                             new Timestamp(dateArrivee.getTime()),
                             prixVol
                     );
-                    System.out.println(
-                            "Départ Brut: " + departure.optString("estimated", "") +
-                                    " → Parsé: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dateDepart) +
-                                    " | Arrivée Brut: " + arrival.optString("estimated", "") +
-                                    " → Parsé: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dateArrivee)
-                    );
 
                     allVols.add(vol);
+                    System.out.println("Vol ajouté : " + vol); // Debug
                 } catch (JSONException e) {
-                    System.err.println("Erreur de traitement du vol " + i);
+                    System.err.println("Erreur de traitement du vol " + i + ": " + e.getMessage());
                     e.printStackTrace();
                 }
             }
+            filteredVols.setPredicate(null); // Force la mise à jour
         } catch (SQLException e) {
             afficherAlerte("Erreur BDD", "Erreur de chargement : " + e.getMessage());
             e.printStackTrace();
@@ -305,8 +316,10 @@ public class AfficherVolController implements Initializable {
     // Méthodes utilitaires ajoutées
     private String parseAirport(Object airport) {
         if (airport instanceof JSONObject) {
+            // Extraction du nom de l'aéroport depuis l'objet JSON
             return ((JSONObject) airport).optString("name", "Aéroport inconnu");
         } else if (airport instanceof String) {
+            // Si c'est une chaîne, retourner directement
             return (String) airport;
         }
         return "Aéroport inconnu";

@@ -90,7 +90,7 @@ public class ModifierVolController implements Initializable {
 
             // Create modified flight object
             Vol volModifie = new Vol(
-                    volAModifier.getId(),
+                    volAModifier.getId_Vol(),
                     numVol, places,
                     depart,
                     arrivee,

@@ -54,6 +54,7 @@ public class EtudiantVolsController implements Initializable {
     @FXML
     private DatePicker dateFilter;
 
+
     private final ServiceVol serviceVol = new ServiceVol();
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     private final ObservableList<Vol> allVols = FXCollections.observableArrayList();
@@ -140,16 +141,14 @@ public class EtudiantVolsController implements Initializable {
 
     private void updateVolDisplay() {
         volContainer.getChildren().clear();
-
         if (filteredVols.isEmpty()) {
-            return; // Ne rien ajouter, donc pas d'espace vide
+            Label emptyLabel = new Label("Aucun vol disponible");
+            emptyLabel.setStyle("-fx-text-fill: gray; -fx-font-size: 16;");
+            volContainer.getChildren().add(emptyLabel);
+            return;
         }
-
-        for (Vol vol : filteredVols) {
-            volContainer.getChildren().add(creerVolItem(vol));
-        }
+        filteredVols.forEach(vol -> volContainer.getChildren().add(creerVolItem(vol)));
     }
-
 
 
     private HBox creerVolItem(Vol vol) {

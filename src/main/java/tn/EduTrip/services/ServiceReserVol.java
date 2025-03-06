@@ -3,6 +3,7 @@ package tn.EduTrip.services;
 import tn.EduTrip.entites.ReserVol;
 import tn.EduTrip.utils.MyDatabase;
 
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,42 +17,60 @@ public class ServiceReserVol implements Iservice<ReserVol> {
 
     @Override
     public void ajouter(ReserVol Rvol) throws SQLException {
-        String req = "INSERT INTO reservationvol (id_etudiant, id_vol, date_reservation, statut, prix, mode_paiement, nom, prenom, email) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String req = "INSERT INTO reservationvol (id_etudiant, id_vol ,num_vol, date_reservation, statut, prix, mode_paiement, nom, prenom, email) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
         try (PreparedStatement st = con.prepareStatement(req)) {
             st.setInt(1, Rvol.getIdEtudiant());
-            st.setInt(2, Rvol.getId_Vol());
+            st.setInt(2, Rvol.getId_vol());
+            st.setString(2, Rvol.getNumVol()); // <-- String ici
             st.setDate(3, new java.sql.Date(Rvol.getDateReservation().getTime()));
             st.setString(4, Rvol.getStatut());
             st.setDouble(5, Rvol.getPrix());
             st.setString(6, Rvol.getModePaiement());
-            st.setString(7, Rvol.getNom());       // Ajout du nom
-            st.setString(8, Rvol.getPrenom());    // Ajout du prénom
-            st.setString(9, Rvol.getEmail());     // Ajout de l'email
+            st.setString(7, Rvol.getNom());
+            st.setString(8, Rvol.getPrenom());
+            st.setString(9, Rvol.getEmail());
 
             st.executeUpdate();
             System.out.println("✅ Réservation ajoutée avec succès !");
         }
     }
-
     @Override
     public void modifier(ReserVol Rvol) throws SQLException {
-        String req = "UPDATE reservationvol SET id_etudiant=?, id_vol=?, date_reservation=?, statut=?, prix=?, mode_paiement=?, " +
-                "nom=?, prenom=?, email=? WHERE id_reservation=?";
+        String req = "UPDATE reservationvol SET " +
+                "id_etudiant = ?, " +
+                "num_vol = ?, " +          // Utilisez num_vol au lieu de id_vol
+                "date_reservation = ?, " +
+                "statut = ?, " +
+                "prix = ?, " +
+                "mode_paiement = ?, " +
+                "nom = ?, " +
+                "prenom = ?, " +
+                "email = ? " +
+                "WHERE id_reservation = ?"; // Clause WHERE sur l'ID de réservation
+
         try (PreparedStatement st = con.prepareStatement(req)) {
             st.setInt(1, Rvol.getIdEtudiant());
-            st.setInt(2, Rvol.getId_Vol());
+            st.setString(2, Rvol.getNumVol());   // String pour num_vol
             st.setTimestamp(3, new java.sql.Timestamp(Rvol.getDateReservation().getTime()));
             st.setString(4, Rvol.getStatut());
             st.setDouble(5, Rvol.getPrix());
             st.setString(6, Rvol.getModePaiement());
-            st.setString(7, Rvol.getNom());       // Mise à jour du nom
-            st.setString(8, Rvol.getPrenom());    // Mise à jour du prénom
-            st.setString(9, Rvol.getEmail());     // Mise à jour de l'email
-            st.setInt(10, Rvol.getIdReservation());
+            st.setString(7, Rvol.getNom());
+            st.setString(8, Rvol.getPrenom());
+            st.setString(9, Rvol.getEmail());
+            st.setInt(10, Rvol.getIdReservation()); // ID de la réservation à modifier
 
-            st.executeUpdate();
-            System.out.println("✅ Réservation modifiée avec succès !");
+            int rowsUpdated = st.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                System.out.println("✅ Réservation modifiée avec succès !");
+            } else {
+                System.out.println("⚠️ Aucune réservation trouvée avec l'ID : " + Rvol.getIdReservation());
+            }
+        } catch (SQLException e) {
+            System.out.println("❌ Erreur lors de la modification : " + e.getMessage());
+            throw e; // Propagation de l'exception
         }
     }
 
@@ -76,8 +95,9 @@ public class ServiceReserVol implements Iservice<ReserVol> {
             while (rs.next()) {
                 ReserVol res = new ReserVol(
                         rs.getInt("id_reservation"),
-                        rs.getInt("id_etudiant"),
                         rs.getInt("id_vol"),
+                        rs.getInt("id_etudiant"),
+                        rs.getString("numVol"),
                         rs.getDate("date_reservation"),
                         rs.getString("statut"),
                         rs.getDouble("prix"),

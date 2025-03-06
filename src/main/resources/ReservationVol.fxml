@@ -11,7 +11,11 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox alignment="CENTER" prefHeight="490.0" prefWidth="627.0" spacing="15" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.EduTrip.controllers.ReserverVolsController">
-   <Label style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #57a0d2; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);" text="Réserver un Vol" />
+    <Label style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #57a0d2; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);" text="Réserver un Vol" />
+    <HBox fx:id="announcementBanner" spacing="10" alignment="CENTER"
+          style="-fx-background-color: #ffcc00; -fx-padding: 10; -fx-opacity: 0;">
+        <Label fx:id="announcementText" text="" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: black;" />
+    </HBox>
 
     <!-- Flight Details -->
     <GridPane hgap="10" style="-fx-padding: 10; -fx-background-color: #f5f5f5; -fx-background-radius: 5;" vgap="10">
@@ -32,18 +36,18 @@
 
         <Label text="Places Disponibles:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
         <Label fx:id="placesLabel" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-      <columnConstraints>
-         <ColumnConstraints />
-         <ColumnConstraints />
-      </columnConstraints>
-      <rowConstraints>
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-      </rowConstraints>
+        <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+        </rowConstraints>
     </GridPane>
 
     <!-- Passenger Information -->
@@ -59,17 +63,19 @@
 
         <Label text="Nombre de Places:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
         <Spinner fx:id="nombrePlacesSpinner" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <columnConstraints>
-         <ColumnConstraints />
-         <ColumnConstraints />
-      </columnConstraints>
-      <rowConstraints>
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-      </rowConstraints>
+        <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+        </rowConstraints>
     </GridPane>
+    <Button fx:id="payerButton" onAction="#payerReservation" text="Payer"
+            style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-size: 14; -fx-padding: 8 15;" />
 
     <!-- Buttons -->
     <HBox alignment="CENTER" spacing="10">

@@ -1,12 +1,21 @@
 package tn.EduTrip.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+
+
+import tn.EduTrip.entites.ReserVol;
 import tn.EduTrip.entites.Vol;
+import tn.EduTrip.services.ServiceReserVol;
 import tn.EduTrip.services.ServiceVol;
+import tn.EduTrip.services.StripeService;
+
+
 import java.net.URL;
+import java.sql.Date;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
@@ -41,6 +50,7 @@ public class ReserverVolsController implements Initializable {
 
         nombrePlacesSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10));
     }
+
     public void setVol(Vol vol) {
         this.vol = vol;
         if (vol != null) {
@@ -61,6 +71,7 @@ public class ReserverVolsController implements Initializable {
         placesLabel.setText(String.valueOf(vol.getPlaces()));
     }
 
+
     @FXML
     private void confirmerReservation() {
         if (!validerChamps()) {
@@ -68,9 +79,7 @@ public class ReserverVolsController implements Initializable {
         }
 
         try {
-
             int nombrePlaces = nombrePlacesSpinner.getValue();
-
 
             if (nombrePlaces > vol.getPlaces()) {
                 afficherAlerte(Alert.AlertType.ERROR, "Erreur",
@@ -78,9 +87,23 @@ public class ReserverVolsController implements Initializable {
                 return;
             }
 
+            // 1. Update available seats in flight
             vol.setPlaces(vol.getPlaces() - nombrePlaces);
             serviceVol.modifier(vol);
 
+            // 2. Insert reservation into the database
+            ServiceReserVol serviceReservation = new ServiceReserVol();
+            ReserVol reservation = new ReserVol(
+                    0, // Auto-generated ID
+                    1, // Mocked student ID, replace with actual ID from user session
+                    vol.getId_Vol(),
+                    new Date(System.currentTimeMillis()),
+                    "Confirmée",
+                    vol.getPrix() * nombrePlaces,
+                    "Carte Bancaire"
+            );
+
+            serviceReservation.ajouter(reservation);
 
             afficherAlerte(Alert.AlertType.INFORMATION, "Succès",
                     "Réservation effectuée avec succès !\n" +
@@ -88,7 +111,6 @@ public class ReserverVolsController implements Initializable {
                             "Prénom: " + prenomField.getText() + "\n" +
                             "Email: " + emailField.getText() + "\n" +
                             "Nombre de places: " + nombrePlaces);
-
 
             fermerFenetre();
 
@@ -131,4 +153,28 @@ public class ReserverVolsController implements Initializable {
         alert.setContentText(contenu);
         alert.showAndWait();
     }
+
+    @FXML
+    private void payerReservation() {
+        if (!validerChamps()) {
+            return;
+        }
+
+        int nombrePlaces = nombrePlacesSpinner.getValue();
+        double totalPrix = vol.getPrix() * nombrePlaces;
+
+        StripeService stripeService = new StripeService();
+        try {
+            String checkoutUrl = stripeService.createCheckoutSession(totalPrix, "usd",
+                    "https://yourwebsite.com/success",
+                    "https://yourwebsite.com/cancel");
+
+            // Open the payment link in the system's default browser
+            java.awt.Desktop.getDesktop().browse(new java.net.URI(checkoutUrl));
+
+        } catch (Exception e) {
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Erreur lors du paiement : " + e.getMessage());
+        }
+    }
+
 }

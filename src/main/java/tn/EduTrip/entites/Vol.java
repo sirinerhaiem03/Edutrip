@@ -1,9 +1,10 @@
 package tn.EduTrip.entites;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class Vol {
-    private int id;
+    private int id_vol;
 
     private String numVol;
     private int places;
@@ -13,9 +14,11 @@ public class Vol {
     private Timestamp dateArrivee;
     private double prix;
 
-    public Vol(int id, String numVol, int places, String depart, String arrivee,
+    public Vol(String numVol, String depart, String arrivee, LocalDateTime dateDepart, LocalDateTime dateArrivee, double prix, int places) {}
+
+    public Vol(int id_Vol, String numVol, int places, String depart, String arrivee,
                Timestamp dateDepart, Timestamp dateArrivee, double prix) {
-        this.id = id;
+        this.id_vol = id_Vol;
 
         this.numVol = numVol;
         this.places = places;
@@ -38,8 +41,8 @@ public class Vol {
     }
 
     // Getters
-    public int getId() {
-        return id;
+    public int getId_Vol() {
+        return id_vol;
     }
 
     public int getPlaces() {
@@ -71,10 +74,9 @@ public class Vol {
     }
 
     // Setters
-    public void setId(int id) {
-        this.id = id;
+    public void setId_Vol(int id_vol) {
+        this.id_vol = id_vol;
     }
-
     public void setPlaces(int places) {
         this.places = places;
     }
@@ -106,7 +108,7 @@ public class Vol {
     @Override
     public String toString() {
         return "Vol{" +
-                "id=" + id +
+                "id_Vol=" + id_vol +
                 ", places=" + places +
                 ", numVol='" + numVol + '\'' +
                 ", depart='" + depart + '\'' +

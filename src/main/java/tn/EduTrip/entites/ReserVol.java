@@ -3,21 +3,26 @@ package tn.EduTrip.entites;
 import java.util.Date;
 
 public class ReserVol {
-    private int idReservation, idEtudiant, id_Vol;
+    private int idReservation;
+    private int idEtudiant;
+    private int id_vol;;
+    private String numVol;
     private Date dateReservation;
     private String statut;
     private double prix;
     private String modePaiement;
-    private String nom;    // Nouveau champ
-    private String prenom; // Nouveau champ
-    private String email;  // Nouveau champ
+    private String nom;
+    private String prenom;
+    private String email;
 
-    // Constructeur mis à jour pour inclure les nouveaux champs
-    public ReserVol(int idReservation, int idEtudiant, int id_Vol, Date dateReservation, String statut,
+    public ReserVol(int i, int i1, int i2, Date date, String confirmée, double v, String modePaiement) {
+    }
+    public ReserVol(int idReservation, int idEtudiant, int id_vol, String numVol, Date dateReservation, String statut,
                     double prix, String modePaiement, String nom, String prenom, String email) {
         this.idReservation = idReservation;
         this.idEtudiant = idEtudiant;
-        this.id_Vol = id_Vol;
+        this.id_vol = id_vol;
+        this.numVol = numVol;
         this.dateReservation = dateReservation;
         this.statut = statut;
         this.prix = prix;
@@ -25,15 +30,24 @@ public class ReserVol {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
+
     }
 
-    // Getters et setters pour les nouveaux champs
+
     public String getNom() {
         return nom;
     }
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public int getId_vol() {
+        return id_vol;
+    }
+
+    public void setId_vol(int id_vol) {
+        this.id_vol = id_vol;
     }
 
     public String getPrenom() {
@@ -69,13 +83,9 @@ public class ReserVol {
         this.idEtudiant = idEtudiant;
     }
 
-    public int getId_Vol() {
-        return id_Vol;
-    }
+    public String getNumVol() { return numVol; }
 
-    public void setId_Vol(int id_Vol) {
-        this.id_Vol = id_Vol;
-    }
+    public void setNumVol(String numVol) { this.numVol = numVol; }
 
     public Date getDateReservation() {
         return dateReservation;
@@ -114,7 +124,7 @@ public class ReserVol {
         return "ReservationVol{" +
                 "idReservation=" + idReservation +
                 ", idEtudiant=" + idEtudiant +
-                ", id_Vol=" + id_Vol +
+                ", numVol=" + numVol +
                 ", dateReservation=" + dateReservation +
                 ", statut='" + statut + '\'' +
                 ", prix=" + prix +

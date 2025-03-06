@@ -169,7 +169,7 @@
         <!-- Logo et profil -->
         <ImageView fitHeight="104.0" fitWidth="111.0" layoutX="49.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@images/logo.png" />
+                <Image url="@images/LOGO.png" />
             </image>
         </ImageView>
          </children>

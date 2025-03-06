@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/23.0.1"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.EduTrip.controllers.PerturbationController">
+
+    <HBox fx:id="announcementBanner" spacing="10" alignment="CENTER"
+          style="-fx-background-color: #ffcc00; -fx-padding: 10; -fx-opacity: 0;">
+        <Label fx:id="announcementText" text="" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: black;" />
+    </HBox>
+
+
+    <!-- Flight Selection -->
+    <HBox spacing="10">
+        <Label text="Vol:" />
+        <ComboBox fx:id="volComboBox" promptText="Sélectionner un vol" prefWidth="250" />
+    </HBox>
+
+    <!-- Perturbation Type -->
+    <HBox spacing="10">
+        <Label text="Type:" />
+        <ChoiceBox fx:id="typePerturbationBox" />
+    </HBox>
+
+    <!-- Description -->
+    <TextArea fx:id="descriptionField" promptText="Détails de la perturbation" prefRowCount="3" />
+
+    <!-- Button -->
+    <Button text="Déclarer" onAction="#ajouterPerturbation"
+            style="-fx-background-color: #d32f2f; -fx-text-fill: white; -fx-font-size: 14px;" />
+</VBox>

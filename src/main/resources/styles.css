@@ -17,6 +17,20 @@
 .nav-button:hover {
     -fx-background-color: #f5f5f5;
 }
+.list-view {
+    -fx-background-color: white;
+    -fx-padding: 10;
+}
+
+.button {
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+}
+
+.text-field, .date-picker {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
+}
+
 
 .nav-button:pressed {
     -fx-background-color: #e0e0e0;
@@ -107,4 +121,10 @@
 
 .secondary-button:hover {
     -fx-background-color: #bdbdbd;
-} 
+}
+.list-cell:filled:selected {
+    -fx-background-color: #d1e0ff;
+    -fx-text-fill: black;
+}
+.list-cell:filled:selected .label {
+    -fx-text-fill: black; }
