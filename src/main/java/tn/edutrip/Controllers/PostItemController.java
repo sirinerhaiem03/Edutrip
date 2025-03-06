@@ -72,7 +72,7 @@ public class PostItemController {
     @FXML
     public void initialize() {
         // Ajouter des langues au sélecteur
-        languageSelector.getItems().addAll("fr", "es", "de", "it"); // Exemples de langues
+        languageSelector.getItems().addAll("fr", "es", "de", "it","ar"); // Exemples de langues
     }
 
 

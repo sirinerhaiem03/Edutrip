@@ -16,7 +16,7 @@
 
     <!-- Zone de conversation -->
     <ScrollPane fitToHeight="true" fitToWidth="true">
-        <TextArea fx:id="chatArea" editable="false" prefHeight="414.0" prefWidth="1880.0" style="-fx-font-size: 14px; -fx-border-color: #57A0D2; -fx-background-color: #cfedff;" wrapText="true" />
+        <TextArea fx:id="chatArea" editable="false" prefHeight="414.0" prefWidth="224.0" style="-fx-font-size: 14px; -fx-border-color: #57A0D2; -fx-background-color: #cfedff;" wrapText="true" />
     </ScrollPane>
 
     <!-- Zone de saisie et bouton d'envoi -->
@@ -28,5 +28,5 @@
          </font></Button>
 
     </HBox>
-    <Button text="Retour" onAction="#goBack" style="-fx-font-size: 14px;"/>
+    <Button onAction="#goBack" style="-fx-font-size: 14px;" text="Retour" />
 </VBox>

@@ -64,7 +64,7 @@ public class AffichageAdminController {
         PostListView.setItems(posts);
         filteredPosts = FXCollections.observableArrayList(posts);  // Initialiser la liste filtrée avec tous les posts
         PostListView.setItems(filteredPosts);
-        chatbotIcon.setOnMouseClicked(event -> openChatPage());
+
         PostListView.setCellFactory(listView -> new ListCell<Post>() {
             @Override
             protected void updateItem(Post post, boolean empty) {
@@ -89,25 +89,7 @@ public class AffichageAdminController {
     }
 
 
-    private void openChatPage() {
-        try {
-            // Charger le fichier FXML de la page du chatbot
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/chat_interface.fxml"));
-            Parent chatPage = loader.load();
 
-            // Créer une nouvelle scène pour la page du chatbot
-            Scene chatScene = new Scene(chatPage);
-
-            // Obtenir la fenêtre actuelle (stage)
-            Stage currentStage = (Stage) chatbotIcon.getScene().getWindow();
-
-            // Changer la scène de la fenêtre actuelle pour afficher la page du chatbot
-            currentStage.setScene(chatScene);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Erreur lors du chargement de la page du chatbot.");
-        }
-    }
 
     public void updatePostInList(Post updatedPost) {
         int index = -1;
