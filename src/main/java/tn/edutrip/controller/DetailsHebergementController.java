@@ -33,7 +33,6 @@ import java.util.List; // Ensure you import java.util.List
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 
 
@@ -160,7 +159,6 @@ public class DetailsHebergementController {
         String encodedAddress = URLEncoder.encode(address, StandardCharsets.UTF_8);
         String googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=" + encodedAddress;
 
-        // Create a new WebView
         WebView webView = new WebView();
         WebEngine webEngine = webView.getEngine();
         webEngine.load(googleMapsUrl);

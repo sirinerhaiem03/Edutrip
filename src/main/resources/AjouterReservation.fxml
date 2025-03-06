@@ -12,18 +12,23 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="487.0" prefWidth="616.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.edutrip.controller.AjouterReservationController">
+<AnchorPane prefHeight="487.0" prefWidth="616.0" style="-fx-background-color: FFFFFF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.edutrip.controller.AjouterReservationController">
     <children>
+      <ImageView fitHeight="365.0" fitWidth="521.0" layoutX="179.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/CADRE.png" />
+         </image>
+      </ImageView>
         <VBox alignment="CENTER" layoutX="179.0" layoutY="151.0" spacing="10" />
 
          <!-- Date Pickers -->
-         <DatePicker fx:id="dateStart" layoutX="323.0" layoutY="299.0" prefHeight="25.0" prefWidth="255.0" promptText="Date de début" />
-         <DatePicker fx:id="dateEnd" layoutX="324.0" layoutY="360.0" prefHeight="25.0" prefWidth="247.0" promptText="Date de fin" />
+         <DatePicker fx:id="dateStart" layoutX="323.0" layoutY="299.0" prefHeight="25.0" prefWidth="255.0" promptText="Date de début" style="-fx-border-color: #57a0d2; -fx-border-radius: 50; -fx-background-radius: 50; -fx-border-width: 1;" />
+         <DatePicker fx:id="dateEnd" layoutX="324.0" layoutY="360.0" prefHeight="25.0" prefWidth="247.0" promptText="Date de fin" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-border-color: #57a0d2;" />
          <Label layoutX="220.0" layoutY="51.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
         <Label layoutX="233.0" layoutY="402.0" text="Commentaire" />
-        <TextField fx:id="statusField" layoutX="327.0" layoutY="419.0" prefHeight="25.0" prefWidth="247.0" promptText="Entrez le commentaire" />
+        <TextField fx:id="statusField" layoutX="327.0" layoutY="419.0" prefHeight="25.0" prefWidth="247.0" promptText="Entrez le commentaire" style="-fx-border-radius: 50; -fx-background-radius: 50; -fx-border-color: #57a0d2;" />
          <!-- Display the selected Hebergement name -->
-         <TextField fx:id="hebergementName" editable="false" layoutX="326.0" layoutY="219.0" prefHeight="25.0" prefWidth="247.0" promptText="Nom de l'hébergement" />
+         <TextField fx:id="hebergementName" editable="false" layoutX="326.0" layoutY="219.0" prefHeight="25.0" prefWidth="247.0" promptText="Nom de l'hébergement" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-border-color: #57a0d2;" />
       <AnchorPane prefHeight="105.0" prefWidth="751.0" style="-fx-background-color: FFFFFF;">
          <children>
             <Label layoutX="265.0" layoutY="42.0" text="Réserver Hébergement" textFill="#57a0d2">
@@ -42,12 +47,12 @@
             <AnchorPane layoutX="-57.0" layoutY="92.0" prefHeight="17.0" prefWidth="808.0" style="-fx-background-color: #57A0D2;" />
          </children>
       </AnchorPane>
-        <Button layoutX="359.0" layoutY="482.0" mnemonicParsing="false" onAction="#AjouterReservation" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: #57A0D2;" text="Réserver" />
+        <Button layoutX="359.0" layoutY="482.0" mnemonicParsing="false" onAction="#AjouterReservation" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: #57A0D2;" text="Réserver" textFill="#f8f6f6" />
 
         <Label layoutX="216.0" layoutY="192.0" text="Nom de l'hebergement" />
       <Label layoutX="231.0" layoutY="272.0" text="Date de debut" />
       <Label layoutX="240.0" layoutY="343.0" text="Date de fin" />
-      <Button layoutX="362.0" layoutY="521.0" mnemonicParsing="false" onAction="#AfficherReservation" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: #57A0D2;" text="liste reservation" />
+      <Button layoutX="362.0" layoutY="521.0" mnemonicParsing="false" onAction="#AfficherReservation" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: #57A0D2;" text="liste reservation" textFill="#fdfafa" />
       <AnchorPane layoutY="105.0" prefHeight="475.0" prefWidth="159.0" style="-fx-background-color: #57A0D2;">
          <children>
             <Label layoutX="51.0" layoutY="229.0" prefHeight="17.0" prefWidth="75.0" text="Universitès" />
@@ -117,5 +122,18 @@
             </ImageView>
          </children>
       </AnchorPane>
+      <ImageView fitHeight="25.0" fitWidth="30.0" layoutX="376.0" layoutY="521.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/LIST.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="17.0" fitWidth="26.0" layoutX="381.0" layoutY="486.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/ADD.png" />
+         </image>
+      </ImageView>
+      <Line endX="1.0000152587890625" endY="68.66668701171875" layoutX="198.0" layoutY="385.0" startX="1.0000152587890625" startY="-24.0" stroke="#57a0d2" strokeWidth="2.0" />
+      <Line endX="100.0" layoutX="460.0" layoutY="140.0" startX="-100.0" stroke="#57a0d2" strokeWidth="2.0" />
+      <AnchorPane layoutX="741.0" layoutY="92.0" prefHeight="492.0" prefWidth="20.0" style="-fx-background-color: #57A0D2;" />
     </children>
 </AnchorPane>
