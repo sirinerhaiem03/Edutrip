@@ -16,6 +16,7 @@ import tn.edutrip.entities.Post;
 import tn.edutrip.entities.User;
 import tn.edutrip.services.ServicePost;
 import tn.edutrip.services.ServiceCommentaire;
+
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -23,11 +24,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import tn.edutrip.entities.Commentaire;
 import tn.edutrip.services.ServiceUser;
+
 import tn.edutrip.utils.CommentAnalysis;
-import tn.edutrip.utils.OpenAIModerationAPI;
+
+import static tn.edutrip.utils.MyMemoryTranslateAPI.translateText;
 
 public class PostItemController {
 
+    private Post post;
     @FXML
     private ImageView CommentsIcon;
     @FXML
@@ -55,11 +59,22 @@ public class PostItemController {
     @FXML
     private ImageView dislikeIcon;
     @FXML
+    private Button translateButton;
+    @FXML
     private Text likeCountText;  // Afficher le nombre de likes
     @FXML
     private Text dislikeCountText;
     @FXML
     private ImageView favorisIcon;
+    @FXML
+    private ComboBox<String> languageSelector;
+
+    @FXML
+    public void initialize() {
+        // Ajouter des langues au sélecteur
+        languageSelector.getItems().addAll("fr", "es", "de", "it"); // Exemples de langues
+    }
+
 
     private Post currentPost;
     private ServicePost servicePost;
@@ -73,6 +88,7 @@ public class PostItemController {
         ServiceCommentaire = new ServiceCommentaire();
         servicePost = new ServicePost();
     }
+
 
     public void setPostData(Post post, ListView<Post> postListView) {
         if (post == null) {
@@ -282,4 +298,32 @@ public class PostItemController {
     public void setAffichagePostController(AffichagePostController affichagePostController) {
         this.affichagePostController = affichagePostController;
     }
+
+
+    @FXML
+    private void translatePost() {
+        String originalText = IdContenu.getText(); // Récupérer le texte du post
+        String targetLanguage = languageSelector.getValue(); // Récupérer la langue cible
+
+        if (originalText == null || originalText.isEmpty()) {
+            showAlert("Erreur", "Aucun texte à traduire.", Alert.AlertType.WARNING);
+            return;
+        }
+
+        if (targetLanguage == null || targetLanguage.isEmpty()) {
+            showAlert("Erreur", "Veuillez sélectionner une langue cible.", Alert.AlertType.WARNING);
+            return;
+        }
+
+        // Traduire le texte
+        String translatedText = translateText(originalText, "en", targetLanguage);
+
+        if (translatedText != null) {
+            IdContenu.setText(translatedText); // Afficher le texte traduit
+        } else {
+            showAlert("Erreur", "La traduction a échoué.", Alert.AlertType.ERROR);
+        }
 }
+}
+
+

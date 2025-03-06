@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import tn.edutrip.entities.Post;
 import tn.edutrip.services.ServicePost;
 import tn.edutrip.services.ServiceUser;
+import tn.edutrip.services.TranslationService;
 
 import java.io.File;
 import java.io.IOException;
@@ -185,5 +186,9 @@ public class AffichagePostController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+
+
+
 
 }
