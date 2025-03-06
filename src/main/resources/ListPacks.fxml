@@ -11,6 +11,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.Button?>
 <AnchorPane prefHeight="635.0" prefWidth="902.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.edutrip.controller.ListPacksController">
     <children>
         <!-- Titre de la fenêtre -->
@@ -108,5 +109,8 @@
          </image>
       </ImageView>
       <ComboBox fx:id="combotripack" layoutX="645.0" layoutY="159.0" onAction="#trierAgences" prefHeight="35.0" prefWidth="202.0" style="-fx-background-color: #57A0D2;" />
+
     </children>
+
+
 </AnchorPane>

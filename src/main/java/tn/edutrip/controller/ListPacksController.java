@@ -13,8 +13,17 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tn.edutrip.entities.Pack_agence;
 import tn.edutrip.services.ServicePack_agence;
+import javafx.scene.input.KeyEvent;
+import javafx.util.Duration;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import org.json.JSONObject;
 
-import java.io.IOException;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,17 +73,21 @@ public class ListPacksController {
 
                     Button updateButton = new Button("Mettre à jour");
                     Button deleteButton = new Button("Supprimer");
+                    Button translateButton = new Button("Traduire en Anglais");
 
                     updateButton.setPrefWidth(120);
                     deleteButton.setPrefWidth(120);
+                    translateButton.setPrefWidth(120);
 
                     updateButton.setStyle("-fx-background-color: #007bff; -fx-text-fill: white; -fx-padding: 5px;");
                     deleteButton.setStyle("-fx-background-color: #d9534f; -fx-text-fill: white; -fx-padding: 5px;");
+                    translateButton.setStyle("-fx-background-color: #5bc0de; -fx-text-fill: white; -fx-padding: 5px;");
 
                     updateButton.setOnAction(event -> updateButton(event, pack));
                     deleteButton.setOnAction(event -> deletePack(event, pack));
 
-                    VBox vboxButtons = new VBox(5, updateButton, deleteButton);
+
+                    VBox vboxButtons = new VBox(5, updateButton, deleteButton, translateButton);
                     vboxButtons.setStyle("-fx-alignment: center;");
 
                     HBox hboxContent = new HBox(10, vboxInfo, vboxButtons);
@@ -156,7 +169,6 @@ public class ListPacksController {
                 listDesPacks.getItems().sort((pack1, pack2) -> pack1.getNomPk().compareToIgnoreCase(pack2.getNomPk()));
                 break;
             case "Prix":
-                // Utilisation de compareTo pour BigDecimal
                 listDesPacks.getItems().sort((pack1, pack2) -> pack1.getPrix().compareTo(pack2.getPrix()));
                 break;
             case "Durée":
@@ -166,4 +178,6 @@ public class ListPacksController {
                 break;
         }
     }
+
+
 }

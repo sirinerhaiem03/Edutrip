@@ -24,7 +24,13 @@ import tn.edutrip.entities.Pack_agence;
 import tn.edutrip.services.ServiceAgence;
 import tn.edutrip.services.ServicePack_agence;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class ListPourAdminController {
@@ -103,27 +109,30 @@ public class ListPourAdminController {
                     Button updateButton = new Button("Mettre à jour");
                     Button deleteButton = new Button("Supprimer");
                     Button packsButton = new Button("Packs");
+                    Button translateButton = new Button("Traduire");
 
-                    // Actions des boutons
+// Actions des boutons
                     updateButton.setOnAction(event -> openUpdateAgenceWindow(agence));
                     deleteButton.setOnAction(event -> {
                         serviceAgence.remove(agence.getIdAgence());
                         listDesAgences.getItems().remove(agence);
                     });
                     packsButton.setOnAction(event -> openAjouterPacksWindow(event));
+                    translateButton.setOnAction(event -> translateAgence(agence));
 
-                    // VBox pour aligner les boutons verticalement
-                    VBox vboxButtons = new VBox(10, updateButton, deleteButton, packsButton);
+
+                    VBox vboxButtons = new VBox(10, updateButton, deleteButton, packsButton, translateButton);  // Ajout du bouton "Traduire"
                     vboxButtons.setAlignment(Pos.CENTER);  // Alignement des boutons au centre
 
-                    // HBox pour aligner tout horizontalement
+
                     HBox hboxContent = new HBox(10, imageView, vboxInfo, vboxPacks, vboxButtons);
                     hboxContent.setAlignment(Pos.CENTER_LEFT);  // Alignement général à gauche
 
-                    // Garder les boutons à la même position
+
                     HBox.setHgrow(vboxInfo, Priority.ALWAYS);  // Permet à vboxInfo de s'étendre
 
                     setGraphic(hboxContent);  // Afficher le contenu
+
                 }
             }
         });
@@ -238,4 +247,69 @@ public class ListPourAdminController {
 
         System.out.println("SMS envoyé avec SID: " + message.getSid());
     }
-}
+
+    @FXML
+    public void translateToEnglish(ActionEvent event) {
+        Agence selectedAgence = listDesAgences.getSelectionModel().getSelectedItem();
+        if (selectedAgence != null) {
+            String translatedNom = translateText(selectedAgence.getNomAg());
+            String translatedAdresse = translateText(selectedAgence.getAdresseAg());
+            String translatedDescription = translateText(selectedAgence.getDescriptionAg());
+
+            // Mise à jour des informations de l'agence avec la traduction
+            selectedAgence.setNomAg(translatedNom != null ? translatedNom : selectedAgence.getNomAg());
+            selectedAgence.setAdresseAg(translatedAdresse != null ? translatedAdresse : selectedAgence.getAdresseAg());
+            selectedAgence.setDescriptionAg(translatedDescription != null ? translatedDescription : selectedAgence.getDescriptionAg());
+
+            // Rafraîchir la liste pour afficher les traductions
+            listDesAgences.refresh();
+        } else {
+            showAlert("Erreur", "Veuillez sélectionner une agence à traduire.", Alert.AlertType.WARNING);
+        }
+    }
+
+    private void translateAgence(Agence agence) {
+        // Appel de la méthode pour traduire les informations de l'agence
+        String translatedNom = translateText(agence.getNomAg());
+        String translatedAdresse = translateText(agence.getAdresseAg());
+        String translatedDescription = translateText(agence.getDescriptionAg());
+
+        // Mise à jour des informations de l'agence avec la traduction
+        agence.setNomAg(translatedNom != null ? translatedNom : agence.getNomAg());
+        agence.setAdresseAg(translatedAdresse != null ? translatedAdresse : agence.getAdresseAg());
+        agence.setDescriptionAg(translatedDescription != null ? translatedDescription : agence.getDescriptionAg());
+
+        // Rafraîchir la liste pour afficher les traductions
+        listDesAgences.refresh();
+    }
+
+    public String translateText(String text) {
+        if (text == null || text.isEmpty()) return text;
+
+        String urlString = "https://api.mymemory.translated.net/get?q=" + URLEncoder.encode(text, StandardCharsets.UTF_8) + "&langpair=fr|en";
+        try {
+            URL url = new URL(urlString);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                    String inputLine;
+                    StringBuilder response = new StringBuilder();
+                    while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+                    }
+                    String translatedText = response.toString();
+                    String translated = translatedText.split("\"translatedText\":\"")[1].split("\"")[0];
+                    return translated;
+                }
+            } else {
+                System.err.println("HTTP request failed with response code " + responseCode);
+                return null;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }}
