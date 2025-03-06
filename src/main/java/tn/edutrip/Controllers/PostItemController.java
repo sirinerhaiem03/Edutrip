@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 import tn.edutrip.entities.Commentaire;
 import tn.edutrip.services.ServiceUser;
 
+import tn.edutrip.utils.BadWordsAPI;
 import tn.edutrip.utils.CommentAnalysis;
 
 import static tn.edutrip.utils.MyMemoryTranslateAPI.translateText;
@@ -187,12 +188,15 @@ public class PostItemController {
             return;
         }
 
-        // Analyser le commentaire avec l'API de modération
-        String analysisResult = CommentAnalysis.analyzeComment(commentText);
+        try {
+            boolean hasBadWords = BadWordsAPI.containsBadWords(commentText);
 
-        // Vérifie si l'analyse a trouvé des problèmes dans le commentaire
-        if (analysisResult != null && analysisResult.contains("negative") /* Exemple de critère à adapter selon la réponse de l'API */) {
-            showAlert("Modération", "Votre commentaire contient un langage inapproprié. Veuillez le modifier.", Alert.AlertType.WARNING);
+            if (hasBadWords) {
+                showAlert("Modération", "Votre commentaire contient des mots inappropriés. Veuillez le modifier.", Alert.AlertType.WARNING);
+                return;
+            }
+        } catch (Exception e) {
+            showAlert("Erreur", "Une erreur s'est produite lors de la vérification du commentaire.", Alert.AlertType.ERROR);
             return;
         }
 
