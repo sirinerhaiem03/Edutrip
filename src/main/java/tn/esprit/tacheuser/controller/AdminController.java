@@ -40,7 +40,7 @@ public class AdminController {
     @FXML
     public void initialize() {
         for (Avis A : MRC.fetch()) {
-            System.out.println("fez,opflknnaze,f "+  A.getUserId());
+            System.out.println("fez,opfaze,f "+  A.getUserId());
             reviewListView.getItems().add( A.getCommentaire() + " " + " - Note: " + A.getNote());
         }loadUsers();
 
