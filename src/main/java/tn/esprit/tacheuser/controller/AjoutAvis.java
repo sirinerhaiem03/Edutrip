@@ -110,6 +110,7 @@ public class AjoutAvis implements Initializable {
     @FXML
     private void sortByRating(ActionEvent event) {
       //  listView.getItems().setAll(exp.getAllSortedByRating());
+        //ii
     }
 
     private void refreshListView() {
