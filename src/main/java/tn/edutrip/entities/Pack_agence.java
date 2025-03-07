@@ -1,7 +1,7 @@
 package tn.edutrip.entities;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Date; // Use java.sql.Date directly
 
 public class Pack_agence {
     private int id_pack;
@@ -10,7 +10,7 @@ public class Pack_agence {
     private BigDecimal prix;
     private int duree;
     private String services_inclus;
-    private Date date_ajout;
+    private Date date_ajout; // Changed to java.sql.Date directly
     private Status status;
     private int id_agence;
 
@@ -82,7 +82,7 @@ public class Pack_agence {
     }
 
     public Date getDate_ajout() {
-        return date_ajout;
+        return date_ajout; // No need for conversion, now it's java.sql.Date
     }
 
     public void setDate_ajout(Date date_ajout) {

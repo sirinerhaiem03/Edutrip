@@ -13,17 +13,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tn.edutrip.entities.Pack_agence;
 import tn.edutrip.services.ServicePack_agence;
-import javafx.scene.input.KeyEvent;
-import javafx.util.Duration;
-import javafx.animation.PauseTransition;
-import javafx.application.Platform;
-import org.json.JSONObject;
 
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,13 +24,12 @@ public class ListPacksController {
     private ListView<Pack_agence> listDesPacks;
 
     @FXML
-    private TextField nompackrecherche; // Champ de recherche
+    private TextField nompackrecherche;
 
     @FXML
-    private ComboBox<String> combotripack; // ComboBox pour trier les packs
+    private ComboBox<String> combotripack;
 
     private ServicePack_agence servicePack = new ServicePack_agence();
-
     private ObservableList<Pack_agence> packList;
 
     @FXML
@@ -54,6 +44,7 @@ public class ListPacksController {
         packList = FXCollections.observableArrayList(packs);
         listDesPacks.setItems(packList);
 
+        // Customize the ListCell to include Update and Delete buttons
         listDesPacks.setCellFactory(param -> new ListCell<Pack_agence>() {
             @Override
             protected void updateItem(Pack_agence pack, boolean empty) {
@@ -61,6 +52,15 @@ public class ListPacksController {
                 if (empty || pack == null) {
                     setGraphic(null);
                 } else {
+                    // Create buttons
+                    Button updateButton = new Button("Update");
+                    Button deleteButton = new Button("Delete");
+
+                    // Set button actions
+                    updateButton.setOnAction(event -> handleUpdatePack(pack));
+                    deleteButton.setOnAction(event -> handleDeletePack(pack));
+
+                    // Create a VBox to hold pack details and buttons
                     VBox vboxInfo = new VBox(
                             new Label("Nom: " + pack.getNomPk()),
                             new Label("Description: " + pack.getDescriptionPk()),
@@ -68,79 +68,16 @@ public class ListPacksController {
                             new Label("Durée: " + pack.getDuree() + " jours"),
                             new Label("Service inclus: " + pack.getServices_inclus()),
                             new Label("Date Dajout: " + pack.getDate_ajout()),
-                            new Label("Status: " + pack.getStatus())
+                            new Label("Status: " + pack.getStatus()),
+                            new HBox(updateButton, deleteButton) // Add buttons in an HBox
                     );
 
-                    Button updateButton = new Button("Mettre à jour");
-                    Button deleteButton = new Button("Supprimer");
-                    Button translateButton = new Button("Traduire en Anglais");
-
-                    updateButton.setPrefWidth(120);
-                    deleteButton.setPrefWidth(120);
-                    translateButton.setPrefWidth(120);
-
-                    updateButton.setStyle("-fx-background-color: #007bff; -fx-text-fill: white; -fx-padding: 5px;");
-                    deleteButton.setStyle("-fx-background-color: #d9534f; -fx-text-fill: white; -fx-padding: 5px;");
-                    translateButton.setStyle("-fx-background-color: #5bc0de; -fx-text-fill: white; -fx-padding: 5px;");
-
-                    updateButton.setOnAction(event -> updateButton(event, pack));
-                    deleteButton.setOnAction(event -> deletePack(event, pack));
-
-
-                    VBox vboxButtons = new VBox(5, updateButton, deleteButton, translateButton);
-                    vboxButtons.setStyle("-fx-alignment: center;");
-
-                    HBox hboxContent = new HBox(10, vboxInfo, vboxButtons);
-                    hboxContent.setStyle("-fx-alignment: center-left; -fx-padding: 10px;");
-
-                    setGraphic(hboxContent);
+                    setGraphic(vboxInfo);
                 }
             }
         });
     }
 
-    @FXML
-    private void updateButton(ActionEvent event, Pack_agence pack) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UpdatePack.fxml"));
-            Parent root = loader.load();
-
-            UpdatePackController updateController = loader.getController();
-            updateController.loadPack(pack);
-
-            Stage stage = new Stage();
-            stage.setTitle("Mettre à jour le pack");
-            stage.setScene(new Scene(root));
-
-            stage.setOnHidden(e -> loadData());
-
-            stage.show();
-        } catch (IOException e) {
-            showAlert("Erreur", "Impossible d'ouvrir la fenêtre de mise à jour.", Alert.AlertType.ERROR);
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void deletePack(ActionEvent event, Pack_agence pack) {
-        boolean isDeleted = servicePack.remove(pack.getId_pack());
-        if (isDeleted) {
-            loadData();
-            showAlert("Succès", "Le pack a été supprimé avec succès.", Alert.AlertType.INFORMATION);
-        } else {
-            showAlert("Erreur", "Une erreur est survenue lors de la suppression du pack.", Alert.AlertType.ERROR);
-        }
-    }
-
-    private void showAlert(String title, String message, Alert.AlertType type) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-    // Fonctionnalité de recherche
     private void setupSearch() {
         nompackrecherche.textProperty().addListener((observable, oldValue, newValue) -> {
             String filterText = newValue.toLowerCase();
@@ -152,13 +89,11 @@ public class ListPacksController {
         });
     }
 
-    // Initialisation de la ComboBox pour le tri
     private void initializeComboBox() {
         combotripack.getItems().addAll("Nom", "Prix", "Durée");
         combotripack.setOnAction(this::trierAgences);
     }
 
-    // Fonctionnalité de tri
     @FXML
     private void trierAgences(ActionEvent event) {
         String selectedSort = combotripack.getValue();
@@ -179,5 +114,60 @@ public class ListPacksController {
         }
     }
 
+    private void handleUpdatePack(Pack_agence pack) {
+        try {
+            // Load the UpdatePack.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UpdatePack.fxml"));
+            Parent root = loader.load();
 
+            // Pass the selected pack to the UpdatePackController
+            UpdatePackController updateController = loader.getController();
+            updateController.loadPack(pack); // Use loadPack instead of setPack
+
+            // Open the UpdatePack window
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Update Pack");
+            stage.show();
+
+            // Rafraîchir la liste après mise à jour
+            stage.setOnHidden(e -> loadData());
+        } catch (IOException e) {
+            e.printStackTrace();
+            showErrorAlert("Erreur lors de l'ouverture de la page de mise à jour.");
+        }
+    }
+
+    private void handleDeletePack(Pack_agence pack) {
+        try {
+
+
+            // Remove the pack from the ObservableList
+            packList.remove(pack);
+
+            // Refresh the ListView
+            listDesPacks.setItems(packList);
+
+            showSuccessAlert("Pack supprimé avec succès !");
+        } catch (Exception e) {
+            e.printStackTrace();
+            showErrorAlert("Erreur lors de la suppression du pack.");
+        }
+    }
+
+    private void showErrorAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erreur");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void showSuccessAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Succès");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }

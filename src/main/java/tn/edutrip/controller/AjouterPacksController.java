@@ -1,8 +1,8 @@
 package tn.edutrip.controller;
 
-import tn.edutrip.entities.Pack_agence;
-import tn.edutrip.entities.Agence;
-import tn.edutrip.services.ServicePack_agence;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +12,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import tn.edutrip.entities.Agence;
+import tn.edutrip.entities.Pack_agence;
+import tn.edutrip.services.ServicePack_agence;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -50,17 +53,9 @@ public class AjouterPacksController {
 
     @FXML
     public void initialize() {
-        if (statusField != null) {
-            statusField.getItems().addAll("disponible", "indisponible");
-        }
-
+        // Ajouter les statuts en minuscules pour correspondre à l'énumération
+        statusField.getItems().addAll("disponible", "indisponible");
         loadAgences();
-
-        agenceChoiceBox.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
-            if (newValue != null) {
-                System.out.println("Sélectionné : " + newValue.getIdAgence() + " - " + newValue.getNomAg());
-            }
-        });
     }
 
     private void loadAgences() {
@@ -74,66 +69,47 @@ public class AjouterPacksController {
 
     @FXML
     void ajouterPack(ActionEvent event) {
-        // Vérification des champs
-        if (nomPkField.getText().isEmpty() || descriptionPkField.getText().isEmpty() || prixField.getText().isEmpty() ||
-                dureeField.getText().isEmpty() || serviceField.getText().isEmpty() || dateDajoutField.getText().isEmpty() ||
-                statusField.getValue() == null || agenceChoiceBox.getValue() == null) {
-            showErrorAlert("Tous les champs doivent être remplis.");
-            return;
-        }
-
-        // Vérification des valeurs dans nom, description et services
-        if (!validateInputs()) {
-            return;
-        }
-
         try {
-            String nomPk = nomPkField.getText();
-            String descriptionPk = descriptionPkField.getText();
-
-            // Vérification du prix positif
-            BigDecimal prix = new BigDecimal(prixField.getText());
-            if (prix.compareTo(BigDecimal.ZERO) <= 0) {
-                showErrorAlert("Le prix doit être un nombre positif.");
+            // Vérifier les champs obligatoires
+            if (nomPkField.getText().isEmpty() || descriptionPkField.getText().isEmpty() || prixField.getText().isEmpty() ||
+                    dureeField.getText().isEmpty() || serviceField.getText().isEmpty() || dateDajoutField.getText().isEmpty() ||
+                    statusField.getValue() == null || agenceChoiceBox.getValue() == null) {
+                showErrorAlert("Tous les champs doivent être remplis.");
                 return;
             }
 
-            // Vérification de la durée positive
-            int duree = Integer.parseInt(dureeField.getText());
-            if (duree <= 0) {
-                showErrorAlert("La durée doit être un nombre positif.");
+            // Valider les entrées
+            if (!validateInputs()) {
                 return;
             }
 
-            String services = serviceField.getText();
-            Date dateAjout = validateDate(dateDajoutField.getText());
-
-            if (dateAjout == null) {
-                showErrorAlert("Le format de la date est incorrect. Utilisez le format yyyy-MM-dd.");
-                return;
-            }
-
-            String status = statusField.getValue().trim().toLowerCase();
-            Pack_agence.Status statusEnum = Pack_agence.Status.valueOf(status);
-
-            Agence selectedAgence = agenceChoiceBox.getValue();
-            int idAgence = selectedAgence.getIdAgence();
-
+            // Créer un nouveau pack
             Pack_agence newPack = new Pack_agence();
-            newPack.setNomPk(nomPk);
-            newPack.setDescriptionPk(descriptionPk);
-            newPack.setPrix(prix);
-            newPack.setDuree(duree);
-            newPack.setServices_inclus(services);
-            newPack.setDate_ajout(dateAjout);
-            newPack.setStatus(statusEnum);
-            newPack.setId_agence(idAgence);
+            newPack.setNomPk(nomPkField.getText());
+            newPack.setDescriptionPk(descriptionPkField.getText());
+            newPack.setPrix(new BigDecimal(prixField.getText()));
+            newPack.setDuree(Integer.parseInt(dureeField.getText()));
+            newPack.setServices_inclus(serviceField.getText());
+            newPack.setDate_ajout(validateDate(dateDajoutField.getText()));
 
+            // Convertir le statut en valeur d'énumération
+            try {
+                newPack.setStatus(Pack_agence.Status.valueOf(statusField.getValue())); // Pas de toUpperCase()
+            } catch (IllegalArgumentException e) {
+                showErrorAlert("Statut invalide. Veuillez choisir un statut valide.");
+                return;
+            }
+
+            newPack.setId_agence(agenceChoiceBox.getValue().getIdAgence());
+
+            // Ajouter le pack à la base de données
             servicePack_agence.add(newPack);
-            showSuccessAlert("Pack ajouté avec succès!");
-            clearFields();
+            showSuccessAlert("Pack ajouté avec succès !");
 
-            // Charger la liste des packs
+            // Envoyer un SMS après l'ajout du pack
+            smsAgence(event);
+
+            // Rediriger vers la liste des packs
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListPacks.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
@@ -143,18 +119,39 @@ public class AjouterPacksController {
             ((Stage) nomPkField.getScene().getWindow()).close();
         } catch (Exception e) {
             showErrorAlert("Erreur lors de l'ajout du pack : " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    /**
-     * Valide si les champs ne contiennent pas de chiffres (nom, description, services).
-     */
+    @FXML
+    public void smsAgence(ActionEvent event) {
+        try {
+            String twilioAuthToken = System.getenv("TWILIO_AUTH_TOKEN");
+            String twilioACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
+            final String TWILIO_PHONE_NUMBER = "+12192487639";
+
+            // Initialiser Twilio
+            Twilio.init(twilioACCOUNT_SID, twilioAuthToken);
+
+            // Envoyer un SMS
+            Message message = Message.creator(
+                    new PhoneNumber("+21625096025"), // Numéro de destination
+                    new PhoneNumber(TWILIO_PHONE_NUMBER), // Numéro Twilio
+                    "Cher étudiant : Nouvelle offre disponible ! Consultez notre site pour plus de détails et Merci."
+            ).create();
+
+            System.out.println("SMS envoyé avec SID: " + message.getSid());
+        } catch (Exception e) {
+            showErrorAlert("Erreur lors de l'envoi du SMS : " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     private boolean validateInputs() {
         String nom = nomPkField.getText().trim();
         String description = descriptionPkField.getText().trim();
         String services = serviceField.getText().trim();
 
-        // Vérifier si ces champs contiennent des chiffres
         if (nom.matches(".*\\d.*")) {
             showErrorAlert("Le nom du pack ne doit pas contenir de chiffres.");
             return false;
@@ -173,15 +170,13 @@ public class AjouterPacksController {
         return true;
     }
 
-    /**
-     * Valide et convertit la date d'ajout.
-     */
     private Date validateDate(String dateStr) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             LocalDate localDate = LocalDate.parse(dateStr, formatter);
             return Date.valueOf(localDate);
         } catch (DateTimeParseException e) {
+            showErrorAlert("Format de date invalide. Utilisez le format yyyy-MM-dd.");
             return null;
         }
     }
@@ -200,16 +195,5 @@ public class AjouterPacksController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
-    }
-
-    private void clearFields() {
-        nomPkField.clear();
-        descriptionPkField.clear();
-        prixField.clear();
-        dureeField.clear();
-        serviceField.clear();
-        dateDajoutField.clear();
-        statusField.setValue(null);
-        agenceChoiceBox.setValue(null);
     }
 }

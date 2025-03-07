@@ -41,8 +41,8 @@ public class ListPourAdminController {
     @FXML
     private TextField nomrecherche;
 
-    @FXML
-    private Button smsAgenceButton;
+    /*@FXML
+    private Button smsAgenceButton;*/
 
     @FXML
     private ComboBox<String> comboTri;
@@ -231,7 +231,7 @@ public class ListPourAdminController {
         alert.showAndWait();
     }
 
-    @FXML
+    /*@FXML
     public void smsAgence(ActionEvent event) {
         String twilioAuthToken = System.getenv("TWILIO_AUTH_TOKEN");
         String twilioACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
@@ -246,7 +246,7 @@ public class ListPourAdminController {
         ).create();
 
         System.out.println("SMS envoyé avec SID: " + message.getSid());
-    }
+    }*/
 
     @FXML
     public void translateToEnglish(ActionEvent event) {
