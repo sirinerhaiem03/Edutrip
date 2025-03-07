@@ -6,6 +6,7 @@ import tn.edutrip.entities.Favoris;
 import tn.edutrip.utils.MyDatabase;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceFavoris implements Iservices<Favoris>  {
@@ -55,21 +56,7 @@ public class ServiceFavoris implements Iservices<Favoris>  {
         }
     }
 
-    public boolean estDejaFavoris(int userId, int postId) {
-        String query = "SELECT COUNT(*) FROM favoris WHERE id_etudiant = ? AND id_post = ?";
-        try (PreparedStatement ps = con.prepareStatement(query)) {
 
-            ps.setInt(1, userId);
-            ps.setInt(2, postId);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getInt(1) > 0;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
 
 
 
@@ -85,5 +72,20 @@ public class ServiceFavoris implements Iservices<Favoris>  {
             System.out.println("Erreur lors de la vérification des favoris : " + e.getMessage());
             return false;
         }
+    }
+    public List<Integer> getFavorisByEtudiant(int idEtudiant) {
+        List<Integer> favorisIds = new ArrayList<>();
+        String query = "SELECT id_post FROM Favoris WHERE id_etudiant = ?";
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
 
-}}
+            stmt.setInt(1, idEtudiant);
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                favorisIds.add(resultSet.getInt("id_post"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return favorisIds;
+    }
+}

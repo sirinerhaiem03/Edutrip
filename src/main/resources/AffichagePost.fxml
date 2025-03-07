@@ -23,7 +23,7 @@
             <Font name="Arial Black" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="rechercheTextField" layoutX="1161.0" layoutY="29.0" onKeyReleased="#filtrerPosts" />
+      <TextField fx:id="rechercheTextField" layoutX="268.0" layoutY="29.0" onKeyReleased="#filtrerPosts" />
 
       <VBox alignment="TOP_CENTER" layoutX="228.0" layoutY="70.0" spacing="20" AnchorPane.bottomAnchor="-29.199999999999932" AnchorPane.leftAnchor="228.0" AnchorPane.rightAnchor="20.799999999999955" AnchorPane.topAnchor="70.0"> <!-- Centrer le contenu horizontalement -->
 
@@ -199,10 +199,11 @@
             </Button>
          </children>
       </VBox>
-      <Button layoutX="1331.0" layoutY="29.0" mnemonicParsing="false" onAction="#AjouterPost" prefHeight="26.0" prefWidth="106.0" style="-fx-background-color: #57A0D2;" text="Rechercher">
+      <Button layoutX="455.0" layoutY="28.0" mnemonicParsing="false" onAction="#AjouterPost" prefHeight="26.0" prefWidth="106.0" style="-fx-background-color: #57A0D2;" text="Rechercher">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
+      <Button layoutX="1332.0" layoutY="29.0" onAction="#afficherFavoris" style="-fx-background-color: #cfedff;" text="Afficher les Favoris" />
    </children>
 </AnchorPane>

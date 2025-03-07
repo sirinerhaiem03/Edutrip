@@ -191,7 +191,35 @@ public class AffichagePostController {
     }
 
 
+    @FXML
+    private void afficherFavoris() {
+        try {
+            // Charger le fichier FXML de la page des favoris
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FavorisList.fxml"));
+            Parent favorisPage = loader.load();
 
+            // Obtenir le contrôleur de la nouvelle page
+            FavorisListController favorisController = loader.getController();
+
+            // Passer l'ID de l'étudiant au contrôleur de la nouvelle page
+            int idEtudiant = 1; // Remplacez par l'ID de l'utilisateur connecté
+            favorisController.loadFavoris(idEtudiant);
+
+            // Créer une nouvelle scène pour la page des favoris
+            Scene favorisScene = new Scene(favorisPage);
+
+            // Créer une nouvelle fenêtre (stage) pour la page des favoris
+            Stage favorisStage = new Stage();
+            favorisStage.setTitle("Liste des Favoris");
+            favorisStage.setScene(favorisScene);
+
+            // Afficher la nouvelle fenêtre
+            favorisStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Erreur lors du chargement de la page des favoris.");
+        }
+    }
 
 
 }

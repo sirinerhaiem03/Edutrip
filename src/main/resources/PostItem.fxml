@@ -33,15 +33,17 @@
             <Text fx:id="IdCategorie" style="-fx-font-size: 12px; -fx-text-fill: #777;" />
          </VBox>
          <ImageView fx:id="deleteIcon1" fitHeight="27.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+         </ImageView>
 
+         <ImageView fx:id="favorisIcon" fitHeight="27.0" fitWidth="35.0" onMouseClicked="#toggleFavoris" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../../../target/classes/images/star.png" />
+            </image>
+         </ImageView>
 
             <HBox.margin>
                <Insets bottom="10.0" left="200.0" />
             </HBox.margin>
-            <image>
-               <Image url="@images/star.png" />
-            </image>
-         </ImageView>
          
       </HBox>
       <ComboBox fx:id="languageSelector" promptText="Choisir une langue">

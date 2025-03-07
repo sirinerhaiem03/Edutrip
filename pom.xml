@@ -85,6 +85,14 @@
             </plugin>
 
         </plugins>
-
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.png</include> <!-- Inclure toutes les images PNG -->
+                    <include>**/*.fxml</include> <!-- Inclure tous les fichiers FXML -->
+                </includes>
+            </resource>
+        </resources>
     </build>
 </project>
